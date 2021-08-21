@@ -1,0 +1,11 @@
+.AppJson {
+  text-align: center;
+}
+
+.posts{
+  text-align: left;
+}
+
+.post{
+  border-bottom: 3px solid #000;
+}
