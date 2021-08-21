@@ -1,6 +1,6 @@
 import React from 'react';
 import './AppJson.css';
-import Data from './events.json';
+import Data from './data/events.json';
 
 function AppJson() {
   return (

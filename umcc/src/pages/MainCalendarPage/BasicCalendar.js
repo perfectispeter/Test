@@ -1,9 +1,9 @@
 import React, {Component, useEffect} from 'react'
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import egg from './eventdata';
+import egg from '../../data/eventdata';
 
-import "./App.css";
+import "../../AppJson.css"
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
