@@ -7,12 +7,12 @@ import TestContext from "./page/testContext";
 import Textdialog from "./component/textDialog/textdialog";
 import Imgdialog from "./component/imgDialog/imgdialog";
 
-class App extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notifcationDialogOpen: false,
-      notifcationTitle: "",
+      notificationDialogOpen: false,
+      notificationTitle: "",
       descriptionOpen: false,
       descriptionContent:
         "About the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAboutthe Upper Murray Community CalendarAbout the Upper Murray About the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAboutthe Upper Murray Community CalendarAbout the Upper Murray ",
@@ -23,7 +23,7 @@ class App extends React.Component {
 
   open = () => {
     this.setState({
-      notifcationDialogOpen: true,
+      notificationDialogOpen: true,
     });
   };
   descriptionOpen = () => {
@@ -42,7 +42,7 @@ class App extends React.Component {
       <div className="App">
         <Header
           click={this.open.bind(this)}
-          notifcationTitle={this.state.notifcationTitle}
+          notificationTitle={this.state.notificationTitle}
         />
         <div className="mainContainer">
           <img src={this.state.imgUrl} alt="" className="Picture" />
@@ -103,11 +103,11 @@ class App extends React.Component {
           <div className="bottom">Contact·Help·CNC 2021</div>
         </div>
         <Textdialog
-          open={this.state.notifcationDialogOpen}
-          close={this.closeNotifactionDialog.bind(this)}
-          title="Notifcation"
-          content="Input Notifcation Text"
-          inputTitle="Notifcation"
+          open={this.state.notificationDialogOpen}
+          close={this.closeNotificationDialog.bind(this)}
+          title="Emergency Banner"
+          content="This will be displayed under the header on each page. To remove the banner, leave the text field empty."
+          inputTitle="Enter text and click Confirm"
           multiline={false}
         />
         <Textdialog
@@ -154,19 +154,19 @@ class App extends React.Component {
       });
     }
   }
-  closeNotifactionDialog(value) {
+  closeNotificationDialog(value) {
     if (value !== "") {
       this.setState({
-        notifcationDialogOpen: false,
-        notifcationTitle: value,
+        notificationDialogOpen: false,
+        notificationTitle: value,
       });
     } else {
       this.setState({
-        notifcationDialogOpen: false,
+        notificationDialogOpen: false,
       });
     }
   }
   static contextType = TestContext;
 }
 
-export default App;
+export default Home;

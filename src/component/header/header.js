@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./header.css";
-import Notifaction from "../../page/home/notifaction/notifaction";
+import EmergencyBanner from "../../page/home/EmergencyBanner/EmergencyBanner";
 import TestContext from "../../page/testContext";
 import { Link } from "react-router-dom";
 
@@ -32,16 +32,18 @@ export default class Header extends Component {
         </nav>
         <nav className="navbar">
           <ul>
-            <li className="item active">
+            <li className="item">
               <Link to="/">Home</Link>
             </li>
-            <li className="item">calendar</li>
+            <li className="item">
+              <Link to="/calendar">Calendar</Link>
+            </li>
             <li className="item">MyPage</li>
           </ul>
         </nav>
-        <Notifaction
+        <EmergencyBanner
           onClick={this.props.click}
-          content={this.props.notifcationTitle}
+          content={this.props.notificationTitle}
         />
       </>
     );
