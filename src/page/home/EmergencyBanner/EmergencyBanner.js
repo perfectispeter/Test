@@ -3,10 +3,10 @@ import "react-fontawesome";
 import { faBullhorn } from "@fortawesome/free-solid-svg-icons/faBullhorn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@material-ui/core";
-import "./notifaction.css";
+import "./EmergencyBanner.css";
 import TestContext from "../../testContext";
 
-class Notifaction extends Component {
+class EmergencyBanner extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -23,7 +23,7 @@ class Notifaction extends Component {
         </div>
         <div className="info">
           {this.props.content === "" ? (
-            <span>important events/urgent events/weather alters</span>
+            <span>Emergency Banner is currently turned off. Enable by clicking Edit.</span>
           ) : (
             <span>{this.props.content}</span>
           )}
@@ -45,4 +45,4 @@ class Notifaction extends Component {
   static contextType = TestContext;
 }
 
-export default Notifaction;
+export default EmergencyBanner;

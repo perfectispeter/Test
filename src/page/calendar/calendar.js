@@ -5,7 +5,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import "./calendar.css";
 
-export default class calendar extends Component {
+export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
