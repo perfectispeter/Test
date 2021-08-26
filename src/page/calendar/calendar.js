@@ -4,6 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import "./calendar.css";
+import Header from "../../component/header/header";
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class Calendar extends Component {
   render() {
     return (
       <div>
+      <Header />
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
           initialView="dayGridMonth"
