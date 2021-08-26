@@ -1,7 +1,8 @@
 import React from 'react';
-import { Grid, Card } from '@material-ui/core';
+import { Grid, Card, Button } from '@material-ui/core';
 
 import Header from '../../component/header/header';
+import { minHeight } from '@material-ui/system';
 
 
 
@@ -24,21 +25,42 @@ class MyPage extends React.Component {
             
             <Header />
             <div className="mainContainer">
-            <Grid alignItems="center" justify="center" direction="column" container spacing={2}>
+            <Grid alignItems="center" justifyContent="center" direction="column" container spacing={2}>
                 <Grid item xs={3}>
                 <h1>MyPage Title</h1>
                 </Grid>
-                <Card>
-                <Grid direction="row" justify="center" container spacing={2}>
-                    <Grid item>
-                        <h2>Name: </h2> 
-                    </Grid>
-                    <Grid item>
-                        <p>{this.state.userDisplayName}</p>
-                    </Grid>
+                <Grid item><Card>
+                <table>
+                    <tr>
+                        <td><h2>Name: </h2> </td>
+                        <td>&nbsp;</td>
+                        <td>{this.state.userDisplayName}</td>
+                    </tr>
+                    <hr/>
+                    <tr>
+                        <td><h2>Email: </h2></td>
+                        <td>&nbsp;</td>
+                        <td>{this.state.userEmail}</td>
+                    </tr>
+                    <hr/>
+                    <tr>
+                        <td><h2>Password: </h2></td>
+                        <td>&nbsp;</td>
+                        <td>{this.state.userPassword}</td>
+                    </tr>
+                    <hr/>
+                    </table>
+                </Card></Grid>
+                <Grid item>
+                <tr>
+                    <td><div className="flex flex-center">
+                        <button className="btn">Edit my Profile</button>
+                    </div></td>
+                    <td><div className="flex flex-center">
+                        <button className="btn">View my Profile</button>
+                    </div></td>
+                </tr>
                 </Grid>
-                </Card>
-
             </Grid>
             </div>
             </>
