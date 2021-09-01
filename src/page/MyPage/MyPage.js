@@ -7,6 +7,7 @@ import TitleCard from '../../component/titleCard/titleCard';
 import SortableTable from "../../component/SortableTable";
 
 import Calendar from "../../component/calendar";
+import Textdialog from '../../component/textDialog/textdialog';
 
 
 class MyPage extends React.Component {
@@ -17,10 +18,69 @@ class MyPage extends React.Component {
             userDisplayName: "Gemma Whitehead",
             userEmail: "gemma@corryongnc.org",
             userPassword: "*********",
+            changeDisplayName: false,
+            changeEmail: false,
+            changePassword: false,
         }
         
     }
 
+    editDisplayName = () => {
+        this.setState({
+            changeDisplayName: true,
+        });
+    };
+
+    editEmail = () => {
+        this.setState({
+            changeEmail: true,
+        });
+    };
+
+    editPassword = () => {
+        this.setState({
+            changePassword: true,
+        });
+    };
+
+    closeDisplayNameDialog(value) {
+        if (value !== "") {
+          this.setState({
+            changeDisplayName: false,
+            userDisplayName: value,
+          });
+        } else {
+          this.setState({
+            changeDisplayName: false,
+          });
+        }
+    };
+
+    closeEmailDialog(value) {
+        if (value !== "") {
+          this.setState({
+            changeEmail: false,
+            userEmail: value,
+          });
+        } else {
+          this.setState({
+            changeEmail: false,
+          });
+        }
+    };
+
+    closePasswordDialog(value) {
+        if (value !== "") {
+          this.setState({
+            changePassword: false,
+            userPassword: value,
+          });
+        } else {
+          this.setState({
+            changePassword: false,
+          });
+        }
+    };
 
     render() {
         return (
@@ -47,18 +107,27 @@ class MyPage extends React.Component {
                         <td><h2>Name: </h2> </td>
                         <td>&nbsp;</td>
                         <td>{this.state.userDisplayName}</td>
+                        <td><button className="btn"
+                            size="small"
+                            onClick={this.editDisplayName}>Change</button> </td>
                     </tr>
                     <hr/>
                     <tr>
                         <td><h2>Email: </h2></td>
                         <td>&nbsp;</td>
                         <td>{this.state.userEmail}</td>
+                        <td><button className="btn"
+                            size="small"
+                            onClick={this.editEmail}>Change</button> </td>
                     </tr>
                     <hr/>
                     <tr>
                         <td><h2>Password: </h2></td>
                         <td>&nbsp;</td>
                         <td>{this.state.userPassword}</td>
+                        <td><button className="btn"
+                            size="small"
+                            onClick={this.editPassword}>Change</button> </td>
                     </tr>
                     <hr/>
                     </table>
@@ -100,7 +169,35 @@ class MyPage extends React.Component {
                     <a href="/calendar"> Back to calendar</a>
                 </Grid>
             </Grid>
+
+            <div name="dialog-boxes">
+                <Textdialog
+                    open={this.state.changeDisplayName}
+                    close={this.closeDisplayNameDialog.bind(this)}
+                    title="Change Display Name"
+                    content="This name will be visible to other users."
+                    inputTitle="Enter text and click Confirm"
+                    multiline={false}
+                />
+                <Textdialog
+                    open={this.state.changeEmail}
+                    close={this.closeEmailDialog.bind(this)}
+                    title="Change Email"
+                    content="This email address will not be visible to other users."
+                    inputTitle="Enter text and click Confirm"
+                    multiline={false}
+                />
+                <Textdialog
+                    open={this.state.changePassword}
+                    close={this.closePasswordDialog.bind(this)}
+                    title="Change Password"
+                    content="This can be changed at any time."
+                    inputTitle="Enter text and click Confirm"
+                    multiline={false}
+                />
             </div>
+            </div>
+            
             </>
         );
     }
