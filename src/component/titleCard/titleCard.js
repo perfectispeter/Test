@@ -5,7 +5,7 @@ import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
 const useStyles = makeStyles((theme) => ({
     image: {
         flex: 1,
-        widt: '100%',
+        width: '100%',
         height: '100%',
         resizeMode: 'contain',
 

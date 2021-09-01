@@ -6,6 +6,7 @@ import { minHeight } from '@material-ui/system';
 import TitleCard from '../../component/titleCard/titleCard';
 import SortableTable from "../../component/SortableTable";
 
+import Calendar from "../../component/calendar";
 
 
 class MyPage extends React.Component {
@@ -24,17 +25,23 @@ class MyPage extends React.Component {
     render() {
         return (
             <>
-            
-            <Header />
-            
+            <div className="header">
+                <Header />
+            </div>
             <div className="mainContainer">
-            
-            <Grid alignItems="center" justifyContent="center" direction="column" container spacing={2}>
-            <TitleCard titleText="MyPage Title"/>
-                <Grid item xs={3}>
-               
-                </Grid>
-                <Grid item><Card>
+
+            <Grid alignItems="center" 
+                justifyContent="flex-start" 
+                direction="column" 
+                container spacing={2}
+                xs={3}
+                s={3}
+                md={6}
+                lg={12}
+                xl={12}
+            >
+           <TitleCard titleText="MyPage Title"/>
+                <Grid item><Card fullWidth={true}>
                 <table>
                     <tr>
                         <td><h2>Name: </h2> </td>
@@ -75,9 +82,22 @@ class MyPage extends React.Component {
                 </Table>
                 </Grid>
                 <Grid item>
-                    <Card raised={false}>
-                        <SortableTable sortableTableTitle="Events I've Created" />
+                    <Card raised={true}>
+                        <SortableTable sortableTableTitle=" Events I've Created" />
                     </Card>
+                </Grid>
+                <Grid item>
+                    <Card raised={true}>
+                        <SortableTable sortableTableTitle=" Events I've Bookmarked" />
+                    </Card>
+                </Grid>
+                <Grid item>
+                    <Card fullWidth={true}>
+                        <Calendar />
+                    </Card>
+                </Grid>
+                <Grid item >
+                    <a href="/calendar"> Back to calendar</a>
                 </Grid>
             </Grid>
             </div>

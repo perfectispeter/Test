@@ -238,7 +238,7 @@ const SortableTable = (props) => {
   return (
     <div className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length}/>
-        <h2>{sortableTableTitle}</h2>
+        <h2> {sortableTableTitle}</h2>
         <TableContainer>
           <Table
             className={classes.table}
