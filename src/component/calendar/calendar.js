@@ -3,10 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import "./calendar.css";
-import Header from "../../component/header/header";
 
-export default class Calendar extends Component {
+class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +14,6 @@ export default class Calendar extends Component {
   render() {
     return (
       <div>
-      <Header />
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
           initialView="dayGridMonth"
@@ -94,3 +91,5 @@ export default class Calendar extends Component {
     console.log(arg);
   }
 }
+
+export default Calendar;

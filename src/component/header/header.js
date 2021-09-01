@@ -5,6 +5,24 @@ import TestContext from "../../page/testContext";
 import { Link } from "react-router-dom";
 
 export default class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isLogin: true,
+    };
+  }
+  
+  handleSignOut = () => {
+    console.log("CLICKED LOGOUT");
+    this.setState({isLogin: false,});
+  };
+
+  handleSignIn = () => {
+    console.log("CLICKED LOGIN");
+    this.setState({isLogin: true,});
+  };
+
+
   render() {
     return (
       <>
@@ -24,7 +42,13 @@ export default class Header extends Component {
                 <>
                   <div className="item login_item username">134@test.com</div>
                   <sup className="badge">3</sup>
-                  <div className="item login_item">Logout</div>
+
+                  {this.state.isLogin ? (
+                    <div className="item login_item" onClick={this.handleSignOut}>Logout</div>
+                   ) : (
+                    <div className="item login_item" onClick={this.handleSignIn}>Log In</div>
+                   )}
+                  
                 </>
               )}
             </div>
@@ -38,7 +62,9 @@ export default class Header extends Component {
             <li className="item">
               <Link to="/calendar">Calendar</Link>
             </li>
-            <li className="item">MyPage</li>
+            <li className="item">
+            <Link to="/mypage">MyPage</Link>
+            </li>
           </ul>
         </nav>
         <EmergencyBanner
