@@ -8,24 +8,30 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 
-class BasicCalendar extends Component {
-  state = {
-    events: data
-  };
+const BasicCalendar = (props) => {
+ 
+  const { events } = props;
 
-  render() {
+  const actualCalendar = <Calendar
+                            localizer={localizer}
+                            defaultDate={new Date()}
+                            defaultView="month"
+                            events={data}
+                            style={{ height: "100vh" }}
+                            onSelectEvent= {eventClicked()}
+                            selected={events}
+                          />;
+
+  function eventClicked() {
+    console.log("event clicked");
+  };
+  
     return (
       <div className="BasicCalendar">
-        <Calendar
-          localizer={localizer}
-          defaultDate={new Date()}
-          defaultView="month"
-          events={this.state.events}
-          style={{ height: "100vh" }}
-        />
+        {actualCalendar}
       </div>
     );
-  }
+  
 }
 
 export default BasicCalendar;
