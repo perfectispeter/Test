@@ -1,3 +1,4 @@
+
 const now = new Date()
 
 export default [
@@ -13,6 +14,7 @@ export default [
     title: 'Long Event',
     start: new Date(2021, 8, 7),
     end: new Date(2021, 8, 10),
+    colour: 'red',
   },
 
   {

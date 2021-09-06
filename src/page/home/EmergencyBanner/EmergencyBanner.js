@@ -21,7 +21,7 @@ class EmergencyBanner extends Component {
         <div className="icon">
           <FontAwesomeIcon icon={faBullhorn} />
         </div>
-        <div className="info">
+        <div className="info" id="info">
           {this.props.content === "" ? (
             <span>Emergency Banner is currently turned off. Enable by clicking Edit.</span>
           ) : (
