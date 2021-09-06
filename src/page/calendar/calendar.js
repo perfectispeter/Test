@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "./calendar.css";
 import Header from "../../component/header/header";
 import TitleCard from "../../component/titleCard";
-import { Grid, Table, TableBody, TableCell, Card } from "@material-ui/core";
+import { Grid, Table, TableBody, TableCell, Card, TableRow, Switch } from "@material-ui/core";
 import BasicCalendar from "../../component/calendar";
+import Category from "../../component/categoryTags/Category";
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -31,19 +32,27 @@ export default class Calendar extends Component {
         <br />
         <Table padding="normal">
           <TableBody>
-          
-          <TableCell>
-          <Card raised={true}>
-            <BasicCalendar />
-            </Card>
-            </TableCell>
 
+          <TableRow>
               <TableCell>
-              <Card>
-              Category list placeholder
-              </Card>
-                
+                <h3>Filter by category: <Switch /></h3>
               </TableCell>
+            </TableRow>
+
+          <TableRow>
+            <TableCell>
+               <Category />
+            </TableCell>
+          </TableRow>
+
+          <TableRow> 
+            <TableCell>
+            <Card raised={true}>
+              <BasicCalendar />
+              </Card>
+              </TableCell>
+            </TableRow>
+
           </TableBody>
         </Table>
 
