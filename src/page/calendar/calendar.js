@@ -10,7 +10,7 @@ export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectAble: true,
+      selectable: true,
     };
   }
   render() {
@@ -47,9 +47,7 @@ export default class Calendar extends Component {
 
           <TableRow> 
             <TableCell>
-            <Card raised={true}>
               <BasicCalendar />
-              </Card>
               </TableCell>
             </TableRow>
 
