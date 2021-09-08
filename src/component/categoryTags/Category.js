@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { Checkbox,Tag } from 'antd'; 
-import './Category.css';
+import "./Category.css"
 
 const tags = [
     {id:0,title:"Sport"},
     {id:1,title:"Art"},
     {id:2,title:"Information"},
     {id:3,title:"Events"},
-    {id:4,title:"Bushfire Recovery"},
+    {id:4,title:"BushFire"},
     {id:5,title:"Entertainment"},
-    {id:6,title:"Social & Support Groups"},
+    {id:6,title:"Social & Support Group"},
     {id:7,title:"Young Families"},
     {id:8,title:"Seniors"},
     {id:9,title:"Youth"},
@@ -48,7 +48,8 @@ const Category = () => {
     }
 
     return(
-        <>
+        <div className="category-component">
+            <h4 className="category-header">Category</h4>
             <TagInfo 
                 checkedValues={checkedValues} 
                 onTagClose={onTagClose}
@@ -58,7 +59,7 @@ const Category = () => {
                 value={checkedValues} 
                 onChange={onChange} 
             />  
-        </>
+        </div>
     )
 }
 
@@ -74,5 +75,4 @@ function getOptions(tags) {
         })
     )
 }
-
-export default Category;
+export default Category

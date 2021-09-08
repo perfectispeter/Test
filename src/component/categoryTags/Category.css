@@ -1,4 +1,4 @@
-/* @import '~antd/dist/antd.css'; */
+/* @import '~antd/dist/antd.css';
 
 input[type='checkbox'] {
     box-sizing: border-box;
@@ -246,4 +246,18 @@ input[type='checkbox'] {
   .ant-tag-rtl.ant-tag > span + .anticon {
     margin-right: 7px;
     margin-left: 0;
-  }
+  } */
+  .category-item-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.category-item-text{
+    font-size: 20px;
+    font-weight: 500;
+}
+.category-item-title{
+    font-size: x-large;
+    color: cornsilk;
+    background-color: var(--mainColor);
+}

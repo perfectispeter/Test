@@ -15,8 +15,16 @@ const BasicCalendar = (props) => {
 
   const [eventID, setEventID] = useState();
   const actualCalendar = (<>
-  <Grid container direction="row" spacing={1} justifyContent="flex-start" alignItems="center">
-  <Grid item xl={12}>
+  <Grid container direction="column" 
+        spacing={1} 
+        justifyContent="flex-start" 
+        alignItems="center"
+        xs={3}
+        s={3}
+        md={6}
+        lg={12}
+        xl={12}>
+  <Grid item>
   <Card raised={true}>
     <Calendar
       localizer={localizer}
