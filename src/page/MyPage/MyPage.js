@@ -8,6 +8,7 @@ import SortableTable from "../../component/SortableTable";
 
 import Calendar from "../../component/calendar";
 import Textdialog from '../../component/textDialog/textdialog';
+import Footer from '../../component/Footer';
 
 
 class MyPage extends React.Component {
@@ -15,8 +16,8 @@ class MyPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userDisplayName: "Gemma Whitehead",
-            userEmail: "gemma@corryongnc.org",
+            userDisplayName: "Sample Name",
+            userEmail: "134@test.com",
             userPassword: "*********",
             changeDisplayName: false,
             changeEmail: false,
@@ -101,6 +102,8 @@ class MyPage extends React.Component {
                 xl={12}
             >
            <TitleCard titleText="MyPage Title"/>
+           <Grid container alignItems="stretch" direction="column"
+           xl={6}>
                 <Accordion>
                         <AccordionSummary
                             aria-controls="user-details-content"
@@ -109,6 +112,7 @@ class MyPage extends React.Component {
                         >
                         <h2>My Details</h2>
                         </AccordionSummary>
+                <Grid container alignItems="center" direction="column">
                 <Grid item><Card fullWidth={true}>
                 <table>
                     <tr>
@@ -158,6 +162,7 @@ class MyPage extends React.Component {
                     </TableBody>
                 </Table>
                 </Grid>
+                </Grid>
                 </Accordion>
                 <Accordion>
                         <AccordionSummary
@@ -192,11 +197,13 @@ class MyPage extends React.Component {
                     </Card>
                 </Grid>
                 </Accordion>
+                </Grid>
                 
                 <Grid item >
                     <a href="/calendar"> Back to calendar</a>
                 </Grid>
             </Grid>
+            <Footer />
 
             <div name="dialog-boxes">
                 <Textdialog

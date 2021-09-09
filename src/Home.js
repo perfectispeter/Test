@@ -6,6 +6,7 @@ import { Button } from "@material-ui/core";
 import TestContext from "./page/testContext";
 import Textdialog from "./component/textDialog/textdialog";
 import Imgdialog from "./component/imgDialog/imgdialog";
+import Footer from "./component/Footer";
 
 class Home extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Home extends React.Component {
       notificationTitle: "",
       descriptionOpen: false,
       descriptionContent:
-        "About the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAboutthe Upper Murray Community CalendarAbout the Upper Murray About the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAbout the Upper Murray Community CalendarAboutthe Upper Murray Community CalendarAbout the Upper Murray ",
+        "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
       imgUrl: require("./asset/wallhaven-y8e1gl.jpeg").default,
       imgDialogOpen: false,
     };
@@ -39,6 +40,7 @@ class Home extends React.Component {
   };
   render() {
     return (
+      <>
       <div className="App">
         <Header
           click={this.open.bind(this)}
@@ -100,7 +102,9 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-          <div className="bottom">Contact·Help·CNC 2021</div>
+
+         <Footer />
+
         </div>
         <Textdialog
           open={this.state.notificationDialogOpen}
@@ -127,6 +131,13 @@ class Home extends React.Component {
           multiline={true}
         />
       </div>
+
+      {/* <div className="bottom">
+         <Footer />
+        </div> */}
+
+
+        </>
     );
   }
 

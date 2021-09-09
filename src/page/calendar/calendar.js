@@ -6,6 +6,7 @@ import { Grid, Table, TableBody, TableCell, Card, TableRow, Switch } from "@mate
 import BasicCalendar from "../../component/calendar";
 import Category from "../../component/categoryTags/Category";
 import CategoryImages from "../../component/categoryTags/CategoryImages";
+import Footer from '../../component/Footer';
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ export default class Calendar extends Component {
       <div className="mainContainer">
       <Header />
       <Grid container alignItems="center" 
+                alignContent="stretch"
                 justifyContent="flex-start" 
                 direction="column" 
                 container spacing={2}
@@ -46,35 +48,7 @@ export default class Calendar extends Component {
               </Grid>
         </Grid>
         <br />
-        <Table padding="normal">
-          <TableBody>
-
-          {/* <TableRow>
-              <TableCell>
-                <h3>Filter by category: <Switch /></h3>
-              </TableCell>
-            </TableRow> */}
-
-          <TableRow>
-
-          <TableCell>
-              
-              </TableCell>
-            <TableCell>
-
-            </TableCell>
-          {/* </TableRow>
-
-          <TableRow>  */}
-
-            </TableRow>
-
-          </TableBody>
-        </Table>
-
-            
-        
-        
+        <Footer />        
       </div>
     </>
     );

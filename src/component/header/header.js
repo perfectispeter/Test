@@ -9,6 +9,7 @@ export default class Header extends Component {
     super();
     this.state = {
       isLogin: true,
+      isHomepage: true,
     };
   }
   
@@ -67,10 +68,11 @@ export default class Header extends Component {
             </li>
           </ul>
         </nav>
-        <EmergencyBanner
-          onClick={this.props.click}
-          content={this.props.notificationTitle}
-        />
+        {this.state.isHomepage ? <EmergencyBanner
+            onClick={this.props.click}
+            content={this.props.notificationTitle}
+          /> : <></>}
+          
       </>
     );
   }
