@@ -10,6 +10,7 @@ import React from "react";
 import MyPage from "./page/MyPage/MyPage";
 import LoginPage from "./page/LoginPage/LoginPage";
 import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
+import CreateEvent from "./page/CreateEvent/CreateEvent";
 
 export class CustomRoute extends React.Component {
   constructor() {
@@ -25,6 +26,7 @@ export class CustomRoute extends React.Component {
           <Route path="/" exact component={Home} />
           <Route path="/login" component={LoginPage} />
           <Route path="/user" component={UserProfilePage} />
+          <Route path="/create" component={CreateEvent} />
           {this.state.isLogin ? (<>
             <Route path="/calendar" component={Calendar} />
             <Route path="/mypage" component={MyPage} />
