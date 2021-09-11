@@ -8,6 +8,7 @@ import Calendar from "./page/calendar/calendar";
 import Home from "./Home";
 import React from "react";
 import MyPage from "./page/MyPage/MyPage";
+import LoginPage from "./page/LoginPage/LoginPage";
 
 export class CustomRoute extends React.Component {
   constructor() {
@@ -21,6 +22,7 @@ export class CustomRoute extends React.Component {
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/login" component={LoginPage} />
           {this.state.isLogin ? (<>
             <Route path="/calendar" component={Calendar} />
             <Route path="/mypage" component={MyPage} />

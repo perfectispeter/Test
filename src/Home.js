@@ -19,6 +19,7 @@ class Home extends React.Component {
         "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
       imgUrl: require("./asset/wallhaven-y8e1gl.jpeg").default,
       imgDialogOpen: false,
+      isLogin: true,
     };
   }
 
@@ -45,6 +46,8 @@ class Home extends React.Component {
         <Header
           click={this.open.bind(this)}
           notificationTitle={this.state.notificationTitle}
+          isLogin={this.state.isLogin}
+          isAdmin={true}
         />
         <div className="mainContainer">
           <img src={this.state.imgUrl} alt="" className="Picture" />

@@ -5,11 +5,12 @@ import TestContext from "../../page/testContext";
 import { Link } from "react-router-dom";
 
 export default class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      isLogin: true,
+      isLogin: props.isLogin,
       isHomepage: true,
+      isAdmin: props.isAdmin,
     };
   }
   
@@ -47,7 +48,7 @@ export default class Header extends Component {
                   {this.state.isLogin ? (
                     <div className="item login_item" onClick={this.handleSignOut}>Logout</div>
                    ) : (
-                    <div className="item login_item" onClick={this.handleSignIn}>Log In</div>
+                    <div className="item login_item"><Link to="/login">Log In</Link></div>
                    )}
                   
                 </>
@@ -71,6 +72,7 @@ export default class Header extends Component {
         {this.state.isHomepage ? <EmergencyBanner
             onClick={this.props.click}
             content={this.props.notificationTitle}
+            isAdmin={this.props.isAdmin}
           /> : <></>}
           
       </>
