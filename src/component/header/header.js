@@ -30,7 +30,7 @@ export default class Header extends Component {
       <>
         <nav>
           <div className="topHeader">
-            <div className="logo">UMCC</div>
+            <div className="logo"><a href="/">UMCC</a></div>
             <div className="right logo_title">
               Upper Murray Community Calendar
             </div>
