@@ -15,6 +15,7 @@ const now = new Date()
     start: new Date(2021, 8, 7),
     end: new Date(2021, 8, 10),
     colour: 'red',
+    creator: 'Sample User',
   },
 
   {

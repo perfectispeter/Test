@@ -13,6 +13,7 @@ const EventDetails = (props) => {
             content = (<>
                     <Card>
                     <p><b>{data.at(eventID).title}</b></p>
+                    <p>Created by: <a href={"/user/" + data.at(eventID).creator}>{data.at(eventID).creator}</a></p>
                     <p>When: {data.at(eventID).start.toISOString()}</p>
                     <p>{data.at(eventID).desc ? data.at(eventID).desc : <i>No description</i>}</p>
                     </Card>
