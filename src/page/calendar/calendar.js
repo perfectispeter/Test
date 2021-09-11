@@ -46,6 +46,9 @@ export default class Calendar extends Component {
                     <h3>Filter by category: <Switch /></h3>
                   <CategoryImages />
               </Grid>
+              <Grid item>
+                <a href="/create"><button id="createEventButton" className="btn" size="small" >Create an Event</button></a>
+              </Grid>
         </Grid>
         <br />
         <Footer />        
