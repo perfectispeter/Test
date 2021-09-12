@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../../component/header/header';
+import Footer from '../../component/Footer/Footer';
 import './UserProfilePage.css';
 
 class OrganizationProfile extends React.Component{
  
     render(){
-      return(
+      return(<>
           <div className="Body">
               <Header></Header>
                <div className="main">
@@ -25,7 +26,8 @@ class OrganizationProfile extends React.Component{
 
 
           </div>
-       
+          <Footer />
+       </>
       )
     }
   }

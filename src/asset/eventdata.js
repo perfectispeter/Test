@@ -38,6 +38,7 @@ const now = new Date()
     start: new Date(2021, 8, 9, 0, 0, 0),
     end: new Date(2021, 8, 10, 0, 0, 0),
     desc: 'A description of the event' ,
+    creator: 'Sample_User',
   },
   {
     id: 5,

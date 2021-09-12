@@ -5,6 +5,7 @@ import TextArea from '../../component/CreateEventComponents/TextArea';
 import CancelButton from '../../component/CreateEventComponents/CancelButton';
 import '../../component/CreateEventComponents/CreateEvent.css';
 import Header from '../../component/header/header';
+import Footer from '../../component/Footer/Footer';
 import 'react-datepicker/dist/react-datepicker.css'
 import CategoryImages from '../../component/categoryTags/CategoryImages';
 import TimePickers from '../../component/CreateEventComponents/TimePicker';
@@ -14,12 +15,13 @@ import DatePickers from '../../component/CreateEventComponents/DatePicker';
 class CreateEvent extends React.Component{
  
     render(){
-      return(
+      return(<>
         <div className="Body1"> 
         <div>
           <Header></Header>
           </div> 
           <div className="Main">
+            <h2>Create an Event</h2>
             <TextField title="Event Title"></TextField>
             <TextField title="Venue"></TextField>
             <CategoryImages />
@@ -32,7 +34,11 @@ class CreateEvent extends React.Component{
                 <CreateButton></CreateButton>
                 <CancelButton></CancelButton>
           </div>
+          <div>
+          
+          </div>
       </div>
+      </>
       )
     }
   }
