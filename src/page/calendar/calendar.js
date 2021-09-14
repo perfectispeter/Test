@@ -1,96 +1,60 @@
 import React, { Component } from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin from "@fullcalendar/list";
 import "./calendar.css";
 import Header from "../../component/header/header";
+import TitleCard from "../../component/titleCard";
+import { Grid, Table, TableBody, TableCell, Card, TableRow, Switch } from "@material-ui/core";
+import BasicCalendar from "../../component/calendar";
+import Category from "../../component/categoryTags/Category";
+import CategoryImages from "../../component/categoryTags/CategoryImages";
+import Footer from '../../component/Footer';
 
 export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectAble: true,
+      selectable: true,
     };
   }
   render() {
-    return (
-      <div>
+    return ( <>
+      <div className="mainContainer">
       <Header />
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
-          initialView="dayGridMonth"
-          headerToolbar={{
-            start: "title,prev,next",
-            right: "dayGridDay,dayGridWeek,dayGridMonth,listYear",
-          }}
-          buttonText={{
-            day: "Day",
-            week: "Week",
-            month: "Month",
-            list: "Year",
-          }}
-          events={[
-            {
-              title: "event 1",
-              start: "2021-08-16",
-              end: "2021-08-19",
-              backgroundColor: "#3498db",
-            },
-            {
-              title: "event 2",
-              date: "2021-08-16 08:00",
-              backgroundColor: "#2ecc71",
-            },
-            {
-              title: "event 3",
-              date: "2021-08-17 12:00",
-              backgroundColor: "#9b59b6",
-            },
-            {
-              title: "event 4",
-              date: "2021-08-18 13:00",
-              backgroundColor: "#34495e",
-            },
-            {
-              title: "event 5",
-              date: "2021-08-19 23:00",
-              backgroundColor: "#e67e22",
-            },
-            {
-              title: "event 6",
-              date: "2021-08-19 08:00",
-              backgroundColor: "#f1c40f",
-            },
-            {
-              title: "event 7",
-              date: "2021-08-19 09:00",
-              backgroundColor: "#d35400",
-            },
-            {
-              title: "event 8",
-              start: "2021-08-19 10:00",
-              end: "2021-08-22 10:00",
-              backgroundColor: "#FDA7DF",
-            },
-            {
-              title: "event 9",
-              date: "2021-08-19 13:00",
-              backgroundColor: "#ED4C67",
-            },
-          ]}
-          dayMaxEvents={2}
-          dateClick={this.eventSelect}
-          selectable="true"
-          editable="true"
-          height="50vh"
-          droppable="true"
-        />
+      <Grid container alignItems="center" 
+                alignContent="stretch"
+                justifyContent="flex-start" 
+                direction="column" 
+                container spacing={2}
+                xs={3}
+                s={3}
+                md={6}
+                lg={12}
+                xl={12}
+            >
+        <TitleCard titleText="Main Calendar" />
+       
+        </Grid>
+        <Grid container spacing={2} direction="row" alignItems="center"
+                xs={3}
+                s={3}
+                md={6}
+                lg={12}
+                xl={12}>
+              <Grid item>
+                <BasicCalendar />
+              </Grid>
+              <Grid item>
+                    <h3>Filter by category: <Switch /></h3>
+                  <CategoryImages />
+              </Grid>
+              <Grid item>
+                <a href="/create"><button id="createEventButton" className="btn" size="small" >Create an Event</button></a>
+              </Grid>
+        </Grid>
+        <br />
+        <Footer />        
       </div>
+    </>
     );
   }
-  eventSelect(arg) {
-    alert(arg.dateStr);
-    console.log(arg);
-  }
+
 }

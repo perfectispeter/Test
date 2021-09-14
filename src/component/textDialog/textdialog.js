@@ -64,13 +64,13 @@ class Textdialog extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.cancelClick} color="primary">
+          <Button onClick={this.cancelClick} color="primary" id="cancel">
             Cancel
           </Button>
           <Button
             onClick={this.submitData.bind(this, this.state.inputText)}
-            color="primary">
-            Subscribe
+            color="primary" id="confirm">
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>

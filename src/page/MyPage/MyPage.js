@@ -1,13 +1,14 @@
 import React from 'react';
-import { Grid, Card, Button, Table, TableBody, TableCell, TableRow, TableHead } from '@material-ui/core';
+import { Grid, Card, Button, Table, TableBody, TableCell, TableRow, TableHead, Accordion, AccordionSummary } from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 import Header from '../../component/header/header';
-import { minHeight } from '@material-ui/system';
 import TitleCard from '../../component/titleCard/titleCard';
 import SortableTable from "../../component/SortableTable";
 
 import Calendar from "../../component/calendar";
 import Textdialog from '../../component/textDialog/textdialog';
+import Footer from '../../component/Footer';
 
 
 class MyPage extends React.Component {
@@ -15,8 +16,8 @@ class MyPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userDisplayName: "Gemma Whitehead",
-            userEmail: "gemma@corryongnc.org",
+            userDisplayName: "Sample Name",
+            userEmail: "134@test.com",
             userPassword: "*********",
             changeDisplayName: false,
             changeEmail: false,
@@ -101,6 +102,17 @@ class MyPage extends React.Component {
                 xl={12}
             >
            <TitleCard titleText="MyPage Title"/>
+           <Grid container alignItems="stretch" direction="column"
+           xl={6}>
+                <Accordion>
+                        <AccordionSummary
+                            aria-controls="user-details-content"
+                            id="user-details-header"
+                            expandIcon={<ExpandMore />}
+                        >
+                        <h2>My Details</h2>
+                        </AccordionSummary>
+                <Grid container alignItems="center" direction="column">
                 <Grid item><Card fullWidth={true}>
                 <table>
                     <tr>
@@ -150,14 +162,33 @@ class MyPage extends React.Component {
                     </TableBody>
                 </Table>
                 </Grid>
+                </Grid>
+                </Accordion>
+                <Accordion>
+                        <AccordionSummary
+                            aria-controls="user-events-content"
+                            id="user-events-header"
+                            expandIcon={<ExpandMore />}
+                        >
+                        <h2>Events I've Created</h2>
+                        </AccordionSummary>
                 <Grid item>
                     <Card raised={true}>
-                        <SortableTable sortableTableTitle=" Events I've Created" />
+                        <SortableTable sortableTableTitle="" />
                     </Card>
                 </Grid>
+                </Accordion>
+                <Accordion>
+                        <AccordionSummary
+                            aria-controls="user-bookmarked-content"
+                            id="user-bookmarked-header"
+                            expandIcon={<ExpandMore />}
+                        >
+                        <h2>Events I've Bookmarked</h2>
+                        </AccordionSummary>
                 <Grid item>
                     <Card raised={true}>
-                        <SortableTable sortableTableTitle=" Events I've Bookmarked" />
+                        <SortableTable sortableTableTitle="" />
                     </Card>
                 </Grid>
                 <Grid item>
@@ -165,10 +196,14 @@ class MyPage extends React.Component {
                         <Calendar />
                     </Card>
                 </Grid>
+                </Accordion>
+                </Grid>
+                
                 <Grid item >
                     <a href="/calendar"> Back to calendar</a>
                 </Grid>
             </Grid>
+            <Footer />
 
             <div name="dialog-boxes">
                 <Textdialog
