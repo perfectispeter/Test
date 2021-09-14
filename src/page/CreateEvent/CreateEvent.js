@@ -24,7 +24,7 @@ class CreateEvent extends React.Component{
             <h2>Create an Event</h2>
             <TextField title="Event Title"></TextField>
             <TextField title="Venue"></TextField>
-            <CategoryImages />
+            <CategoryImages onChange={selectedTags => console.log('These tags are selected:', selectedTags)} />
             <DatePickers title="StartDate"/>
             <DatePickers title="EndDate"/>
             <br/>
