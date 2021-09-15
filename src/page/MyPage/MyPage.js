@@ -10,7 +10,6 @@ import {
   AccordionSummary,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-
 import Header from "../../components/header/header";
 import TitleCard from "../../components/titleCard/titleCard";
 import SortableTable from "../../components/SortableTable";

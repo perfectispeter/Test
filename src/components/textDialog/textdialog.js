@@ -46,7 +46,8 @@ class Textdialog extends React.Component {
         open={this.props.open}
         onClose={this.closeDialog}
         disableEscapeKeyDown={true}
-        aria-labelledby="form-dialog-title">
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">{this.props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>{this.props.content}</DialogContentText>
@@ -69,7 +70,9 @@ class Textdialog extends React.Component {
           </Button>
           <Button
             onClick={this.submitData.bind(this, this.state.inputText)}
-            color="primary" id="confirm">
+            color="primary"
+            id="confirm"
+          >
             Confirm
           </Button>
         </DialogActions>
