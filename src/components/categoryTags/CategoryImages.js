@@ -18,11 +18,6 @@ export default function CategoryImages(props) {
     }
   };
 
-//  Currently throws an error saying onChange is not a function? 
-//   useEffect(() => {
-//     onChange(selectedTags);
-//   }, [selectedTags, onChange])
-
   return (
     <div className="category">
       <table

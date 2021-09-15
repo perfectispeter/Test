@@ -17,7 +17,8 @@ class Upload extends PureComponent {
         className="uploadContainer"
         onDragOver={this.dragOver}
         onDragEnter={this.dragEnter}
-        onDrop={this.drop}>
+        onDrop={this.drop}
+      >
         <input type="file" ref={this.fileRef} onChange={this.uploadFile} />
         <img src={this.state.imgUrl} alt="" onClick={this.onClick} />
       </div>
