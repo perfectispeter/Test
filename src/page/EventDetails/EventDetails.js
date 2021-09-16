@@ -34,6 +34,12 @@ const EventDetails = (props) => {
               <i>No description</i>
             )}
           </p>
+          <p>
+            {data.at(eventID).categories ?
+              data.at(eventID).categories.join(", ")
+                : <i>No categories</i>
+              }
+          </p>
         </Card>
       </>
     );

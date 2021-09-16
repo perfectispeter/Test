@@ -13,8 +13,29 @@ const localizer = momentLocalizer(moment);
 
 const BasicCalendar = (props) => {
   const [eventID, setEventID] = useState();
+  const [eventsArray, setEventsArray] = useState([data]);
+
+  const categoryFilter = (props) => {
+    // const { filter } = props; **FOR NOW just hardcoding the below as a filter **
+    const filter = [
+      "All Ages",
+      "Sport"
+    ]
+    var newEventsArray = [];
+
+    data.map((event => {
+       if (event.categories){
+          if(event.categories.some(x => filter.includes(x)))
+            newEventsArray.push(event);
+       }
+    }));
+    setEventsArray([newEventsArray]);
+    console.log("events after filtering: ",newEventsArray);
+  };
+
   const actualCalendar = (
     <>
+    <button className="btn" onClick={categoryFilter}>FILTER</button>
       <Grid
         container
         direction="column"
@@ -33,7 +54,7 @@ const BasicCalendar = (props) => {
               localizer={localizer}
               defaultDate={new Date()}
               defaultView="month"
-              events={data}
+              events={eventsArray[0]}
               style={{ height: "100vh" }}
               onSelectEvent={(data) => showEventDetails(data)}
             />

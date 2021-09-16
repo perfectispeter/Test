@@ -16,6 +16,10 @@ const now = new Date()
     end: new Date(2021, 8, 10),
     colour: 'red',
     creator: 'Sample_User',
+    categories: [
+      "All Ages",
+      "Arts"
+    ]
   },
 
   {
@@ -39,6 +43,10 @@ const now = new Date()
     end: new Date(2021, 8, 10, 0, 0, 0),
     desc: 'A description of the event' ,
     creator: 'Sample_User',
+    categories: [
+      "All Ages",
+      "Sport"
+    ]
   },
   {
     id: 5,
