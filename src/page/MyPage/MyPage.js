@@ -13,16 +13,17 @@ import { ExpandMore } from "@material-ui/icons";
 import Header from "../../components/header/header";
 import TitleCard from "../../components/titleCard/titleCard";
 import SortableTable from "../../components/SortableTable";
-
+import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
 import Calendar from "../../components/calendar";
 import Textdialog from "../../components/textDialog/textdialog";
 import Footer from "../../components/Footer";
+import FormDialog from "../../components/FormDialog/FormDialog";
 
 class MyPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDisplayName: "Sample Name",
+      userDisplayName: "Sample_Name",
       userEmail: "134@test.com",
       userPassword: "*********",
       changeDisplayName: false,
@@ -30,6 +31,7 @@ class MyPage extends React.Component {
       changePassword: false,
     };
   }
+
 
   editDisplayName = () => {
     this.setState({
@@ -181,12 +183,12 @@ class MyPage extends React.Component {
                         <TableRow>
                           <TableCell>
                             <div className="flex flex-center">
-                              <button className="btn">Edit my Profile</button>
+                              <FormDialog buttonText="Edit my Public Profile" />
                             </div>
                           </TableCell>
                           <TableCell>
                             <div className="flex flex-center">
-                              <button className="btn">View my Profile</button>
+                              <a href={"/user/" + this.state.userDisplayName}><button className="btn">View my Public Profile</button></a>
                             </div>
                           </TableCell>
                         </TableRow>
@@ -205,7 +207,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <SortableTable sortableTableTitle="" />
+                    <EnhancedTable />
                   </Card>
                 </Grid>
               </Accordion>
@@ -219,7 +221,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <SortableTable sortableTableTitle="" />
+                    <EnhancedTable />
                   </Card>
                 </Grid>
                 <Grid item>
@@ -232,6 +234,7 @@ class MyPage extends React.Component {
 
             <Grid item>
               <a href="/calendar"> Back to calendar</a>
+
             </Grid>
           </Grid>
           <Footer />
@@ -261,6 +264,7 @@ class MyPage extends React.Component {
               inputTitle="Enter text and click Confirm"
               multiline={false}
             />
+
           </div>
         </div>
       </>
