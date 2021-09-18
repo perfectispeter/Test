@@ -22,7 +22,7 @@ function EventToTableConverter(inputData) {
   function calculateDuration(duration) {
     const convertedDuration = (Math.floor(((duration) / (1000 * 60 * 60)) % 24));
     if(convertedDuration > 0) {
-      return convertedDuration;
+      return convertedDuration + " hour(s)";
     }
     else {
       return "";

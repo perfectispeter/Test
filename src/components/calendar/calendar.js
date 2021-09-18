@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
-import data from "../../asset/eventdata";
 import EventDetails from "../../page/EventDetails/EventDetails";
 import { Grid, Card } from "@material-ui/core";
 
@@ -12,30 +11,34 @@ import { useHistory } from "react-router-dom";
 const localizer = momentLocalizer(moment);
 
 const BasicCalendar = (props) => {
+  const { eventData } = props;
+
+  // const { filter } = props; **TODO remove hardcoding the below as a filter **
+  const filter = ["All Ages", "Sport"];
+
   const [eventID, setEventID] = useState();
-  const [eventsArray, setEventsArray] = useState([data]);
+  const [eventsArray, setEventsArray] = useState([eventData]);
+  const [filters, setFilters] = useState([filter]);
 
   const categoryFilter = (props) => {
-    // const { filter } = props; **FOR NOW just hardcoding the below as a filter **
-    const filter = [
-      "All Ages",
-      "Sport"
-    ]
     var newEventsArray = [];
 
-    data.map((event => {
-       if (event.categories){
-          if(event.categories.some(x => filter.includes(x)))
-            newEventsArray.push(event);
-       }
-    }));
+    eventData.map((event) => {
+      if (event.categories) {
+        if (event.categories.some((x) => filter.includes(x)))
+          newEventsArray.push(event);
+      }
+    });
     setEventsArray([newEventsArray]);
-    console.log("events after filtering: ",newEventsArray);
+    console.log("events after filtering: ", newEventsArray);
   };
 
+  //TODO remove FILTER button, instead base on Category filters
   const actualCalendar = (
     <>
-    <button className="btn" onClick={categoryFilter}>FILTER</button>
+      <button className="btn" onClick={categoryFilter}>
+        FILTER
+      </button>
       <Grid
         container
         direction="column"

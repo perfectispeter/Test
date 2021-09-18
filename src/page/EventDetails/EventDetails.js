@@ -2,6 +2,7 @@ import React from "react";
 import data from "../../asset/eventdata";
 import { Card } from "@material-ui/core";
 
+//TODO: call Event and User Details from DB
 const EventDetails = (props) => {
   const { eventID } = props;
 

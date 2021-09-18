@@ -2,20 +2,23 @@ import { TrackChangesOutlined } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import "./Category.css";
 
+
+//TODO make clicking these filters toggle which Events are shown on Calendar
 export default function CategoryImages(props) {
-  const { onChange } = props;
+  const { onChange, parentCallback } = props;
   const [selectedTags, setSelectedTags] = useState([]);
 
   const onTagChange = (e) => {
     const tagId = e.target.getAttribute("id");
     console.log("e.target.checked", e.target.checked, tagId);
     if (e.target.checked) {
-      setSelectedTags([...selectedTags, tagId]);
-      console.log(selectedTags);
-    } else {
       setSelectedTags(selectedTags.filter((tag) => tag !== tagId));
       console.log(selectedTags);
+    } else {
+      setSelectedTags([...selectedTags, tagId]);
+      console.log(selectedTags);
     }
+    parentCallback(selectedTags);
   };
 
   return (

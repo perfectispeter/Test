@@ -12,25 +12,38 @@ import {
 import { ExpandMore } from "@material-ui/icons";
 import Header from "../../components/header/header";
 import TitleCard from "../../components/titleCard/titleCard";
-import data from "../../asset/eventdata";
+
 import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
 import Calendar from "../../components/calendar";
 import Textdialog from "../../components/textDialog/textdialog";
 import Footer from "../../components/Footer";
 import FormDialog from "../../components/FormDialog/FormDialog";
 
+import data from "../../asset/eventdata";
+import userData from "../../asset/userdata.json";
+
 function myCreatedEvents (user) {
   const eventArray = data.filter(e => e.creator && e.creator.includes(user));
   return eventArray;
 };
 
+function myBookmarkedEvents (user) {
+  const eventArray = data.filter(e => userData.users.at(user).bookmarked_events.includes(e.id));
+  return eventArray;
+}
+
 class MyPage extends React.Component {
   constructor(props) {
     super(props);
+    // var { userID } = props; <<<<< TODO
+    var userID = 1;
+    const users = userData;
+
     this.state = {
-      userDisplayName: "Sample_User",
-      userEmail: "134@test.com",
-      userPassword: "*********",
+      userID : userID,
+      userDisplayName: users.users.filter(u => u.id == userID)[0].display_name,
+      userEmail: users.users.filter(u => u.id == userID)[0].email,
+      userPassword: users.users.filter(u => u.id == userID)[0].password,
       changeDisplayName: false,
       changeEmail: false,
       changePassword: false
@@ -225,12 +238,12 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    {/* <EnhancedTable inputData = {data}/> */}
+                    <EnhancedTable inputData = {myBookmarkedEvents(this.state.userID)}/>
                   </Card>
                 </Grid>
                 <Grid item>
                   <Card fullWidth={true}>
-                    <Calendar />
+                    <Calendar eventData = {myBookmarkedEvents(this.state.userID)}/>
                   </Card>
                 </Grid>
               </Accordion>
