@@ -41,7 +41,8 @@ export default class Header extends Component {
                   <div className="item login_item">Sign in</div>
                 </>
               ) : (
-                <>
+                <>{this.state.isAdmin ?(
+                  <div className="item login_item"><Link to="/admin-tools">Admin Tools</Link></div>) : null}
                   <div className="item login_item username">134@test.com</div>
                   <sup className="badge">3</sup>
 

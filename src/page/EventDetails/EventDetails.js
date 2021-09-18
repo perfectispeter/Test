@@ -2,6 +2,7 @@ import React from "react";
 import data from "../../asset/eventdata";
 import { Card } from "@material-ui/core";
 
+//TODO: call Event and User Details from DB
 const EventDetails = (props) => {
   const { eventID } = props;
 
@@ -33,6 +34,12 @@ const EventDetails = (props) => {
             ) : (
               <i>No description</i>
             )}
+          </p>
+          <p>
+            {data.at(eventID).categories ?
+              data.at(eventID).categories.join(", ")
+                : <i>No categories</i>
+              }
           </p>
         </Card>
       </>

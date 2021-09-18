@@ -12,24 +12,43 @@ import {
 import { ExpandMore } from "@material-ui/icons";
 import Header from "../../components/header/header";
 import TitleCard from "../../components/titleCard/titleCard";
-import SortableTable from "../../components/SortableTable";
 
+import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
 import Calendar from "../../components/calendar";
 import Textdialog from "../../components/textDialog/textdialog";
 import Footer from "../../components/Footer";
+import FormDialog from "../../components/FormDialog/FormDialog";
+
+import data from "../../asset/eventdata";
+import userData from "../../asset/userdata.json";
+
+function myCreatedEvents (user) {
+  const eventArray = data.filter(e => e.creator && e.creator.includes(user));
+  return eventArray;
+};
+
+function myBookmarkedEvents (user) {
+  const eventArray = data.filter(e => userData.users.at(user).bookmarked_events.includes(e.id));
+  return eventArray;
+}
 
 class MyPage extends React.Component {
   constructor(props) {
     super(props);
+    // var { userID } = props; <<<<< TODO
+    var userID = 1;
+    const users = userData;
+
     this.state = {
-      userDisplayName: "Sample Name",
-      userEmail: "134@test.com",
-      userPassword: "*********",
+      userID : userID,
+      userDisplayName: users.users.filter(u => u.id == userID)[0].display_name,
+      userEmail: users.users.filter(u => u.id == userID)[0].email,
+      userPassword: users.users.filter(u => u.id == userID)[0].password,
       changeDisplayName: false,
       changeEmail: false,
-      changePassword: false,
+      changePassword: false
     };
-  }
+  };
 
   editDisplayName = () => {
     this.setState({
@@ -181,12 +200,12 @@ class MyPage extends React.Component {
                         <TableRow>
                           <TableCell>
                             <div className="flex flex-center">
-                              <button className="btn">Edit my Profile</button>
+                              <FormDialog buttonText="Edit my Public Profile" />
                             </div>
                           </TableCell>
                           <TableCell>
                             <div className="flex flex-center">
-                              <button className="btn">View my Profile</button>
+                              <a href={"/user/" + this.state.userDisplayName}><button className="btn">View my Public Profile</button></a>
                             </div>
                           </TableCell>
                         </TableRow>
@@ -205,7 +224,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <SortableTable sortableTableTitle="" />
+                    <EnhancedTable inputData = {myCreatedEvents(this.state.userDisplayName)}/>
                   </Card>
                 </Grid>
               </Accordion>
@@ -219,12 +238,12 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <SortableTable sortableTableTitle="" />
+                    <EnhancedTable inputData = {myBookmarkedEvents(this.state.userID)}/>
                   </Card>
                 </Grid>
                 <Grid item>
                   <Card fullWidth={true}>
-                    <Calendar />
+                    <Calendar eventData = {myBookmarkedEvents(this.state.userID)}/>
                   </Card>
                 </Grid>
               </Accordion>
@@ -232,6 +251,7 @@ class MyPage extends React.Component {
 
             <Grid item>
               <a href="/calendar"> Back to calendar</a>
+
             </Grid>
           </Grid>
           <Footer />
@@ -261,6 +281,7 @@ class MyPage extends React.Component {
               inputTitle="Enter text and click Confirm"
               multiline={false}
             />
+
           </div>
         </div>
       </>
