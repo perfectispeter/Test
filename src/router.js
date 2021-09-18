@@ -11,6 +11,7 @@ import MyPage from "./page/MyPage/MyPage";
 import LoginPage from "./page/LoginPage/LoginPage";
 import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
 import CreateEvent from "./page/CreateEvent/CreateEvent";
+import AdminTools from "./page/AdminTools/AdminTools";
 
 export class CustomRoute extends React.Component {
   constructor() {
@@ -30,6 +31,7 @@ export class CustomRoute extends React.Component {
           {this.state.isLogin ? (<>
             <Route path="/calendar" component={Calendar} />
             <Route path="/mypage" component={MyPage} />
+            <Route path="/admin-tools" component ={AdminTools} />
             </>
           ) : (
             <Redirect to="/" />
