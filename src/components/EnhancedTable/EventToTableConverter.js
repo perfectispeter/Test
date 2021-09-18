@@ -19,16 +19,26 @@ function EventToTableConverter(inputData) {
     };
   }
 
+  function calculateDuration(duration) {
+    const convertedDuration = (Math.floor(((duration) / (1000 * 60 * 60)) % 24));
+    if(convertedDuration > 0) {
+      return convertedDuration;
+    }
+    else {
+      return "";
+    }
+  }
+
   var rows = [];
   console.log("input data: ",inputData);
-  if(inputData[0]){
+  if(inputData){
     inputData.map((event) => {
       rows.push(
         createData(
           event.title,
           event.start.toUTCString(),
           event.end.toUTCString(),
-          event.start.getTime(),
+          calculateDuration(event.end - event.start),
           event.categories ? event.categories.join(", ") : "",
           event.location ? event.location : "",
           event.isActive ? event.isActive : "true"
@@ -36,6 +46,7 @@ function EventToTableConverter(inputData) {
       );
     });
   }
+  console.log("output: ",rows);
   return rows;
 }
 

@@ -68,7 +68,7 @@ const headCells = [
     id: "event_time",
     numeric: true,
     disablePadding: false,
-    label: "Event Time",
+    label: "Event Duration",
   },
   { id: "category", numeric: true, disablePadding: false, label: "Category" },
   { id: "location", numeric: true, disablePadding: false, label: "Location" },

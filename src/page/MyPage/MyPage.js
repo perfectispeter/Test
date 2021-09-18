@@ -20,13 +20,7 @@ import Footer from "../../components/Footer";
 import FormDialog from "../../components/FormDialog/FormDialog";
 
 function myCreatedEvents (user) {
-  var eventArray = {};
-  data.map((e) => {
-    if ((e.creator && e.creator.includes(user))) {
-      console.log("adding event: ", e.title);
-      eventArray = { ...eventArray, e };
-    }
-  });
+  const eventArray = data.filter(e => e.creator && e.creator.includes(user));
   return eventArray;
 };
 
@@ -231,7 +225,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable inputData = {data}/>
+                    {/* <EnhancedTable inputData = {data}/> */}
                   </Card>
                 </Grid>
                 <Grid item>
