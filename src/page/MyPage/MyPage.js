@@ -19,28 +19,29 @@ import Textdialog from "../../components/textDialog/textdialog";
 import Footer from "../../components/Footer";
 import FormDialog from "../../components/FormDialog/FormDialog";
 
+function myCreatedEvents (user) {
+  var eventArray = {};
+  data.map((e) => {
+    if ((e.creator && e.creator.includes(user))) {
+      console.log("adding event: ", e.title);
+      eventArray = { ...eventArray, e };
+    }
+  });
+  return eventArray;
+};
+
 class MyPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDisplayName: "Sample_Name",
+      userDisplayName: "Sample_User",
       userEmail: "134@test.com",
       userPassword: "*********",
       changeDisplayName: false,
       changeEmail: false,
-      changePassword: false,
+      changePassword: false
     };
-
-    const myCreatedEvents = (props) => {
-      var eventArray = [];
-      data.map((event => {
-        if (event.creator.includes(this.state.userDisplayName)) {
-          eventArray.push(event);
-        }
-      }));
-      return eventArray;
-    }
-  }
+  };
 
   editDisplayName = () => {
     this.setState({
@@ -216,7 +217,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable inputData = {data}/>
+                    <EnhancedTable inputData = {myCreatedEvents(this.state.userDisplayName)}/>
                   </Card>
                 </Grid>
               </Accordion>

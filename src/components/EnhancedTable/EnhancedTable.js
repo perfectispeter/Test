@@ -68,7 +68,7 @@ const headCells = [
     id: "event_time",
     numeric: true,
     disablePadding: false,
-    label: "Event Timings",
+    label: "Event Time",
   },
   { id: "category", numeric: true, disablePadding: false, label: "Category" },
   { id: "location", numeric: true, disablePadding: false, label: "Location" },
@@ -238,14 +238,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable(props) {
   const { inputData } = props;
-  const rows = EventToTableConverter([inputData]);
+  const rows = EventToTableConverter(inputData);
 
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("start_date");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -379,10 +379,7 @@ export default function EnhancedTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+
     </div>
   );
 }

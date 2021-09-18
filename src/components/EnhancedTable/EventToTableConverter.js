@@ -20,19 +20,22 @@ function EventToTableConverter(inputData) {
   }
 
   var rows = [];
-  inputData[0].map((event) => {
-    rows.push(
-      createData(
-        event.title,
-        event.start.toUTCString(),
-        event.end.toUTCString(),
-        event.start.getTime(),
-        event.categories ? event.categories.join(", ") : "",
-        event.location ? event.location : "",
-        event.isActive ? event.isActive : "true"
-      )
-    );
-  });
+  console.log("input data: ",inputData);
+  if(inputData[0]){
+    inputData.map((event) => {
+      rows.push(
+        createData(
+          event.title,
+          event.start.toUTCString(),
+          event.end.toUTCString(),
+          event.start.getTime(),
+          event.categories ? event.categories.join(", ") : "",
+          event.location ? event.location : "",
+          event.isActive ? event.isActive : "true"
+        )
+      );
+    });
+  }
   return rows;
 }
 
