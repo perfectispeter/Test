@@ -12,7 +12,7 @@ import {
 import { ExpandMore } from "@material-ui/icons";
 import Header from "../../components/header/header";
 import TitleCard from "../../components/titleCard/titleCard";
-import SortableTable from "../../components/SortableTable";
+import data from "../../asset/eventdata";
 import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
 import Calendar from "../../components/calendar";
 import Textdialog from "../../components/textDialog/textdialog";
@@ -30,8 +30,17 @@ class MyPage extends React.Component {
       changeEmail: false,
       changePassword: false,
     };
-  }
 
+    const myCreatedEvents = (props) => {
+      var eventArray = [];
+      data.map((event => {
+        if (event.creator.includes(this.state.userDisplayName)) {
+          eventArray.push(event);
+        }
+      }));
+      return eventArray;
+    }
+  }
 
   editDisplayName = () => {
     this.setState({
@@ -207,7 +216,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable />
+                    <EnhancedTable inputData = {data}/>
                   </Card>
                 </Grid>
               </Accordion>
@@ -221,7 +230,7 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable />
+                    <EnhancedTable inputData = {data}/>
                   </Card>
                 </Grid>
                 <Grid item>

@@ -21,91 +21,8 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
-function createData(
-  event_name,
-  start_Date,
-  end_Date,
-  event_time,
-  category,
-  location,
-  active_status
-) {
-  return {
-    event_name,
-    start_Date,
-    end_Date,
-    event_time,
-    category,
-    location,
-    active_status,
-  };
-}
-
-const rows = [
-  createData(
-    "Art meetup",
-    "09/09/2021",
-    "10/09/2021",
-    "3pm - 5pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-  createData(
-    "Culture diversity stand up",
-    "11/09/2021",
-    "11/09/2021",
-    "4pm - 6pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-  createData(
-    "Kids environment rally",
-    "20/09/2021",
-    "20/10/2021",
-    "12pm - 4pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-  createData(
-    "CNC Monthly Meeting",
-    "30/09/2021",
-    "30/09/2021",
-    "10am - 1pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-  createData(
-    "CNC Weekly CatchUp",
-    "18/09/2021",
-    "18/09/2021",
-    "3pm - 5pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-  createData(
-    "Meeting with Bushfire Community",
-    "22/09/2021",
-    "22/09/2021",
-    "12pm - 5pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-  createData(
-    "Annual Corryong Library GiveAway",
-    "28/09/2021",
-    "28/09/2021",
-    "2pm - 6pm",
-    "Art",
-    "Level 2, Melbourne Central",
-    true
-  ),
-];
+import data from "../../asset/eventdata";
+import EventToTableConverter from "./EventToTableConverter";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -319,7 +236,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
+  const { inputData } = props;
+  const rows = EventToTableConverter([inputData]);
+
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("start_date");
