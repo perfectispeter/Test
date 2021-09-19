@@ -35,38 +35,39 @@ export default class Calendar extends Component {
     return (
       <>
         <div className="mainContainer">
-          <Header />
+          <Header isHomepage={false} />
           <Grid
             container
             alignItems="center"
             alignContent="stretch"
             justifyContent="flex-start"
-            direction="column"
+            direction="row"
             container
             spacing={2}
-            xs={3}
-            s={3}
-            md={6}
-            lg={12}
-            xl={12}
+            xs={12}
+            s={12}
+            md={9}
+            lg={9}
           >
-            <TitleCard titleText="Main Calendar" />
+            <Grid item>
+             <TitleCard titleText="Main Calendar" />
+            </Grid>
           </Grid>
           <Grid
             container
             spacing={2}
             direction="row"
-            alignItems="center"
-            xs={3}
-            s={3}
-            md={6}
+            alignItems="stretch"
+            justifyContent="flex-start"
+            xs={12}
+            s={12}
+            md={12}
             lg={12}
-            xl={12}
           >
-            <Grid item>
+            <Grid item md={6} lg={6}>
               <BasicCalendar eventData = {this.state.shownEvents}/>
             </Grid>
-            <Grid item>
+            <Grid item md={3} lg={3}>
               <h3>
                 Apply category filter: <Switch onChange = {this.applyFilter}/>
               </h3>

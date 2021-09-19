@@ -14,7 +14,7 @@ const BasicCalendar = (props) => {
   const { eventData } = props;
 
   // const { filter } = props; **TODO remove hardcoding the below as a filter **
-  const filter = ["All Ages", "Sport"];
+  var filter = ["All Ages", "Sport"];
 
   const [eventID, setEventID] = useState();
   const [eventsArray, setEventsArray] = useState([eventData]);
@@ -36,20 +36,16 @@ const BasicCalendar = (props) => {
   //TODO remove FILTER button, instead base on Category filters
   const actualCalendar = (
     <>
-      <button className="btn" onClick={categoryFilter}>
-        FILTER
-      </button>
       <Grid
         container
-        direction="column"
+        direction="row"
         spacing={1}
         justifyContent="flex-start"
         alignItems="center"
-        xs={3}
-        s={3}
+        xs={12}
+        s={12}
         md={6}
-        lg={12}
-        xl={12}
+        lg={6}
       >
         <Grid item>
           <Card raised={true}>
@@ -64,7 +60,12 @@ const BasicCalendar = (props) => {
           </Card>
         </Grid>
         <Grid item>
-          <EventDetails eventID={eventID} />
+          <EventDetails eventID={eventID} inputData={eventData} userID = {0} />
+        </Grid>
+        <Grid item>
+            <button className="btn" onClick={categoryFilter}>
+            FILTER
+          </button>
         </Grid>
       </Grid>
     </>

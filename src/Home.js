@@ -48,6 +48,7 @@ class Home extends React.Component {
             notificationTitle={this.state.notificationTitle}
             isLogin={this.state.isLogin}
             isAdmin={true}
+            isHomepage={true}
           />
           <div className="mainContainer">
             <img src={this.state.imgUrl} alt="" className="Picture" />

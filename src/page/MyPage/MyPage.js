@@ -111,7 +111,7 @@ class MyPage extends React.Component {
     return (
       <>
         <div className="header">
-          <Header />
+          <Header isHomepage={false}/>
         </div>
         <div className="mainContainer">
           <Grid

@@ -9,7 +9,7 @@ export default class Header extends Component {
     super(props);
     this.state = {
       isLogin: props.isLogin,
-      isHomepage: true,
+      isHomepage: props.isHomepage,
       isAdmin: props.isAdmin,
     };
   }
@@ -74,7 +74,7 @@ export default class Header extends Component {
             onClick={this.props.click}
             content={this.props.notificationTitle}
             isAdmin={this.props.isAdmin}
-          /> : <></>}
+          /> : null}
           
       </>
     );

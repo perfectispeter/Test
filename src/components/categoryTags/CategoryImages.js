@@ -27,7 +27,7 @@ export default function CategoryImages(props) {
         align="center"
         cellspacing="0"
         cellpadding="2"
-        width="700"
+        width="auto"
         onChange={onTagChange}
       >
         <tbody>
