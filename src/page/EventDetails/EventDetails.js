@@ -2,14 +2,31 @@ import React from "react";
 import userdata from "../../asset/userdata.json";
 import { Card, Tooltip, IconButton } from "@material-ui/core";
 import { Star, StarBorder } from "@material-ui/icons";
+import axios from "axios";
 
 //TODO: call Event and User Details from DB
 const EventDetails = (props) => {
   const { eventID, inputData, userID } = props;
 
+  // componentDidMount() {
+  //   // console.log("Print id: " + this.props.match.params.id);
+  //   axios
+  //     .get("http://localhost:8082/api/events/" + this.props.match.params.id)
+  //     .then((res) => {
+  //       // console.log("Print-showEventDetails-API-response: " + res.data);
+  //       this.setState({
+  //         event: res.data,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error from ShowEventDetails");
+  //     });
+  // }
+
+
   function toggleBookmark(value,user,event){
-    value ? user.bookmarked_events.push(event) 
-          : user.bookmarked_events = user.bookmarked_events.filter(e => e.id != event)
+    // value ? user.bookmarked_events.push(event) 
+    //       : user.bookmarked_events = user.bookmarked_events.filter(e => e.id != event)
   }
 
   let content = (

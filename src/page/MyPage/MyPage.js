@@ -36,7 +36,7 @@ class MyPage extends React.Component {
   constructor(props) {
     super(props);
     // var { userID } = props; <<<<< TODO
-    var userID = 1;
+    var userID = 0;
     const users = userData;
 
     this.state = {
@@ -246,6 +246,7 @@ class MyPage extends React.Component {
                     <Calendar eventData = {myBookmarkedEvents(this.state.userID)}/>
                   </Card>
                 </Grid>
+
               </Accordion>
             </Grid>
 

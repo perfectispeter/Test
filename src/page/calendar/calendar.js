@@ -20,15 +20,9 @@ export default class Calendar extends Component {
     };
   }
 
-  applyFilter(filtered){
-    //TODO make this apply from CategoryImages
-    this.setState({shownEvents: filtered})
-  }
-
-  setFilters(newFilters){
-    //TODO currently not receiving filters from the Child component
-    // this.setState({filters: newFilters});
-    console.log("newFilters are " + newFilters);
+  filtering(newFilters) {
+    console.log("newFilters: ", newFilters);
+     this.setState({filters: newFilters});
   }
 
   render() {
@@ -39,15 +33,14 @@ export default class Calendar extends Component {
           <Grid
             container
             alignItems="center"
-            alignContent="stretch"
             justifyContent="flex-start"
-            direction="row"
+            direction="column"
             container
             spacing={2}
             xs={12}
             s={12}
-            md={9}
-            lg={9}
+            md={12}
+            lg={12}
           >
             <Grid item>
              <TitleCard titleText="Main Calendar" />
@@ -55,31 +48,34 @@ export default class Calendar extends Component {
           </Grid>
           <Grid
             container
-            spacing={2}
+            spacing={1}
             direction="row"
-            alignItems="stretch"
-            justifyContent="flex-start"
+            alignItems="baseline"
+            justifyContent="center"
             xs={12}
             s={12}
             md={12}
             lg={12}
           >
+          
             <Grid item md={6} lg={6}>
-              <BasicCalendar eventData = {this.state.shownEvents}/>
+            <BasicCalendar 
+                eventData = {this.state.shownEvents}
+                filter = {this.state.filters}
+              />
             </Grid>
-            <Grid item md={3} lg={3}>
-              <h3>
-                Apply category filter: <Switch onChange = {this.applyFilter}/>
-              </h3>
-              <CategoryImages parentCallback={this.setFilters}/>
-            </Grid>
-            <Grid item>
+            <Grid item md={2} lg={2}>
               <a href="/create">
                 <button id="createEventButton" className="btn" size="small">
                   Create an Event
                 </button>
               </a>
             </Grid>
+            <Grid item md={2} lg={2}>
+              <CategoryImages onChange={selectedTags => 
+                  this.filtering(selectedTags)}/>
+            </Grid>
+
           </Grid>
           <br />
           <Footer />
