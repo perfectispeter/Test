@@ -25,10 +25,18 @@ class CreateEvent extends React.Component {
       event_update_date_time: "",
       event_category: "",
       event_link: "",
-      event_active: "",
+      //TODO temporarily set to true
+      event_active: "true",
       event_image_url: "",
       imgDialogOpen: false,
+      selectedFilters: [],
     }
+  }
+
+  filtering(newFilters) {
+     this.setState({selectedFilters: newFilters});
+     //TODO temporarily just takes the first Category
+     this.setState({event_category: newFilters.toString()});
   }
 
   onChange = (e) => {
@@ -51,6 +59,8 @@ class CreateEvent extends React.Component {
       event_image_url: this.state.event_image_url,
     };
 
+    console.log("Submitting these details to backend: ",data);
+
     axios
       .post(process.env.REACT_APP_MY_URL + "api/events", data)
       .then((res) => {
@@ -66,7 +76,8 @@ class CreateEvent extends React.Component {
           event_active: "",
           event_image_url: "",
         });
-        this.props.history.push("/");
+        alert("Event created!");
+        // this.props.history.push("/calendar");
       })
       .catch((err) => {
         console.log("Error in CreateEvent!");
@@ -164,15 +175,16 @@ class CreateEvent extends React.Component {
                   />
                 </div>
                 <div className="form-group">
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="Event Categories"
                     name="event_category"
                     className="form-control"
                     value={this.state.event_category}
                     onChange={this.onChange}
-                  />
-                  <CategoryImages />
+                  /> */}
+                  <CategoryImages onChange={selectedTags =>
+                    this.filtering(selectedTags)}/>
                 </div>
                 <div className="form-group">
                   <input
@@ -185,7 +197,7 @@ class CreateEvent extends React.Component {
                   />
                 </div>
                 <div className="form-group">
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="Event Active"
                     name="event_active"
@@ -193,7 +205,7 @@ class CreateEvent extends React.Component {
                     disabled={true}
                     value="true"
                     onChange={this.onChange}
-                  />
+                  /> */}
                 </div>
                 <div className="form-group">
                   <input
