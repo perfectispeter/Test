@@ -13,12 +13,8 @@ const localizer = momentLocalizer(moment);
 const BasicCalendar = (props) => {
   const { eventData, filter } = props;
 
-  // const { filter } = props; **TODO remove hardcoding the below as a filter **
-  //var filter = ["All Ages", "Sport"];
-
   const [eventID, setEventID] = useState();
   const [eventsArray, setEventsArray] = useState([eventData]);
-  //const [filters, setFilters] = useState([filter]);
 
   const categoryFilter = () => {
     if(filter.length > 0){
@@ -37,7 +33,6 @@ const BasicCalendar = (props) => {
     }
   };
 
-  //TODO remove FILTER button, instead base on Category filters
   const actualCalendar = (
     <>
       <Grid
@@ -51,7 +46,7 @@ const BasicCalendar = (props) => {
         md={12}
         lg={12}
       >
-        <Grid item>
+        <Grid item md={12} lg={12}>
           <Card raised={true}>
             <Calendar
               localizer={localizer}
