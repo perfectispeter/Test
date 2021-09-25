@@ -6,7 +6,7 @@ import CancelButton from "../../components/CreateEventComponents/CancelButton";
 import "../../components/CreateEventComponents/CreateEvent.css";
 import Header from "../../components/header/header";
 import Footer from "../../components/Footer/Footer";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import CategoryImages from "../../components/categoryTags/CategoryImages";
 import TimePickers from "../../components/CreateEventComponents/TimePicker";
 import DatePickers from "../../components/CreateEventComponents/DatePicker";
