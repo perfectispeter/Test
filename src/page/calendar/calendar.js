@@ -9,6 +9,8 @@ import Footer from "../../components/Footer";
 
 import data from "../../asset/eventdata";
 import users from "../../asset/userdata.json";
+import axios from "axios";
+import EventToCalendarConverter from "../../components/calendar/EventToCalendarConverter";
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -16,8 +18,25 @@ export default class Calendar extends Component {
     this.state = {
       shownEvents: data,
       selectable: true,
-      filters: []
+      filters: [],
+      eventsFromBackend: []
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get(process.env.REACT_APP_MY_URL + "api/events")
+      .then((res) => {
+        this.setState({
+          eventsFromBackend: EventToCalendarConverter(res.data),
+        });
+      })
+      .then(
+        console.log("Current events from back end (after .then): ",this.state.eventsFromBackend)
+      )
+      .catch((err) => {
+        console.log("Error from ShowEventList: ", err);
+      });
   }
 
   filtering(newFilters) {
@@ -26,6 +45,16 @@ export default class Calendar extends Component {
   }
 
   render() {
+    const eventList = this.state.eventsFromBackend;
+    console.log("eventlist:",eventList);
+
+    var calendarComponent = 
+       <BasicCalendar 
+      eventData = {eventList}
+      filter = {this.state.filters}
+    />;
+    
+
     return (
       <>
         <div className="mainContainer">
@@ -59,10 +88,9 @@ export default class Calendar extends Component {
           >
           
             <Grid item md={6} lg={6}>
-            <BasicCalendar 
-                eventData = {this.state.shownEvents}
-                filter = {this.state.filters}
-              />
+            {this.state.eventsFromBackend.length > 0 ? 
+              calendarComponent
+              : null}
             </Grid>
             <Grid item md={2} lg={2}>
               <a href="/create">

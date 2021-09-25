@@ -66,11 +66,13 @@ const BasicCalendar = (props) => {
         <Grid item>
           <EventDetails eventID={eventID} inputData={eventData} userID = {0} />
         </Grid>
-        <Grid item>
+        {filter ?
+          <Grid item>
           <h3>
             <button id="filterButton" className="btn" onClick = {categoryFilter}>Apply filters </button>
           </h3>
         </Grid>
+         : null}
       </Grid>
     </>
   );
