@@ -5,6 +5,7 @@ import EnhancedTable from '../../components/EnhancedTable/EnhancedTable';
 import Footer from '../../components/Footer/Footer';
 
 import data from "../../asset/eventdata";
+import users from "../../asset/userdata.json";
 
 class AdminTools extends React.Component{
  
@@ -15,6 +16,7 @@ class AdminTools extends React.Component{
                <div style={{marginTop:'200px'}}>
                    <h1>Admin Tools</h1>
                    <EnhancedTable inputData={data} />
+                   <EnhancedTable inputData={users} tableType="user" />
                </div>
                <Footer></Footer>
 
