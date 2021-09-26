@@ -1,0 +1,10 @@
+.container-box {
+    position: relative;
+    top: 125px;
+    min-height: calc(100vh - 125px);
+    width: 100%;
+  }
+  .notifcation-offset {
+    top: 195px;
+    min-height: calc(100vh - 195px);
+  }

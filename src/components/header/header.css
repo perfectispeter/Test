@@ -79,7 +79,15 @@ li {
   line-height: 50px;
   list-style-type: none;
 }
+.nav-list {
+  list-style-type: none;
+}
 
+.nav-list > li {
+  line-height: 55px;
+  padding: 0 30px;
+  display: inline-block;
+}
 .badge {
   background: var(--mainColor);
   border: 5px solid var(--thirdColor);

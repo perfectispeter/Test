@@ -58,7 +58,7 @@ export default class Header extends Component {
           </div>
         </nav>
         <nav className="navbar">
-          <ul>
+          <ul className="nav-list">
             <li className="item">
               <Link to="/">Home</Link>
             </li>
@@ -72,7 +72,7 @@ export default class Header extends Component {
         </nav>
         {this.state.isHomepage ? <EmergencyBanner
             onClick={this.props.click}
-            content={this.props.notificationTitle}
+            content={this.props.emergencyBannerText}
             isAdmin={this.props.isAdmin}
           /> : null}
           

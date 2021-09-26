@@ -11,6 +11,7 @@ import CategoryImages from "../../components/categoryTags/CategoryImages";
 import TimePickers from "../../components/CreateEventComponents/TimePicker";
 import DatePickers from "../../components/CreateEventComponents/DatePicker";
 import ImgDialog from "../../components/imgDialog/imgdialog";
+import MainContainer from "../../components/MainContainer/MainContainer";
 import axios from "axios";
 
 class CreateEvent extends React.Component {
@@ -106,11 +107,8 @@ class CreateEvent extends React.Component {
   render() {
     return (
       <>
-        <div className="Body1">
-          <div>
-            <Header></Header>
-          </div>
-          <div className="Main">
+            <Header />
+          <MainContainer>
             <h2>Create an Event</h2>
             <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -248,9 +246,7 @@ class CreateEvent extends React.Component {
             <TextArea title="Description"></TextArea>
             <CreateButton></CreateButton>
             <CancelButton></CancelButton> */}
-          </div>
-          <div></div>
-        </div>
+          </MainContainer>
       </>
     );
   }
