@@ -7,6 +7,9 @@ import TestContext from "./page/testContext";
 import Textdialog from "./component/textDialog/textdialog";
 import Imgdialog from "./component/imgDialog/imgdialog";
 import Footer from "./component/Footer";
+import Notifaction from "./component/notifaction/notifaction";
+import MainContainer from "./component/maincontainer/mainContainer";
+import CustomButton from "./component/custombutton/custombutton";
 
 class Home extends React.Component {
   constructor(props) {
@@ -42,105 +45,109 @@ class Home extends React.Component {
   render() {
     return (
       <>
-      <div className="App">
-        <Header
-          click={this.open.bind(this)}
-          notificationTitle={this.state.notificationTitle}
-          isLogin={this.state.isLogin}
-          isAdmin={true}
-        />
-        <div className="mainContainer">
-          <img src={this.state.imgUrl} alt="" className="Picture" />
-          {this.context.userType === "admin" && (
-            <Button
-              variant="outlined"
-              size="small"
-              className="edit"
-              onClick={this.imgUploadOpen}>
-              Edit
-            </Button>
-          )}
-          <div className="description">
-            <p className="descriptionTitle">
-              About the Upper Murray Community Calendar
-            </p>
-            <p className="descriptionContent">
-              {this.state.descriptionContent}
-            </p>
+        <div className="App">
+          <Header
+            isLogin={this.state.isLogin}
+            isAdmin={true}
+            items={[
+              { name: "Home", link: "/", active: true },
+              { name: "calendar", link: "/calendar", active: false },
+              { name: "mypage", link: "/mypage", active: false },
+            ]}
+          />
+          <Notifaction
+            onClick={this.open.bind(this)}
+            content={this.state.notificationTitle}
+          />
+          <MainContainer hasnotifaction>
+            <img src={this.state.imgUrl} alt="" className="Picture" />
             {this.context.userType === "admin" && (
-              <div className="edit">
-                <Button
-                  variant="outlined"
-                  size="small"
-                  className="edit"
-                  onClick={this.descriptionOpen}>
-                  Edit
-                </Button>
-              </div>
+              <Button
+                variant="outlined"
+                size="small"
+                className="edit"
+                onClick={this.imgUploadOpen}>
+                Edit
+              </Button>
             )}
-          </div>
-          <div className="flex flex-center">
-            <Link to="/calendar">
-              <button className="btn">Take me to the calendar</button>
-            </Link>
-          </div>
-          <div className="shortcut">
-            <p>Shortcuts</p>
-            <div className="shortcutContent">
-              <div className="shortcut_pic">
-                <img src={require("./asset/nrc.jpg").default} alt="" />
-                <span>Sports</span>
-              </div>
-              <div className="shortcut_pic">
-                <img src={require("./asset/bushfire.jpg").default} alt="" />
-                <span>Bushfire Recovery</span>
-              </div>
-              <div className="shortcut_pic">
-                <img src={require("./asset/arts.jpg").default} alt="" />
-                <span>Arts</span>
-              </div>
-              <div className="shortcut_pic">
-                <img src={require("./asset/enter.jpg").default} alt="" />
-                <span>Entertainment</span>
+            <div className="description">
+              <p className="descriptionTitle">
+                About the Upper Murray Community Calendar
+              </p>
+              <p className="descriptionContent">
+                {this.state.descriptionContent}
+              </p>
+              {this.context.userType === "admin" && (
+                <div className="edit">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className="edit"
+                    onClick={this.descriptionOpen}>
+                    Edit
+                  </Button>
+                </div>
+              )}
+            </div>
+            <div className="flex flex-center">
+              <Link to="/calendar">
+                <CustomButton btntext="Take me to the calendar"/>
+              </Link>
+            </div>
+            <div className="shortcut">
+              <p>Shortcuts</p>
+              <div className="shortcutContent">
+                <div className="shortcut_pic">
+                  <img src={require("./asset/nrc.jpg").default} alt="" />
+                  <span>Sports</span>
+                </div>
+                <div className="shortcut_pic">
+                  <img src={require("./asset/bushfire.jpg").default} alt="" />
+                  <span>Bushfire Recovery</span>
+                </div>
+                <div className="shortcut_pic">
+                  <img src={require("./asset/arts.jpg").default} alt="" />
+                  <span>Arts</span>
+                </div>
+                <div className="shortcut_pic">
+                  <img src={require("./asset/enter.jpg").default} alt="" />
+                  <span>Entertainment</span>
+                </div>
               </div>
             </div>
-          </div>
 
-         <Footer />
-
+            <Footer />
+          </MainContainer>
+          <Textdialog
+            open={this.state.notificationDialogOpen}
+            close={this.closeNotificationDialog.bind(this)}
+            title="Emergency Banner"
+            content="This will be displayed under the header on each page. To remove the banner, leave the text field empty."
+            inputTitle="Enter text and click Confirm"
+            multiline={false}
+          />
+          <Textdialog
+            open={this.state.descriptionOpen}
+            close={this.closeDescription.bind(this)}
+            title="Description"
+            content="Input Description Text"
+            inputTitle="Description"
+            multiline={true}
+          />
+          <Imgdialog
+            open={this.state.imgDialogOpen}
+            close={this.closeImgUpload.bind(this)}
+            title="Main Page Picture"
+            content="Upload Picture"
+            url={this.state.imgUrl}
+            multiline={true}
+          />
         </div>
-        <Textdialog
-          open={this.state.notificationDialogOpen}
-          close={this.closeNotificationDialog.bind(this)}
-          title="Emergency Banner"
-          content="This will be displayed under the header on each page. To remove the banner, leave the text field empty."
-          inputTitle="Enter text and click Confirm"
-          multiline={false}
-        />
-        <Textdialog
-          open={this.state.descriptionOpen}
-          close={this.closeDescription.bind(this)}
-          title="Description"
-          content="Input Description Text"
-          inputTitle="Description"
-          multiline={true}
-        />
-        <Imgdialog
-          open={this.state.imgDialogOpen}
-          close={this.closeImgUpload.bind(this)}
-          title="Main Page Picture"
-          content="Upload Picture"
-          url={this.state.imgUrl}
-          multiline={true}
-        />
-      </div>
 
-      {/* <div className="bottom">
+        {/* <div className="bottom">
          <Footer />
         </div> */}
-
-
-        </>
+      </>
     );
   }
 

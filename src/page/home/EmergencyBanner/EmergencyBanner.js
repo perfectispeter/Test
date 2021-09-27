@@ -20,42 +20,48 @@ class EmergencyBanner extends Component {
   render() {
     return (
       <div className="container">
-      {this.props.isAdmin ? (<>
-        <div className="icon">
-          <FontAwesomeIcon icon={faBullhorn} />
-        </div>
-        <div className="info" id="info">
-          {this.props.content === "" ? (
-            <span>Emergency Banner is currently turned off. Enable by clicking Edit.</span>
-          ) : (
-            <span>{this.props.content}</span>
-          )}
-        </div>
-        {this.context.userType === "admin" && (
-          <div className="edit">
-            <Button
-              variant="outlined"
-              size="small"
-              className="edit"
-              onClick={this.click}>
-              Edit
-            </Button>
-          </div>
-        )}
-        </>) 
-        : (
-            <> 
-            {this.props.content ==="" ? (<></>) : (
-              <>
-              <div className="icon">
-                <FontAwesomeIcon icon={faBullhorn} />
-              </div>
-              <div className="info" id="info">
+        {this.props.isAdmin ? (
+          <>
+            <div className="icon">
+              <FontAwesomeIcon icon={faBullhorn} />
+            </div>
+            <div className="info" id="info">
+              {this.props.content === "" ? (
+                <span>
+                  Emergency Banner is currently turned off. Enable by clicking
+                  Edit.
+                </span>
+              ) : (
                 <span>{this.props.content}</span>
-              </div> 
-              </>)
-            }
-            </>
+              )}
+            </div>
+            {this.context.userType === "admin" && (
+              <div className="edit">
+                <Button
+                  variant="outlined"
+                  size="small"
+                  className="edit"
+                  onClick={this.click}>
+                  Edit
+                </Button>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {this.props.content === "" ? (
+              <></>
+            ) : (
+              <>
+                <div className="icon">
+                  <FontAwesomeIcon icon={faBullhorn} />
+                </div>
+                <div className="info" id="info">
+                  <span>{this.props.content}</span>
+                </div>
+              </>
+            )}
+          </>
         )}
       </div>
     );

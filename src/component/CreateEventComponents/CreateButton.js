@@ -1,18 +1,21 @@
-import React from 'react';
-import './CreateEvent.css';
+import React from "react";
+import "./CreateEvent.css";
 
-
-class CreateButton extends React.Component{
+class CreateButton extends React.Component {
   state = {
-    count : 0
-  }
+    count: 0,
+  };
 
-  render(){
-    return(
-      
-      <button className="CreateButton" onClick={()=>{           
-    console.log('create clicked')}}>Create</button>
-    )
+  render() {
+    return (
+      <button
+        className="CreateButton"
+        onClick={() => {
+          console.log("create clicked");
+        }}>
+        Create
+      </button>
+    );
   }
 }
 

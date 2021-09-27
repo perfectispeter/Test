@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import "./header.css";
-import EmergencyBanner from "../../page/home/EmergencyBanner/EmergencyBanner";
 import TestContext from "../../page/testContext";
 import { Link } from "react-router-dom";
+import "./header.css";
 
 export default class Header extends Component {
   constructor(props) {
@@ -11,26 +10,35 @@ export default class Header extends Component {
       isLogin: props.isLogin,
       isHomepage: true,
       isAdmin: props.isAdmin,
+      items:
+        typeof this.props.items === "undefined"
+          ? [
+              { name: "Home", link: "/", active: false },
+              { name: "calendar", link: "/calendar", active: false },
+              { name: "mypage", link: "/mypage", active: false },
+            ]
+          : this.props.items,
     };
   }
-  
+
   handleSignOut = () => {
     console.log("CLICKED LOGOUT");
-    this.setState({isLogin: false,});
+    this.setState({ isLogin: false });
   };
 
   handleSignIn = () => {
     console.log("CLICKED LOGIN");
-    this.setState({isLogin: true,});
+    this.setState({ isLogin: true });
   };
-
 
   render() {
     return (
-      <>
+      <div>
         <nav>
           <div className="topHeader">
-            <div className="logo"><a href="/">UMCC</a></div>
+            <div className="logo">
+              <a href="/">UMCC</a>
+            </div>
             <div className="right logo_title">
               Upper Murray Community Calendar
             </div>
@@ -42,40 +50,43 @@ export default class Header extends Component {
                 </>
               ) : (
                 <>
+                  {this.state.isAdmin ? (
+                    <div className="item login_item">
+                      <Link to="/admin-tools">Admin Tools</Link>
+                    </div>
+                  ) : null}
                   <div className="item login_item username">134@test.com</div>
                   <sup className="badge">3</sup>
 
                   {this.state.isLogin ? (
-                    <div className="item login_item" onClick={this.handleSignOut}>Logout</div>
-                   ) : (
-                    <div className="item login_item"><Link to="/login">Log In</Link></div>
-                   )}
-                  
+                    <div
+                      className="item login_item"
+                      onClick={this.handleSignOut}
+                    >
+                      Logout
+                    </div>
+                  ) : (
+                    <div className="item login_item">
+                      <Link to="/login">Log In</Link>
+                    </div>
+                  )}
                 </>
               )}
             </div>
           </div>
         </nav>
         <nav className="navbar">
-          <ul>
-            <li className="item">
-              <Link to="/">Home</Link>
-            </li>
-            <li className="item">
-              <Link to="/calendar">Calendar</Link>
-            </li>
-            <li className="item">
-            <Link to="/mypage">MyPage</Link>
-            </li>
+          <ul className="nav-list">
+            {this.state.items.map((item, index) => {
+              return (
+                <li className={item.active ? "active" : ""} key={item.name}>
+                  <Link to={item.link}>{item.name}</Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
-        {this.state.isHomepage ? <EmergencyBanner
-            onClick={this.props.click}
-            content={this.props.notificationTitle}
-            isAdmin={this.props.isAdmin}
-          /> : <></>}
-          
-      </>
+      </div>
     );
   }
   static contextType = TestContext;
