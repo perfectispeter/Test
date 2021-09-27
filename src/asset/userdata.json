@@ -6,7 +6,7 @@
       "email": "134@test.com",
       "password": "password",
       "display_name": "Sample_User",
-      "bookmarked_events": [1, 4, 7, "6146a6a3689b4bf46d431440"],
+      "bookmarked_events": ["6146a6a3689b4bf46d431440"],
       "public_profile": {
         "contact_email": "134@test.com",
         "contact_phone": "0412345678",

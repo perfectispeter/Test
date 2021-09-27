@@ -161,7 +161,7 @@ class MyPage extends React.Component {
             lg={12}
             xl={12}
           >
-            <TitleCard titleText="MyPage Title" />
+            <TitleCard titleText="MyPage" />
             <Grid container alignItems="stretch" direction="column" xl={6}>
               <Accordion>
                 <AccordionSummary

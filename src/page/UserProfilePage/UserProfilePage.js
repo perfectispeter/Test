@@ -5,7 +5,7 @@ import users from "../../asset/userdata.json";
 import { Link } from "react-router-dom";
 // import "./UserProfilePage.css";
 
-class OrganizationProfile extends React.Component {
+class UserProfilePage extends React.Component {
  
   render() {
     const displayName = window.location.pathname.replace("/user/", "");
@@ -66,4 +66,4 @@ class OrganizationProfile extends React.Component {
   }
 }
 
-export default OrganizationProfile;
+export default UserProfilePage;
