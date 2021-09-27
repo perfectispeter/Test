@@ -14,8 +14,8 @@ class Home extends React.Component {
     this.state = {
       title: null,
       errorMessage: null,
-      notificationDialogOpen: false,
-      notificationTitle: "",
+      emergencyBannerDialogOpen: false,
+      emergencyBannerText: "",
       descriptionOpen: false,
       descriptionContent:
         "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
@@ -27,7 +27,7 @@ class Home extends React.Component {
 
   open = () => {
     this.setState({
-      notificationDialogOpen: true,
+      emergencyBannerDialogOpen: true,
     });
   };
   descriptionOpen = () => {
@@ -52,9 +52,10 @@ class Home extends React.Component {
         <div className="App">
           <Header
             click={this.open.bind(this)}
-            notificationTitle={this.state.notificationTitle}
+            emergencyBannerText={this.state.emergencyBannerText}
             isLogin={this.state.isLogin}
             isAdmin={true}
+            isHomepage={true}
           />
           <div className="mainContainer">
             <img src={this.state.imgUrl} alt="" className="Picture" />
@@ -118,8 +119,8 @@ class Home extends React.Component {
             <Footer />
           </div>
           <Textdialog
-            open={this.state.notificationDialogOpen}
-            close={this.closeNotificationDialog.bind(this)}
+            open={this.state.emergencyBannerDialogOpen}
+            close={this.closeEmergencyBannerDialog.bind(this)}
             title="Emergency Banner"
             content="This will be displayed under the Header on each page. To remove the banner, leave the text field empty."
             inputTitle="Enter text and click Confirm"
@@ -174,15 +175,15 @@ class Home extends React.Component {
       });
     }
   }
-  closeNotificationDialog(value) {
+  closeEmergencyBannerDialog(value) {
     if (value !== "") {
       this.setState({
-        notificationDialogOpen: false,
-        notificationTitle: value,
+        emergencyBannerDialogOpen: false,
+        emergencyBannerText: value,
       });
     } else {
       this.setState({
-        notificationDialogOpen: false,
+        emergencyBannerDialogOpen: false,
       });
     }
   }

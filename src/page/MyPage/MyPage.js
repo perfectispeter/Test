@@ -14,7 +14,7 @@ import Header from "../../components/Header/Header";
 import TitleCard from "../../components/titleCard/titleCard";
 
 import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
-import Calendar from "../../components/Calendar";
+import BasicCalendar from "../../components/calendar";
 import Textdialog from "../../components/textDialog/textdialog";
 import Footer from "../../components/Footer";
 import FormDialog from "../../components/FormDialog/FormDialog";
@@ -22,23 +22,14 @@ import FormDialog from "../../components/FormDialog/FormDialog";
 import data from "../../asset/eventdata";
 import userData from "../../asset/userdata.json";
 
-function myCreatedEvents(user) {
-  const eventArray = data.filter((e) => e.creator && e.creator.includes(user));
-  return eventArray;
-}
-
-function myBookmarkedEvents(user) {
-  const eventArray = data.filter((e) =>
-    userData.users.at(user).bookmarked_events.includes(e.id)
-  );
-  return eventArray;
-}
+import axios from "axios";
+import EventToCalendarConverter from "../../components/calendar/EventToCalendarConverter";
 
 class MyPage extends React.Component {
   constructor(props) {
     super(props);
     // var { userID } = props; <<<<< TODO
-    var userID = 1;
+    var userID = 0;
     const users = userData;
 
     this.state = {
@@ -50,7 +41,26 @@ class MyPage extends React.Component {
       changeDisplayName: false,
       changeEmail: false,
       changePassword: false,
+      eventsFromBackend: []
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get(process.env.REACT_APP_MY_URL + "api/events")
+      .then((res) => {
+        this.setState({
+          eventsFromBackend: EventToCalendarConverter(res.data),
+        });
+        // this.state.eventsFromBackend.push(EventToCalendarConverter(res.data));
+        // console.log("Current events from back end: ",this.state.eventsFromBackend);
+      })
+      .then(
+        console.log("Current events from back end (after .then): ",this.state.eventsFromBackend)
+      )
+      .catch((err) => {
+        console.log("Error from ShowEventList: ", err);
+      });
   }
 
   editDisplayName = () => {
@@ -111,10 +121,33 @@ class MyPage extends React.Component {
   }
 
   render() {
+    const eventList = this.state.eventsFromBackend;
+    console.log("eventlist:",eventList);
+
+    var calendarComponent = 
+    <BasicCalendar 
+        eventData = {allMyEvents(this.state.userID)}
+      />;
+
+    function myCreatedEvents (user) {
+      const eventArray = eventList.filter(e => e.creator && e.creator.includes(user));
+      return eventArray;
+    };
+
+    function myBookmarkedEvents (user) {
+      const eventArray = eventList.filter(e => userData.users.at(user).bookmarked_events.includes(e.id));
+      return eventArray;
+    }
+
+    function allMyEvents (user) {
+      const eventArray = myBookmarkedEvents(user).concat(myCreatedEvents(user));
+      return eventArray;
+    }
+
     return (
       <>
         <div className="header">
-          <Header />
+          <Header isHomepage={false}/>
         </div>
         <div className="mainContainer">
           <Grid
@@ -129,7 +162,7 @@ class MyPage extends React.Component {
             lg={12}
             xl={12}
           >
-            <TitleCard titleText="MyPage Title" />
+            <TitleCard titleText="MyPage" />
             <Grid container alignItems="stretch" direction="column" xl={6}>
               <Accordion>
                 <AccordionSummary
@@ -231,9 +264,9 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable
-                      inputData={myCreatedEvents(this.state.userDisplayName)}
-                    />
+                  {this.state.eventsFromBackend.length > 0 ? 
+                    <EnhancedTable inputData = {myCreatedEvents(this.state.userDisplayName)}/>
+                    : null}
                   </Card>
                 </Grid>
               </Accordion>
@@ -247,18 +280,19 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable
-                      inputData={myBookmarkedEvents(this.state.userID)}
-                    />
+                  {this.state.eventsFromBackend.length > 0 ? 
+                    <EnhancedTable inputData = {myBookmarkedEvents(this.state.userID)}/>
+                    : null}
                   </Card>
                 </Grid>
                 <Grid item>
                   <Card fullWidth={true}>
-                    <Calendar
-                      eventData={myBookmarkedEvents(this.state.userID)}
-                    />
+                    {this.state.eventsFromBackend.length > 0 ? 
+                      calendarComponent
+                      : null}
                   </Card>
                 </Grid>
+
               </Accordion>
             </Grid>
 

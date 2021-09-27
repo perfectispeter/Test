@@ -9,7 +9,7 @@ export default class Header extends Component {
     super(props);
     this.state = {
       isLogin: props.isLogin,
-      isHomepage: true,
+      isHomepage: props.isHomepage,
       isAdmin: props.isAdmin,
     };
   }
@@ -64,7 +64,7 @@ export default class Header extends Component {
           </div>
         </div>
         <nav className="navbar">
-          <ul>
+          <ul className="nav-list">
             <li className="item">
               <Link to="/">Home</Link>
             </li>
@@ -79,7 +79,7 @@ export default class Header extends Component {
         {this.state.isHomepage ? (
           <EmergencyBanner
             onClick={this.props.click}
-            content={this.props.notificationTitle}
+            content={this.props.emergencyBannerText}
             isAdmin={this.props.isAdmin}
           />
         ) : (

@@ -9,6 +9,8 @@ import Footer from "../../components/Footer";
 
 import data from "../../asset/eventdata";
 import users from "../../asset/userdata.json";
+import axios from "axios";
+import EventToCalendarConverter from "../../components/calendar/EventToCalendarConverter";
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -17,67 +19,89 @@ export default class Calendar extends Component {
       shownEvents: data,
       selectable: true,
       filters: [],
+      eventsFromBackend: [],
     };
   }
 
-  applyFilter(filtered) {
-    //TODO make this apply from CategoryImages
-    this.setState({ shownEvents: filtered });
+  componentDidMount() {
+    axios
+      .get(process.env.REACT_APP_MY_URL + "api/events")
+      .then((res) => {
+        this.setState({
+          eventsFromBackend: EventToCalendarConverter(res.data),
+        });
+      })
+      .then(
+        console.log(
+          "Current events from back end (after .then): ",
+          this.state.eventsFromBackend
+        )
+      )
+      .catch((err) => {
+        console.log("Error from ShowEventList: ", err);
+      });
   }
 
-  setFilters(newFilters) {
-    //TODO currently not receiving filters from the Child component
-    // this.setState({filters: newFilters});
-    console.log("newFilters are " + newFilters);
+  filtering(newFilters) {
+    console.log("newFilters: ", newFilters);
+    this.setState({ filters: newFilters });
   }
 
   render() {
+    const eventList = this.state.eventsFromBackend;
+    console.log("eventlist:", eventList);
+
+    var calendarComponent = (
+      <BasicCalendar eventData={eventList} filter={this.state.filters} />
+    );
+
     return (
       <>
         <div className="mainContainer">
-          <Header />
+          <Header isHomepage={false} />
           <Grid
             container
             alignItems="center"
-            alignContent="stretch"
             justifyContent="flex-start"
             direction="column"
             container
             spacing={2}
-            xs={3}
-            s={3}
-            md={6}
+            xs={12}
+            s={12}
+            md={12}
             lg={12}
-            xl={12}
           >
-            <TitleCard titleText="Main Calendar" />
+            <Grid item>
+              <TitleCard titleText="Main Calendar" />
+            </Grid>
           </Grid>
           <Grid
             container
-            spacing={2}
+            spacing={1}
             direction="row"
-            alignItems="center"
-            xs={3}
-            s={3}
-            md={6}
+            alignItems="baseline"
+            justifyContent="center"
+            xs={12}
+            s={12}
+            md={12}
             lg={12}
-            xl={12}
           >
-            <Grid item>
-              <BasicCalendar eventData={this.state.shownEvents} />
+            <Grid item md={6} lg={6}>
+              {this.state.eventsFromBackend.length > 0
+                ? calendarComponent
+                : null}
             </Grid>
-            <Grid item>
-              <h3>
-                Apply category filter: <Switch onChange={this.applyFilter} />
-              </h3>
-              <CategoryImages parentCallback={this.setFilters} />
-            </Grid>
-            <Grid item>
+            <Grid item md={2} lg={2}>
               <a href="/create">
                 <button id="createEventButton" className="btn" size="small">
                   Create an Event
                 </button>
               </a>
+            </Grid>
+            <Grid item md={2} lg={2}>
+              <CategoryImages
+                onChange={(selectedTags) => this.filtering(selectedTags)}
+              />
             </Grid>
           </Grid>
           <br />
