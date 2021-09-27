@@ -1,11 +1,12 @@
 .category-item-img {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 .category-item-text{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
+    align-items: flex-end;
 }
 .category-item-title{
     font-size: x-large;

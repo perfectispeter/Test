@@ -11,15 +11,16 @@ export default function CategoryImages(props) {
   const onTagChange = (e) => {
     const tagId = e.target.getAttribute("id");
     console.log("e.target.checked", e.target.checked, tagId);
-    if (e.target.checked) {
+    if (!e.target.checked) {
       setSelectedTags(selectedTags.filter((tag) => tag !== tagId));
-      console.log(selectedTags);
     } else {
       setSelectedTags([...selectedTags, tagId]);
-      console.log(selectedTags);
     }
-    parentCallback(selectedTags);
   };
+
+  useEffect(() => {
+    onChange(selectedTags)
+  },[selectedTags]);
 
   return (
     <div className="category">
@@ -27,7 +28,7 @@ export default function CategoryImages(props) {
         align="center"
         cellspacing="0"
         cellpadding="2"
-        width="700"
+        width="auto"
         onChange={onTagChange}
       >
         <tbody>
@@ -45,7 +46,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="sport" />
+              <input type="checkbox" id="Sport" />
               &nbsp;<label htmlFor="sport">Sport</label>
             </td>
             <td>&nbsp;&nbsp;</td>
@@ -57,7 +58,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="ssg" />
+              <input type="checkbox" id="Social & Support Groups" />
               &nbsp;<label htmlFor="ssg">Social & Support Groups</label>
             </td>
           </tr>
@@ -70,7 +71,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="art" />
+              <input type="checkbox" id="Art" />
               &nbsp;<label htmlFor="art">Art</label>
             </td>
             <td></td>
@@ -82,7 +83,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="yf" />
+              <input type="checkbox" id="Young Families" />
               &nbsp;<label htmlFor="yf">Young Families</label>
             </td>
           </tr>
@@ -145,7 +146,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="br" />
+              <input type="checkbox" id="Bushfire Recovery" />
               &nbsp;<label htmlFor="br">Bushfire Recovery</label>
             </td>
             <td></td>
@@ -157,7 +158,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="aa" />
+              <input type="checkbox" id="All Ages" />
               &nbsp;<label htmlFor="aa">All Ages</label>
             </td>
           </tr>
@@ -182,7 +183,7 @@ export default function CategoryImages(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="et" />
+              <input type="checkbox" id="Education & Training" />
               &nbsp;<label htmlFor="et">Education & Training</label>
             </td>
           </tr>

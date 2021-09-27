@@ -23,6 +23,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 
 import data from "../../asset/eventdata";
 import EventToTableConverter from "./EventToTableConverter";
+import UserToTableConverter from "./UserToTableConverter";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -50,7 +51,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
+const eventHeadCells = [
   {
     id: "event_name",
     numeric: false,
@@ -80,6 +81,36 @@ const headCells = [
   },
 ];
 
+const userHeadCells = [
+  {
+    id: "user_id",
+    numeric: false,
+    disablePadding: true,
+    label: "User ID",
+  },
+  {
+    id: "user_email",
+    numeric: false,
+    disablePadding: false,
+    label: "Email",
+  },
+  { id: "user_display_name", numeric: false, disablePadding: false, label: "Display Name" },
+  {
+    id: "isAdmin",
+    numeric: false,
+    disablePadding: false,
+    label: "Admin?",
+  },
+  { id: "authorised", numeric: false, disablePadding: false, label: "Authorised?" },
+  { id: "profile_visible", numeric: false, disablePadding: false, label: "Profile visible?" },
+  {
+    id: "events_created",
+    numeric: false,
+    disablePadding: false,
+    label: "Events created by User",
+  },
+];
+
 function EnhancedTableHead(props) {
   const {
     classes,
@@ -89,10 +120,15 @@ function EnhancedTableHead(props) {
     numSelected,
     rowCount,
     onRequestSort,
+    tableType
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+
+  var headCells=[];
+  if(tableType === "user") {headCells = userHeadCells;}
+    else {headCells = eventHeadCells;}
 
   return (
     <TableHead>
@@ -139,6 +175,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
+  tableType: PropTypes.string
 };
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -163,7 +200,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, tableTitle } = props;
 
   return (
     <Toolbar
@@ -187,7 +224,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Events
+          {tableTitle}
         </Typography>
       )}
 
@@ -237,8 +274,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable(props) {
-  const { inputData } = props;
-  const rows = EventToTableConverter(inputData);
+  const { inputData, tableType } = props;
+  var rows = [];
+  var tableTitle = "Events"
+  if(tableType === "user") {rows = UserToTableConverter(inputData); tableTitle = "Users";}
+  else {rows = EventToTableConverter(inputData); }
 
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
@@ -304,7 +344,7 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} tableTitle = {tableTitle} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -320,6 +360,7 @@ export default function EnhancedTable(props) {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              tableType={tableType}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
