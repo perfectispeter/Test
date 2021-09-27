@@ -1,132 +1,138 @@
-import React, { Component } from 'react'
-import { Form, Input,Button } from 'antd';
-import "./Signup.css";
+import React, { useState } from "react";
+import axios from "axios";
+import "./SignUp.css";
+import { API_BASE_URL, ACCESS_TOKEN_NAME } from "../../constants/apiConstants";
+import { withRouter } from "react-router-dom";
 
-const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 8,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 16,
-      },
-    },
-};
+function SignUp(props) {
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    successMessage: null,
+  });
 
-const tailFormItemLayout = {
-    wrapperCol: {
-  
-      xs: {
-        span: 24,
-        offset: 0,
-      },
-      sm: {
-        span: 16,
-        offset: 8,
-      },
-    },
-};
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
 
-export default class Signup extends Component {
-
-    onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
-
-    
-    render() {
-        return (
-            <Form
-                {...formItemLayout}
-                name="register"
-                className="register"
-                onFinish={this.onFinish}
-                scrollToFirstError
-            >
-                <Form.Item
-                    name="email"
-                    label="Email"
-                    rules={[
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your email address!',
-                    },
-                    ]}
-                >
-                    <Input placeholder="Please enter your email address!" />
-                </Form.Item>
-
-                <Form.Item
-                    name="nickname"
-                    label="Display Name"
-                    tooltip="What do you want others to call you?"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Please input a display name!',
-                        whitespace: true,
-                    },
-                    ]}
-                >
-                    <Input placeholder="Please enter a name!"/>
-                </Form.Item>
-
-                <Form.Item
-                    name="password"
-                    label="Password"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password placeholder="Please enter your password!"/>
-                </Form.Item>
-
-                <Form.Item
-                    name="confirm"
-                    label="Confirm Password"
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Please confirm your password!',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(_, value) {
-                        if (!value || getFieldValue('password') === value) {
-                            return Promise.resolve();
-                        }
-
-                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                        },
-                    }),
-                    ]}
-                >
-                    <Input.Password placeholder="Please enter your password again!"/>
-                </Form.Item>
-
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
-                    Register
-                    </Button>
-                </Form.Item>
-            </Form>
-        )
+  const sendDetailsToServer = () => {
+    if (state.email.length && state.password.length) {
+      props.showError(null);
+      const payload = {
+        email: state.email,
+        password: state.password,
+      };
+      axios
+        .post(API_BASE_URL + "/user/signup", payload)
+        .then(function (response) {
+          if (response.status === 200) {
+            setState((prevState) => ({
+              ...prevState,
+              successMessage:
+                "Registration successful. Redirecting to home page..",
+            }));
+            localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
+            redirectToHome();
+            props.showError(null);
+          } else {
+            props.showError("Some error ocurred");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      props.showError("Please enter valid username and password");
     }
+  };
+
+  const redirectToHome = () => {
+    props.updateTitle("Home");
+    props.history.push("/home");
+  };
+
+  const redirectToLogin = () => {
+    props.updateTitle("Login");
+    props.history.push("/login");
+  };
+
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+    if (state.password === state.confirmPassword) {
+      sendDetailsToServer();
+    } else {
+      props.showError("Passwords do not match");
+    }
+  };
+
+  return (
+    <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+      <form>
+        <div className="form-group text-left">
+          <label htmlFor="inputEmail">Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            value={state.email}
+            onChange={handleChange}
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="inputPassword">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            value={state.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="inputPassword">Confirm Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            value={state.confirmPassword}
+            onChange={handleChange}
+          />
+        </div>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleSubmitClick}
+        >
+          Register
+        </button>
+      </form>
+      <div
+        className="alert alert-success mt-2"
+        style={{ display: state.successMessage ? "block" : "none" }}
+        role="alert"
+      >
+        {state.successMessage}
+      </div>
+      <div className="mt-2">
+        <span>Already have an account? </span>
+        <span className="loginText" onClick={() => redirectToLogin()}>
+          Login here
+        </span>
+      </div>
+    </div>
+  );
 }
+
+export default withRouter(SignUp);

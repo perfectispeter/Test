@@ -4,10 +4,10 @@ import TextField from "../../components/CreateEventComponents/TextField";
 import TextArea from "../../components/CreateEventComponents/TextArea";
 import CancelButton from "../../components/CreateEventComponents/CancelButton";
 import "../../components/CreateEventComponents/CreateEvent.css";
-import Header from "../../components/header/header";
+import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import "react-datepicker/dist/react-datepicker.css";
-import CategoryImages from "../../components/categoryTags/CategoryImages";
+import CategoryImages from "../../components/CategoryTags/CategoryImages";
 import TimePickers from "../../components/CreateEventComponents/TimePicker";
 import DatePickers from "../../components/CreateEventComponents/DatePicker";
 
@@ -37,7 +37,7 @@ class CreateEvent extends React.Component {
             <CreateButton></CreateButton>
             <CancelButton></CancelButton>
           </div>
-          <div></div>
+          <Footer />
         </div>
       </>
     );

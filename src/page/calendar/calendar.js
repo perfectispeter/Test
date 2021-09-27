@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react";
-import "./calendar.css";
-import Header from "../../components/header/header";
+import "./Calendar.css";
+import Header from "../../components/Header/Header";
 import TitleCard from "../../components/titleCard";
 import { Grid, Switch } from "@material-ui/core";
-import BasicCalendar from "../../components/calendar";
-import CategoryImages from "../../components/categoryTags/CategoryImages";
+import BasicCalendar from "../../components/Calendar";
+import CategoryImages from "../../components/CategoryTags/CategoryImages";
 import Footer from "../../components/Footer";
 
 import data from "../../asset/eventdata";
@@ -16,16 +16,16 @@ export default class Calendar extends Component {
     this.state = {
       shownEvents: data,
       selectable: true,
-      filters: []
+      filters: [],
     };
   }
 
-  applyFilter(filtered){
+  applyFilter(filtered) {
     //TODO make this apply from CategoryImages
-    this.setState({shownEvents: filtered})
+    this.setState({ shownEvents: filtered });
   }
 
-  setFilters(newFilters){
+  setFilters(newFilters) {
     //TODO currently not receiving filters from the Child component
     // this.setState({filters: newFilters});
     console.log("newFilters are " + newFilters);
@@ -64,13 +64,13 @@ export default class Calendar extends Component {
             xl={12}
           >
             <Grid item>
-              <BasicCalendar eventData = {this.state.shownEvents}/>
+              <BasicCalendar eventData={this.state.shownEvents} />
             </Grid>
             <Grid item>
               <h3>
-                Apply category filter: <Switch onChange = {this.applyFilter}/>
+                Apply category filter: <Switch onChange={this.applyFilter} />
               </h3>
-              <CategoryImages parentCallback={this.setFilters}/>
+              <CategoryImages parentCallback={this.setFilters} />
             </Grid>
             <Grid item>
               <a href="/create">

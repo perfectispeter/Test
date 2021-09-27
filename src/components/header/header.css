@@ -11,7 +11,7 @@
 }
 .topHeader {
   width: 100%;
-  height: 75px;
+  height: 20px;
   padding: 0 15px;
   display: flex;
   justify-content: flex-start;
@@ -23,6 +23,7 @@
   font-weight: bold;
   color: var(--mainColor);
 }
+
 .right {
   margin-left: 2vw;
 }

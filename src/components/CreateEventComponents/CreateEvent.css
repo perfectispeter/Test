@@ -20,14 +20,17 @@
 }
 
 .Body1{
-    background-color: rgb(18, 230, 184);
     width: 100%;
     height: 100%;
-    font: size 16px;;
+    font: size 16px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .Main{
-position:absolute;
+/* position:absolute; */
+padding: 100px;
 top: 200px;
 left: 200px;
 margin-top: 30px;

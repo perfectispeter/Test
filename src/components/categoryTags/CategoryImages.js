@@ -2,7 +2,6 @@ import { TrackChangesOutlined } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import "./Category.css";
 
-
 //TODO make clicking these filters toggle which Events are shown on Calendar
 export default function CategoryImages(props) {
   const { onChange, parentCallback } = props;
@@ -25,8 +24,8 @@ export default function CategoryImages(props) {
     <div className="category">
       <table
         align="center"
-        cellspacing="0"
-        cellpadding="2"
+        cellSpacing="0"
+        cellPadding="2"
         width="700"
         onChange={onTagChange}
       >

@@ -10,11 +10,11 @@ import {
   AccordionSummary,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import Header from "../../components/header/header";
+import Header from "../../components/Header/Header";
 import TitleCard from "../../components/titleCard/titleCard";
 
 import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
-import Calendar from "../../components/calendar";
+import Calendar from "../../components/Calendar";
 import Textdialog from "../../components/textDialog/textdialog";
 import Footer from "../../components/Footer";
 import FormDialog from "../../components/FormDialog/FormDialog";
@@ -22,13 +22,15 @@ import FormDialog from "../../components/FormDialog/FormDialog";
 import data from "../../asset/eventdata";
 import userData from "../../asset/userdata.json";
 
-function myCreatedEvents (user) {
-  const eventArray = data.filter(e => e.creator && e.creator.includes(user));
+function myCreatedEvents(user) {
+  const eventArray = data.filter((e) => e.creator && e.creator.includes(user));
   return eventArray;
-};
+}
 
-function myBookmarkedEvents (user) {
-  const eventArray = data.filter(e => userData.users.at(user).bookmarked_events.includes(e.id));
+function myBookmarkedEvents(user) {
+  const eventArray = data.filter((e) =>
+    userData.users.at(user).bookmarked_events.includes(e.id)
+  );
   return eventArray;
 }
 
@@ -40,15 +42,16 @@ class MyPage extends React.Component {
     const users = userData;
 
     this.state = {
-      userID : userID,
-      userDisplayName: users.users.filter(u => u.id == userID)[0].display_name,
-      userEmail: users.users.filter(u => u.id == userID)[0].email,
-      userPassword: users.users.filter(u => u.id == userID)[0].password,
+      userID: userID,
+      userDisplayName: users.users.filter((u) => u.id === userID)[0]
+        .display_name,
+      userEmail: users.users.filter((u) => u.id === userID)[0].email,
+      userPassword: users.users.filter((u) => u.id === userID)[0].password,
       changeDisplayName: false,
       changeEmail: false,
-      changePassword: false
+      changePassword: false,
     };
-  };
+  }
 
   editDisplayName = () => {
     this.setState({
@@ -205,7 +208,11 @@ class MyPage extends React.Component {
                           </TableCell>
                           <TableCell>
                             <div className="flex flex-center">
-                              <a href={"/user/" + this.state.userDisplayName}><button className="btn">View my Public Profile</button></a>
+                              <a href={"/user/" + this.state.userDisplayName}>
+                                <button className="btn">
+                                  View my Public Profile
+                                </button>
+                              </a>
                             </div>
                           </TableCell>
                         </TableRow>
@@ -224,7 +231,9 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable inputData = {myCreatedEvents(this.state.userDisplayName)}/>
+                    <EnhancedTable
+                      inputData={myCreatedEvents(this.state.userDisplayName)}
+                    />
                   </Card>
                 </Grid>
               </Accordion>
@@ -238,20 +247,23 @@ class MyPage extends React.Component {
                 </AccordionSummary>
                 <Grid item>
                   <Card raised={true}>
-                    <EnhancedTable inputData = {myBookmarkedEvents(this.state.userID)}/>
+                    <EnhancedTable
+                      inputData={myBookmarkedEvents(this.state.userID)}
+                    />
                   </Card>
                 </Grid>
                 <Grid item>
                   <Card fullWidth={true}>
-                    <Calendar eventData = {myBookmarkedEvents(this.state.userID)}/>
+                    <Calendar
+                      eventData={myBookmarkedEvents(this.state.userID)}
+                    />
                   </Card>
                 </Grid>
               </Accordion>
             </Grid>
 
             <Grid item>
-              <a href="/calendar"> Back to calendar</a>
-
+              <a href="/Calendar"> Back to Calendar</a>
             </Grid>
           </Grid>
           <Footer />
@@ -281,7 +293,6 @@ class MyPage extends React.Component {
               inputTitle="Enter text and click Confirm"
               multiline={false}
             />
-
           </div>
         </div>
       </>

@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -18,7 +17,7 @@ const TitleCard = (props) => {
 
   return (
     <div>
-      <img className="image" src={imgUrl} />
+      <img className="image" src={imgUrl} alt="" />
       <h1 className="centered">{titleText}</h1>
     </div>
   );

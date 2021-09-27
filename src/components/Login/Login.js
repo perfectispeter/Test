@@ -1,103 +1,115 @@
-import React, { Component } from 'react'
-import { Form, Input, Button, Alert } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import axios from "axios";
 import "./Login.css";
+import { API_BASE_URL, ACCESS_TOKEN_NAME } from "../../constants/apiConstants";
+import { withRouter } from "react-router-dom";
 
-const tailFormItemLayout = {
-    wrapperCol: {
-      sm: {
-        span: 50,
-        offset: 0,
-      },
-    },
-};
+function LoginForm(props) {
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    successMessage: null,
+  });
 
-export default class Login extends Component {
-    
-    onFinish = (values) => {
-        console.log('Received values of form: ', values);
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+    const payload = {
+      email: state.email,
+      password: state.password,
     };
+    axios
+      .post(API_BASE_URL + "/user/login", payload)
+      .then(function (response) {
+        if (response.status === 200) {
+          setState((prevState) => ({
+            ...prevState,
+            successMessage: "Login successful. Redirecting to home page..",
+          }));
+          localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
+          redirectToHome();
+          props.showError(null);
+        } else if (response.code === 204) {
+          props.showError("Username and password do not match");
+        } else {
+          props.showError("Username does not exists");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-    CheckPassWord = () =>{
-        <Alert
-            name="alert-login"
-            className="alert-login"
-            message="Login Failed"
-            description="invalid email or password."
-            type="error"
-            showIcon
-            closable
-        />
-    }
+  const redirectToHome = () => {
+    props.updateTitle("Home");
+    props.history.push("/home");
+  };
 
-    render() {
-        return (
+  const redirectToRegister = () => {
+    props.history.push("/register");
+    props.updateTitle("Register");
+  };
 
-            <Form
-                layout="vertical"
-                name="normal_login"
-                className="login-form"
-                labelCol={{
-                    span: 8,
-                  }}            
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={this.onFinish}
-            >
-                {/* <Alert
-                    name="alert-login"
-                    className="alert-login"
-                    message="Login Failed"
-                    description="invalid email or password."
-                    type="error"
-                    showIcon
-                    closable
-                /> */}
-
-                <Form.Item
-                    label="Email:"
-                    name="email"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please enter your email address!',
-                        },
-                    ]}
-                >
-
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Please enter your email address!" />
-                </Form.Item>
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Please enter your Password!',
-                    },
-                    ]}
-                >
-                    <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="Please enter your Password!"
-                    />
-                </Form.Item>
-
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.CheckPassWord}>
-                    Log in
-                    </Button>
-                    <a className="login-form-forgot" href="#">
-                    Forgot password
-                    </a>
-                </Form.Item>
-            </Form>
-        )
-    }
+  return (
+    <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+      <form>
+        <div className="form-group text-left">
+          <label htmlFor="inputEmail">Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            value={state.email}
+            onChange={handleChange}
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="inputPassword">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            value={state.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-check"></div>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleSubmitClick}
+        >
+          Submit
+        </button>
+      </form>
+      <div
+        className="alert alert-success mt-2"
+        style={{ display: state.successMessage ? "block" : "none" }}
+        role="alert"
+      >
+        {state.successMessage}
+      </div>
+      <div className="registerMessage">
+        <span>Dont have an account? </span>
+        <span className="loginText" onClick={() => redirectToRegister()}>
+          Register
+        </span>
+      </div>
+    </div>
+  );
 }
+
+export default withRouter(LoginForm);

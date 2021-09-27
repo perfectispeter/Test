@@ -73,7 +73,7 @@ const BasicCalendar = (props) => {
   const history = useHistory();
 
   function showEventDetails(event) {
-    // history.push("/calendar:" + event.id);
+    // history.push("/Calendar:" + event.id);
     console.log("event clicked: " + event.title);
     setEventID(event.id);
   }

@@ -1,6 +1,6 @@
-import "./App.css";
-import React from "react";
-import Header from "./components/header/header";
+import "./Home.css";
+import React, { useState } from "react";
+import Header from "./components/Header/Header";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import TestContext from "./page/testContext";
@@ -12,6 +12,8 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: null,
+      errorMessage: null,
       notificationDialogOpen: false,
       notificationTitle: "",
       descriptionOpen: false,
@@ -39,7 +41,12 @@ class Home extends React.Component {
       imgDialogOpen: true,
     });
   };
+
   render() {
+    function setTitle(title) {
+      this.setState({ title: title });
+    }
+
     return (
       <>
         <div className="App">
@@ -82,8 +89,8 @@ class Home extends React.Component {
               )}
             </div>
             <div className="flex flex-center">
-              <Link to="/calendar">
-                <button className="btn">Take me to the calendar</button>
+              <Link to="/Calendar">
+                <button className="btn">Take me to the Calendar</button>
               </Link>
             </div>
             <div className="shortcut">
@@ -114,7 +121,7 @@ class Home extends React.Component {
             open={this.state.notificationDialogOpen}
             close={this.closeNotificationDialog.bind(this)}
             title="Emergency Banner"
-            content="This will be displayed under the header on each page. To remove the banner, leave the text field empty."
+            content="This will be displayed under the Header on each page. To remove the banner, leave the text field empty."
             inputTitle="Enter text and click Confirm"
             multiline={false}
           />
