@@ -9,7 +9,7 @@ import Calendar from "./page/Calendar/Calendar";
 import Home from "./Home";
 import React from "react";
 import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
-import Mypage from "./page/mypage2/mypage";
+import Mypage from "./page/MyPage2/MyPage2";
 import AddEvent from "./page/addEvent/addEvent";
 import OrganizationProfile from "./page/UserProfilePage/UserProfilePage";
 import { withRouter } from "react-router";
