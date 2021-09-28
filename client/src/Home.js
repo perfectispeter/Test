@@ -7,7 +7,7 @@ import TestContext from "./page/testContext";
 import Textdialog from "./components/TextDialog/TextDialog";
 import ImageDialog from "./components/ImageDialog/ImageDialog";
 import Footer from "./components/Footer/Footer";
-import Notifaction from "./components/Notification/Notification";
+import Notification from "./components/Notification/Notification";
 import MainContainer from "./components/MainContainer/MainContainer";
 import CustomButton from "./components/CustomButton/CustomButton";
 
@@ -15,13 +15,9 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: null,
-      errorMessage: null,
-      emergencyBannerDialogOpen: false,
-      emergencyBannerText: "",
-      descriptionOpen: false,
       notificationDialogOpen: false,
-      notificationDialogText: "",
+      notificationTitle: "",
+      descriptionOpen: false,
       descriptionContent:
         "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
       imgUrl: require("./images/wallhaven-y8e1gl.jpeg").default,
@@ -32,7 +28,7 @@ class Home extends React.Component {
 
   open = () => {
     this.setState({
-      emergencyBannerDialogOpen: true,
+      notificationDialogOpen: true,
     });
   };
 
@@ -42,75 +38,13 @@ class Home extends React.Component {
     });
   };
 
-  notificationDialogOpen = () => {
-    this.setState({
-      notificationDialogOpen: true,
-    });
-  };
-
-  closeNotificationDialog(value) {
-    if (value !== "") {
-      this.setState({
-        notificationDialogOpen: false,
-        notificationDialogText: value,
-      });
-    } else {
-      this.setState({
-        notificationDialogOpen: false,
-      });
-    }
-  }
-
   imgUploadOpen = () => {
     this.setState({
       imgDialogOpen: true,
     });
   };
 
-  closeImgUpload(imgurl) {
-    if (imgurl !== "") {
-      this.setState({
-        imgDialogOpen: false,
-        imgUrl: imgurl,
-      });
-    } else {
-      this.setState({
-        imgDialogOpen: false,
-      });
-    }
-  }
-
-  closeDescription(value) {
-    if (value !== "") {
-      this.setState({
-        descriptionOpen: false,
-        descriptionContent: value,
-      });
-    } else {
-      this.setState({
-        descriptionOpen: false,
-      });
-    }
-  }
-
-  closeEmergencyBannerDialog(value) {
-    if (value !== "") {
-      this.setState({
-        emergencyBannerDialogOpen: false,
-        emergencyBannerText: value,
-      });
-    } else {
-      this.setState({
-        emergencyBannerDialogOpen: false,
-      });
-    }
-  }
-
   render() {
-    function setTitle(title) {
-      this.setState({ title: title });
-    }
-
     return (
       <>
         <div className="App">
@@ -123,7 +57,7 @@ class Home extends React.Component {
               { name: "MyPage", link: "/mypage", active: false },
             ]}
           />
-          <Notifaction
+          <Notification
             onClick={this.open.bind(this)}
             content={this.state.notificationTitle}
           />
@@ -219,6 +153,43 @@ class Home extends React.Component {
         </div> */}
       </>
     );
+  }
+
+  closeImgUpload(imgurl) {
+    if (imgurl !== "") {
+      this.setState({
+        imgDialogOpen: false,
+        imgUrl: imgurl,
+      });
+    } else {
+      this.setState({
+        imgDialogOpen: false,
+      });
+    }
+  }
+  closeDescription(value) {
+    if (value !== "") {
+      this.setState({
+        descriptionOpen: false,
+        descriptionContent: value,
+      });
+    } else {
+      this.setState({
+        descriptionOpen: false,
+      });
+    }
+  }
+  closeNotificationDialog(value) {
+    if (value !== "") {
+      this.setState({
+        notificationDialogOpen: false,
+        notificationTitle: value,
+      });
+    } else {
+      this.setState({
+        notificationDialogOpen: false,
+      });
+    }
   }
   static contextType = TestContext;
 }

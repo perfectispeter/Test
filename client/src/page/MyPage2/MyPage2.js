@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../../components/Header/Header";
-import "./mypage.css";
+import "./MyPage2.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { TextField } from "@material-ui/core";

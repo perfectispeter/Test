@@ -3,9 +3,7 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import EventDetails from "../../page/EventDetails/EventDetails";
 import { Grid, Card, Button } from "@material-ui/core";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
 import { useHistory } from "react-router-dom";
 
 const localizer = momentLocalizer(moment);
@@ -17,7 +15,7 @@ const BasicCalendar = (props) => {
   const [eventsArray, setEventsArray] = useState([eventData]);
 
   const categoryFilter = () => {
-    if(filter.length > 0){
+    if (filter.length > 0) {
       var newEventsArray = [];
       eventData.map((event) => {
         if (event.categories) {
@@ -27,8 +25,7 @@ const BasicCalendar = (props) => {
       });
       setEventsArray([newEventsArray]);
       console.log("events after filtering: ", newEventsArray);
-    }
-    else{
+    } else {
       setEventsArray([eventData]);
     }
   };
@@ -59,15 +56,21 @@ const BasicCalendar = (props) => {
           </Card>
         </Grid>
         <Grid item>
-          <EventDetails eventID={eventID} inputData={eventData} userID = {0} />
+          <EventDetails eventID={eventID} inputData={eventData} userID={0} />
         </Grid>
-        {filter ?
+        {filter ? (
           <Grid item>
-          <h3>
-            <button id="filterButton" className="btn" onClick = {categoryFilter}>Apply filters </button>
-          </h3>
-        </Grid>
-         : null}
+            <h3>
+              <button
+                id="filterButton"
+                className="btn"
+                onClick={categoryFilter}
+              >
+                Apply filters{" "}
+              </button>
+            </h3>
+          </Grid>
+        ) : null}
       </Grid>
     </>
   );
@@ -75,7 +78,7 @@ const BasicCalendar = (props) => {
   const history = useHistory();
 
   function showEventDetails(event) {
-    // history.push("/Calendar:" + event.id);
+    // history.push("/calendar:" + event.id);
     console.log("event clicked: " + event.title);
     setEventID(event.id);
   }
