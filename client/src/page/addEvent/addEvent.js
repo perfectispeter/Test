@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios"
 import Header from "../../components/Header/Header";
 import MainContainer from "../../components/MainContainer/MainContainer";
 import ImageTitle from "../../components/ImageTitle/ImageTitle";
@@ -24,11 +25,14 @@ class AddEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: Date.now(),
-      endDate: Date.now(),
-      startTime: Date.now(),
-      endTime: Date.now(),
-      selectedCategories: [],
+      event_title: '',
+      event_venue: '',
+      event_description: '',
+      event_start_date: Date.now(),
+      event_end_date: Date.now(),
+      event_start_time: Date.now(),
+      event_end_time: Date.now(),
+      event_category: [],
       categories: [
         {
           key: 0,
@@ -103,20 +107,20 @@ class AddEvent extends Component {
 
   startDateChange(date) {
     this.setState({
-      startDate: date,
+      event_start_date: date,
     });
   }
 
   endDateChange(date) {
     this.setState({
-      endDate: date,
+      event_end_date: date,
     });
   }
 
   checkChange(category) {
     if (category.checked) {
       this.setState({
-        selectedCategories: this.state.selectedCategories.filter(
+        event_category: this.state.event_category.filter(
           (item) => item.key !== category.key
         ),
         categories: this.state.categories.map((item) => {
@@ -129,8 +133,8 @@ class AddEvent extends Component {
       });
     } else {
       this.setState({
-        selectedCategories: [
-          ...this.state.selectedCategories,
+        event_category: [
+          ...this.state.event_category,
           {
             key: category.key,
             label: category.label,
@@ -143,13 +147,14 @@ class AddEvent extends Component {
           return item;
         }),
       });
+      console.log(this.state.event_category);
     }
   }
 
   handleDelete(category) {
-    console.log(this.state.selectedCategories);
+    console.log(this.state.event_category);
     this.setState({
-      selectedCategories: this.state.selectedCategories.filter(
+      event_category: this.state.event_category.filter(
         (item) => item.key !== category.key
       ),
       categories: this.state.categories.map((item) => {
@@ -163,16 +168,57 @@ class AddEvent extends Component {
 
   startTimeChange(date) {
     this.setState({
-      startTime: date,
+      event_start_time: date,
     });
   }
 
   endTimeChange(date) {
     console.log(typeof date);
     this.setState({
-      endTime: date,
+      event_end_time: date,
     });
   }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = (e) => {
+    console.log('hahah');
+    e.preventDefault();
+
+    const data = {
+      event_title: this.state.event_title,
+      event_venue: this.state.event_venue,
+      event_description: this.state.event_description,
+      event_start_date: this.state.event_start_date,
+      event_end_date: this.state.event_end_date,
+      event_start_time: this.state.event_start_time,
+      event_end_time: this.state.event_end_time,
+      event_category: ["sport", "art"],
+
+    };
+
+    axios
+      .post("http://localhost:8082/events", data)
+      .then((res) => {
+        this.setState({
+          event_title: '',
+          event_venue: '',
+          event_description: '',
+          event_start_date: Date.now(),
+          event_end_date: Date.now(),
+          event_start_time: Date.now(),
+          event_end_time: Date.now(),
+          event_category: [],
+        });
+        this.props.history.push("/");
+      })
+      .catch((err) => {
+        console.log("Error in CreateEvent!");
+      });
+  }
+
   render() {
     return (
       <>
@@ -185,17 +231,33 @@ class AddEvent extends Component {
         />
         <MainContainer>
           <ImageTitle title="Add Event" />
-          <div className="inputForm">
-            <TextField label="Event Title" variant="outlined" />
-            <TextField label="Venue" variant="outlined" />
-            <TextField
-              label="Description"
-              multiline
-              variant="outlined"
-              minRows={4}
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              {/* <KeyboardDatePicker
+          <form onSubmit={this.onSubmit}>
+            <div className="inputForm">
+              <TextField
+                label="Event Title"
+                variant="outlined"
+                name="event_title"
+                value={this.state.event_title}
+                onChange={this.onChange}
+              />
+              <TextField
+                label="Venue"
+                variant="outlined"
+                name="event_venue"
+                value={this.state.event_venue}
+                onChange={this.onChange}
+              />
+              <TextField
+                label="Description"
+                multiline
+                variant="outlined"
+                minRows={4}
+                name="event_description"
+                value={this.state.event_description}
+                onChange={this.onChange}
+              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                {/* <KeyboardDatePicker
                 disableToolbar
                 variant="inline"
                 format="MM/dd/yyyy"
@@ -208,125 +270,126 @@ class AddEvent extends Component {
                   "aria-label": "change date",
                 }}
               /> */}
-              <div
+                <div
+                  style={{
+                    display: "inline-flex",
+                    margin: "10px 0",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <DatePicker
+                    style={{ width: "45%", margin: "0,auto,0,0" }}
+                    format="MM/dd/yyyy"
+                    label="Start Date"
+                    inputVariant="outlined"
+                    value={this.state.event_start_date}
+                    onChange={this.startDateChange.bind(this)}
+                  />
+                  <DatePicker
+                    style={{ width: "50%" }}
+                    format="MM/dd/yyyy"
+                    label="End Date"
+                    inputVariant="outlined"
+                    value={this.state.event_end_date}
+                    onChange={this.endDateChange.bind(this)}
+                  />
+                </div>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    margin: "10px 0",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <TimePicker
+                    style={{ width: "45%" }}
+                    label="Start Time"
+                    inputVariant="outlined"
+                    value={this.state.event_start_time}
+                    onChange={this.startTimeChange.bind(this)}
+                  />
+                  <TimePicker
+                    style={{ width: "50%" }}
+                    label="End Time"
+                    inputVariant="outlined"
+                    value={this.state.event_end_time}
+                    onChange={this.endTimeChange.bind(this)}
+                  />
+                </div>
+              </MuiPickersUtilsProvider>
+              <Paper
                 style={{
-                  display: "inline-flex",
-                  margin: "10px 0",
-                  justifyContent: "space-between",
+                  padding: "30px",
+                  minHeight: "120px",
+                  marginTop: "30px",
+                  display: "flex",
+                  flexWrap: "wrap",
                 }}
+                elevation={3}
               >
-                <DatePicker
-                  style={{ width: "45%", margin: "0,auto,0,0" }}
-                  format="MM/dd/yyyy"
-                  label="Start Date"
-                  inputVariant="outlined"
-                  value={this.state.startDate}
-                  onChange={this.startDateChange.bind(this)}
-                />
-                <DatePicker
-                  style={{ width: "50%" }}
-                  format="MM/dd/yyyy"
-                  label="End Date"
-                  inputVariant="outlined"
-                  value={this.state.endDate}
-                  onChange={this.endDateChange.bind(this)}
-                />
-              </div>
-              <div
-                style={{
-                  display: "inline-flex",
-                  margin: "10px 0",
-                  justifyContent: "space-between",
-                }}
-              >
-                <TimePicker
-                  style={{ width: "45%" }}
-                  label="Start Time"
-                  inputVariant="outlined"
-                  value={this.state.startTime}
-                  onChange={this.startTimeChange.bind(this)}
-                />
-                <TimePicker
-                  style={{ width: "50%" }}
-                  label="End Time"
-                  inputVariant="outlined"
-                  value={this.state.endTime}
-                  onChange={this.endTimeChange.bind(this)}
-                />
-              </div>
-            </MuiPickersUtilsProvider>
-            <Paper
-              style={{
-                padding: "30px",
-                minHeight: "120px",
-                marginTop: "30px",
-                display: "flex",
-                flexWrap: "wrap",
-              }}
-              elevation={3}
-            >
-              {this.state.selectedCategories.length === 0 ? (
-                <>Choice Categories</>
-              ) : (
-                this.state.selectedCategories.map((category) => {
+                {this.state.event_category.length === 0 ? (
+                  <>Choice Categories</>
+                ) : (
+                  this.state.event_category.map((category) => {
+                    return (
+                      <Grow in={true}>
+                        <Chip
+                          style={{ margin: "10px" }}
+                          key={category.key}
+                          icon={<TagFacesIcon />}
+                          label={category.label}
+                          onDelete={this.handleDelete.bind(this, category)}
+                        />
+                      </Grow>
+                    );
+                  })
+                )}
+              </Paper>
+              <div className="categoriesBox">
+                {this.state.categories.map((category) => {
                   return (
-                    <Grow in={true}>
-                      <Chip
-                        style={{ margin: "10px" }}
-                        key={category.key}
-                        icon={<TagFacesIcon />}
-                        label={category.label}
-                        onDelete={this.handleDelete.bind(this, category)}
-                      />
-                    </Grow>
+                    <div
+                      className={category.checked ? "checkedBox" : "uncheckedBox"}
+                      key={category.key}
+                    >
+                      <Grow in={true}>
+                        <FormControlLabel
+                          className="categoryCheck"
+                          control={
+                            <>
+                              <Avatar
+                                alt={category.label}
+                                src={category.avatar}
+                                style={{ width: "80px", height: "80px" }}
+                              />
+                              <Checkbox
+                                checked={category.checked}
+                                onChange={this.checkChange.bind(this, category)}
+                                name="checkedB"
+                                color="primary"
+                              />
+                            </>
+                          }
+                          label={category.label}
+                        />
+                      </Grow>
+                    </div>
                   );
-                })
-              )}
-            </Paper>
-            <div className="categoriesBox">
-              {this.state.categories.map((category) => {
-                return (
-                  <div
-                    className={category.checked ? "checkedBox" : "uncheckedBox"}
-                    key={category.key}
-                  >
-                    <Grow in={true}>
-                      <FormControlLabel
-                        className="categoryCheck"
-                        control={
-                          <>
-                            <Avatar
-                              alt={category.label}
-                              src={category.avatar}
-                              style={{ width: "80px", height: "80px" }}
-                            />
-                            <Checkbox
-                              checked={category.checked}
-                              onChange={this.checkChange.bind(this, category)}
-                              name="checkedB"
-                              color="primary"
-                            />
-                          </>
-                        }
-                        label={category.label}
-                      />
-                    </Grow>
-                  </div>
-                );
-              })}
+                })}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-evenly",
+                  margin: "0 0 50px 0",
+                }}
+              >
+                <CustomButton type="submit" btntext="Add" />
+                <CustomButton btntext="Cancel" />
+              </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                margin: "0 0 50px 0",
-              }}
-            >
-              <CustomButton btntext="Add" />
-              <CustomButton btntext="Cancel" />
-            </div>
-          </div>
+          </form>
         </MainContainer>
       </>
     );

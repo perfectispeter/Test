@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://zhaopeter:Peter30012@expenses.asocd.mongodb.net/Expenses?retryWrites=true&w=majority"
+}
