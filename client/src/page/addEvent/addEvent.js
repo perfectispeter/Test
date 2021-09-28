@@ -195,7 +195,7 @@ class AddEvent extends Component {
       event_end_date: this.state.event_end_date,
       event_start_time: this.state.event_start_time,
       event_end_time: this.state.event_end_time,
-      event_category: ["sport", "art"],
+      event_category: this.state.event_category,
 
     };
 
