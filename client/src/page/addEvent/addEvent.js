@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios"
+import axios from "axios";
 import Header from "../../components/Header/Header";
 import MainContainer from "../../components/MainContainer/MainContainer";
 import ImageTitle from "../../components/ImageTitle/ImageTitle";
@@ -18,16 +18,16 @@ import Chip from "@material-ui/core/Chip";
 import TagFacesIcon from "@material-ui/icons/TagFaces";
 import Grow from "@material-ui/core/Grow";
 
-import "./addEvent.css";
+import "./AddEvent.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 
 class AddEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      event_title: '',
-      event_venue: '',
-      event_description: '',
+      event_title: "",
+      event_venue: "",
+      event_description: "",
       event_start_date: Date.now(),
       event_end_date: Date.now(),
       event_start_time: Date.now(),
@@ -184,7 +184,7 @@ class AddEvent extends Component {
   };
 
   onSubmit = (e) => {
-    console.log('hahah');
+    console.log("hahah");
     e.preventDefault();
 
     const data = {
@@ -196,16 +196,15 @@ class AddEvent extends Component {
       event_start_time: this.state.event_start_time,
       event_end_time: this.state.event_end_time,
       event_category: this.state.event_category,
-
     };
 
     axios
       .post("http://localhost:8082/events", data)
       .then((res) => {
         this.setState({
-          event_title: '',
-          event_venue: '',
-          event_description: '',
+          event_title: "",
+          event_venue: "",
+          event_description: "",
           event_start_date: Date.now(),
           event_end_date: Date.now(),
           event_start_time: Date.now(),
@@ -217,7 +216,7 @@ class AddEvent extends Component {
       .catch((err) => {
         console.log("Error in CreateEvent!");
       });
-  }
+  };
 
   render() {
     return (
@@ -349,7 +348,9 @@ class AddEvent extends Component {
                 {this.state.categories.map((category) => {
                   return (
                     <div
-                      className={category.checked ? "checkedBox" : "uncheckedBox"}
+                      className={
+                        category.checked ? "checkedBox" : "uncheckedBox"
+                      }
                       key={category.key}
                     >
                       <Grow in={true}>

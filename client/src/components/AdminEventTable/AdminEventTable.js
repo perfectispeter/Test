@@ -24,6 +24,7 @@ class AdminEventTable extends Component {
       tables: this.props.datas,
     };
   }
+
   setPage(newPage) {
     this.setState({
       page: newPage,
@@ -35,6 +36,7 @@ class AdminEventTable extends Component {
       rowsPerPage: newPage,
     });
   }
+
   handleChangePage(event, newPage) {
     this.setPage(newPage);
   }
@@ -43,12 +45,14 @@ class AdminEventTable extends Component {
     this.setRowsPerPage(event.target.value);
     this.setPage(0);
   }
+
   setOrder(item) {
     this.setState({
       order: this.state.order === "asc" ? "desc" : "asc",
       orderBy: item,
     });
   }
+
   rowActiveChange(row) {
     let datas = this.state.tables;
     datas = datas.map((item) => {
@@ -61,6 +65,7 @@ class AdminEventTable extends Component {
       tables: datas,
     });
   }
+
   render() {
     return (
       <>

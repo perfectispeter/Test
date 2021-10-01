@@ -1,96 +1,66 @@
-import React from "react";
-import {
-  Grid,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  Accordion,
-  AccordionSummary,
-} from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
-
+import React, { Component } from "react";
 import Header from "../../components/Header/Header";
-import TitleCard from "../../components/TitleCard/TitleCard";
-import SortableTable from "../../components/SortableTable";
+import "./MyPage.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import CustomButton from "../../components/CustomButton/CustomButton";
+import { TextField } from "@material-ui/core";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import CustomTable from "../../components/CustomTable/CustomTable";
+import ImageTitle from "../../components/ImageTitle/ImageTitle";
+import MainContainer from "../../components/MainContainer/MainContainer";
 
-import Calendar from "../../components/calendar";
-import Textdialog from "../../components/textDialog/textdialog";
-import Footer from "../../components/Footer";
-import MainContainer from "../../components/maincontainer/mainContainer";
-
-class MyPage extends React.Component {
+export default class Mypage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userDisplayName: "Sample Name",
-      userEmail: "134@test.com",
-      userPassword: "*********",
-      changeDisplayName: false,
-      changeEmail: false,
-      changePassword: false,
-    };
-  }
-
-  editDisplayName = () => {
-    this.setState({
-      changeDisplayName: true,
-    });
-  };
-
-  editEmail = () => {
-    this.setState({
-      changeEmail: true,
-    });
-  };
-
-  editPassword = () => {
-    this.setState({
-      changePassword: true,
-    });
-  };
-
-  closeDisplayNameDialog(value) {
-    if (value !== "") {
-      this.setState({
-        changeDisplayName: false,
-        userDisplayName: value,
-      });
-    } else {
-      this.setState({
-        changeDisplayName: false,
-      });
-    }
-  }
-
-  closeEmailDialog(value) {
-    if (value !== "") {
-      this.setState({
-        changeEmail: false,
-        userEmail: value,
-      });
-    } else {
-      this.setState({
-        changeEmail: false,
-      });
-    }
-  }
-
-  closePasswordDialog(value) {
-    if (value !== "") {
-      this.setState({
-        changePassword: false,
-        userPassword: value,
-      });
-    } else {
-      this.setState({
-        changePassword: false,
-      });
-    }
+    this.state = {};
   }
 
   render() {
+    const localizer = momentLocalizer(moment);
+    const resourceMap = [
+      { resourceId: 1, resourceTitle: "Board room" },
+      { resourceId: 2, resourceTitle: "Training room" },
+      { resourceId: 3, resourceTitle: "Meeting room 1" },
+      { resourceId: 4, resourceTitle: "Meeting room 2" },
+    ];
+    const myEventsList = [
+      {
+        id: 0,
+        title: "All Day Event very long title",
+        allDay: true,
+        start: new Date(2021, 8, 7),
+        end: new Date(2021, 8, 12),
+        resourceId: 4,
+      },
+      {
+        id: 1,
+        title: "Long Event",
+        start: new Date(2021, 8, 9),
+        end: new Date(2021, 8, 10),
+        resourceId: 1,
+      },
+      {
+        id: 2,
+        title: "Long Event",
+        start: new Date(2021, 8, 9),
+        end: new Date(2021, 8, 10),
+        resourceId: 2,
+      },
+      {
+        id: 3,
+        title: "Long Event",
+        start: new Date(2021, 8, 9),
+        end: new Date(2021, 8, 10),
+        resourceId: 3,
+      },
+      {
+        id: 4,
+        title: "Long Event",
+        start: new Date(2021, 8, 9),
+        end: new Date(2021, 8, 10),
+      },
+    ];
     return (
       <>
         <Header
@@ -101,177 +71,147 @@ class MyPage extends React.Component {
           ]}
         />
         <MainContainer>
-          <Grid
-            alignItems="center"
-            justifyContent="flex-start"
-            direction="column"
-            container
-            spacing={2}
-            xs={3}
-            s={3}
-            md={6}
-            lg={12}
-            xl={12}
-          >
-            <TitleCard titleText="MyPage Title" />
-            <Grid container alignItems="stretch" direction="column" xl={6}>
-              <Accordion>
-                <AccordionSummary
-                  aria-controls="user-details-content"
-                  id="user-details-header"
-                  expandIcon={<ExpandMore />}
-                >
-                  <h2>My Details</h2>
-                </AccordionSummary>
-                <Grid container alignItems="center" direction="column">
-                  <Grid item>
-                    <Card fullWidth={true}>
-                      <table>
-                        <tr>
-                          <td>
-                            <h2>Name: </h2>{" "}
-                          </td>
-                          <td>&nbsp;</td>
-                          <td>{this.state.userDisplayName}</td>
-                          <td>
-                            <button
-                              className="btn"
-                              size="small"
-                              onClick={this.editDisplayName}
-                            >
-                              Change
-                            </button>{" "}
-                          </td>
-                        </tr>
-                        <hr />
-                        <tr>
-                          <td>
-                            <h2>Email: </h2>
-                          </td>
-                          <td>&nbsp;</td>
-                          <td>{this.state.userEmail}</td>
-                          <td>
-                            <button
-                              className="btn"
-                              size="small"
-                              onClick={this.editEmail}
-                            >
-                              Change
-                            </button>{" "}
-                          </td>
-                        </tr>
-                        <hr />
-                        <tr>
-                          <td>
-                            <h2>Password: </h2>
-                          </td>
-                          <td>&nbsp;</td>
-                          <td>{this.state.userPassword}</td>
-                          <td>
-                            <button
-                              className="btn"
-                              size="small"
-                              onClick={this.editPassword}
-                            >
-                              Change
-                            </button>{" "}
-                          </td>
-                        </tr>
-                        <hr />
-                      </table>
-                    </Card>
-                  </Grid>
-                  <Grid item>
-                    <Table>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell>
-                            <div className="flex flex-center">
-                              <button className="btn">Edit my Profile</button>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex flex-center">
-                              <button className="btn">View my Profile</button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </Grid>
-                </Grid>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  aria-controls="user-events-content"
-                  id="user-events-header"
-                  expandIcon={<ExpandMore />}
-                >
-                  <h2>Events I've Created</h2>
-                </AccordionSummary>
-                <Grid item>
-                  <Card raised={true}>
-                    <SortableTable sortableTableTitle="" />
-                  </Card>
-                </Grid>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  aria-controls="user-bookmarked-content"
-                  id="user-bookmarked-header"
-                  expandIcon={<ExpandMore />}
-                >
-                  <h2>Events I've Bookmarked</h2>
-                </AccordionSummary>
-                <Grid item>
-                  <Card raised={true}>
-                    <SortableTable sortableTableTitle="" />
-                  </Card>
-                </Grid>
-                <Grid item>
-                  <Card fullWidth={true}>
-                    <Calendar />
-                  </Card>
-                </Grid>
-              </Accordion>
-            </Grid>
-
-            <Grid item>
-              <a href="/calendar"> Back to calendar</a>
-            </Grid>
-          </Grid>
-          <Footer />
-
-          <div name="dialog-boxes">
-            <Textdialog
-              open={this.state.changeDisplayName}
-              close={this.closeDisplayNameDialog.bind(this)}
-              title="Change Display Name"
-              content="This name will be visible to other users."
-              inputTitle="Enter text and click Confirm"
-              multiline={false}
-            />
-            <Textdialog
-              open={this.state.changeEmail}
-              close={this.closeEmailDialog.bind(this)}
-              title="Change Email"
-              content="This email address will not be visible to other users."
-              inputTitle="Enter text and click Confirm"
-              multiline={false}
-            />
-            <Textdialog
-              open={this.state.changePassword}
-              close={this.closePasswordDialog.bind(this)}
-              title="Change Password"
-              content="This can be changed at any time."
-              inputTitle="Enter text and click Confirm"
-              multiline={false}
-            />
+          <ImageTitle title="My Page" />
+          <div className="profile">
+            <div className="input-container">
+              <TextField label="Name" fullWidth />
+              <CustomButton size="sm" btntext="change" />
+            </div>
+            <div className="input-container">
+              <TextField label="Email" type="email" fullWidth />
+              <CustomButton size="sm" btntext="change" />
+            </div>
+            <div className="input-container">
+              <TextField label="Password" type="password" fullWidth />
+              <CustomButton size="sm" btntext="change" />
+            </div>
+            <div className="action-group">
+              <CustomButton
+                btntext="Edit my Profile"
+                onClick={this.click.bind(this)}
+              />
+              <CustomButton
+                btntext="View my Profile"
+                onClick={this.click.bind(this)}
+              />
+            </div>
+          </div>
+          <div className="eventContainer">
+            <div>
+              <h1>Events I've Created</h1>
+              <CustomTable
+                pageOptions={[2, 5, 6]}
+                rowsPerPage={2}
+                order="asc"
+                orderBy="Event Name"
+                tableHead={[
+                  "Event Name",
+                  "start date",
+                  "end date",
+                  "category",
+                  "location",
+                ]}
+                data={[
+                  {
+                    "Event Name": "event1",
+                    "start date": "03/09/2021",
+                    "end date": "04/09/2021",
+                    category: "meeting",
+                    location: "test location1",
+                  },
+                  {
+                    "Event Name": "event2",
+                    "start date": "04/09/2021",
+                    "end date": "05/09/2021",
+                    category: "meeting2",
+                    location: "test location2",
+                  },
+                  {
+                    "Event Name": "test event3",
+                    "start date": "05/09/2021",
+                    "end date": "06/09/2021",
+                    category: "meeting3",
+                    location: "test location3",
+                  },
+                  {
+                    "Event Name": "test event4",
+                    "start date": "06/09/2021",
+                    "end date": "07/09/2021",
+                    category: "meeting4",
+                    location: "test location4",
+                  },
+                ]}
+              />
+            </div>
+            <div style={{ margin: "30px 0" }}>
+              <h1>Events I've Bookmarked</h1>
+              <CustomTable
+                pageOptions={[3, 5, 6]}
+                rowsPerPage={3}
+                order="asc"
+                orderBy="Event Name"
+                tableHead={[
+                  "Event Name",
+                  "start date",
+                  "end date",
+                  "category",
+                  "location",
+                ]}
+                data={[
+                  {
+                    "Event Name": "test event1",
+                    "start date": "03/09/2021",
+                    "end date": "04/09/2021",
+                    category: "meeting",
+                    location: "test location1",
+                  },
+                  {
+                    "Event Name": "test event2",
+                    "start date": "04/09/2021",
+                    "end date": "05/09/2021",
+                    category: "meeting2",
+                    location: "test location2",
+                  },
+                  {
+                    "Event Name": "test event3",
+                    "start date": "05/09/2021",
+                    "end date": "06/09/2021",
+                    category: "meeting3",
+                    location: "test location3",
+                  },
+                  {
+                    "Event Name": "test event4",
+                    "start date": "06/09/2021",
+                    "end date": "07/09/2021",
+                    category: "meeting4",
+                    location: "test location4",
+                  },
+                ]}
+              />
+            </div>
+            <div style={{ height: "500px", margin: "50px 0" }}>
+              <Calendar
+                resources={resourceMap}
+                selectable={true}
+                popup={true}
+                defaultView="month"
+                localizer={localizer}
+                events={myEventsList}
+                startAccessor="start"
+                endAccessor="end"
+                defaultDate={new Date(Date.now())}
+                onSelecting={this.RangeChange}
+              />
+            </div>
           </div>
         </MainContainer>
       </>
     );
   }
+  click() {
+    this.props.history.push("/profile");
+  }
+  RangeChange(dates) {
+    console.log(dates);
+  }
 }
-
-export default MyPage;
