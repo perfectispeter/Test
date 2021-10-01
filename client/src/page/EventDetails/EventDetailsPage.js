@@ -55,6 +55,7 @@ export default class EventDetailsPage extends Component {
               <p>Creator: {thisEvent.creator}</p>
               <p>Start: {thisEvent.start}</p>
               <p>End: {thisEvent.end}</p>
+              <p>Description: {thisEvent.desc}</p>
           </div>
 
         </MainContainer>
