@@ -9,11 +9,43 @@ import moment from "moment";
 import CustomTable from "../../components/CustomTable/CustomTable";
 import ImageTitle from "../../components/ImageTitle/ImageTitle";
 import MainContainer from "../../components/MainContainer/MainContainer";
+import EnhancedTable from "../../components/EnhancedTable/EnhancedTable";
+import BasicCalendar from "../../components/Calendar/Calendar";
+import axios from "axios";
+import EventToCalendarConverter from "../../components/Calendar/EventToCalendarConverter";
+
+//TODO TEMPORARILY IMPORTING HARDCODED USERS
+import userData from "../../asset/userdata.json";
 
 export default class Mypage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      eventsFromBackend: [],
+      //TODO TEMPORARILY HARDCODING USERID TO 0, WILL PULL FROM CURRENT LOGIN STATE
+      userID: 0,
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get(process.env.REACT_APP_MY_URL + "api/events")
+      .then((res) => {
+        this.setState({
+          eventsFromBackend: EventToCalendarConverter(res.data),
+        });
+        // this.state.eventsFromBackend.push(EventToCalendarConverter(res.data));
+        // console.log("Current events from back end: ",this.state.eventsFromBackend);
+      })
+      .then(
+        console.log(
+          "Current events from back end (after .then): ",
+          this.state.eventsFromBackend
+        )
+      )
+      .catch((err) => {
+        console.log("Error from ShowEventList: ", err);
+      });
   }
 
   render() {
@@ -61,6 +93,32 @@ export default class Mypage extends Component {
         end: new Date(2021, 8, 10),
       },
     ];
+
+    const eventList = this.state.eventsFromBackend;
+    var calendarComponent = (
+      <BasicCalendar eventData={allMyEvents(this.state.userID)} />
+    );
+
+    function myCreatedEvents(user) {
+      const eventArray = eventList.filter(
+        (e) => e.creator && e.creator.includes(user)
+      );
+      return eventArray;
+    }
+
+    function myBookmarkedEvents(user) {
+      //TODO using hardcoded userData, need to pull from something like currentUser.bookmarked_events instead
+      const eventArray = eventList.filter((e) =>
+        userData.users.at(user).bookmarked_events.includes(e.id)
+      );
+      return eventArray;
+    }
+
+    function allMyEvents(user) {
+      const eventArray = myBookmarkedEvents(user).concat(myCreatedEvents(user));
+      return eventArray;
+    }
+
     return (
       <>
         <Header
@@ -99,7 +157,7 @@ export default class Mypage extends Component {
           <div className="eventContainer">
             <div>
               <h1>Events I've Created</h1>
-              <CustomTable
+              {/* <CustomTable
                 pageOptions={[2, 5, 6]}
                 rowsPerPage={2}
                 order="asc"
@@ -141,11 +199,14 @@ export default class Mypage extends Component {
                     location: "test location4",
                   },
                 ]}
-              />
+              /> */}
+              {this.state.eventsFromBackend.length > 0 ? (
+                <EnhancedTable inputData={myCreatedEvents(this.state.userID)} />
+              ) : null}
             </div>
             <div style={{ margin: "30px 0" }}>
               <h1>Events I've Bookmarked</h1>
-              <CustomTable
+              {/* <CustomTable
                 pageOptions={[3, 5, 6]}
                 rowsPerPage={3}
                 order="asc"
@@ -187,10 +248,15 @@ export default class Mypage extends Component {
                     location: "test location4",
                   },
                 ]}
-              />
+              /> */}
+              {this.state.eventsFromBackend.length > 0 ? (
+                <EnhancedTable
+                  inputData={myBookmarkedEvents(this.state.userID)}
+                />
+              ) : null}
             </div>
             <div style={{ height: "500px", margin: "50px 0" }}>
-              <Calendar
+              {/* <Calendar
                 resources={resourceMap}
                 selectable={true}
                 popup={true}
@@ -201,7 +267,10 @@ export default class Mypage extends Component {
                 endAccessor="end"
                 defaultDate={new Date(Date.now())}
                 onSelecting={this.RangeChange}
-              />
+              /> */}
+              {this.state.eventsFromBackend.length > 0
+                ? calendarComponent
+                : null}
             </div>
           </div>
         </MainContainer>

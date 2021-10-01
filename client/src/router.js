@@ -12,6 +12,7 @@ import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
 import Mypage from "./page/MyPage2/MyPage2";
 import AddEvent from "./page/addEvent/addEvent";
 import OrganizationProfile from "./page/UserProfilePage/UserProfilePage";
+import EventDetailsPage from "./page/EventDetails/EventDetailsPage";
 import { withRouter } from "react-router";
 import Login from "./page/Login/Login";
 import AdminTools from "./page/AdminTools/AdminTools";
@@ -46,6 +47,7 @@ export class CustomRoute extends React.Component {
             <Route path="/user" component={UserProfilePage} />
             <Route path="/create" component={AddEvent} />
             <Route path="/profile" component={OrganizationProfile} />
+            <Route path="/event" component={EventDetailsPage} />
             {this.state.isLogin ? (
               <>
                 <Route path="/calendar" component={Calendar} />

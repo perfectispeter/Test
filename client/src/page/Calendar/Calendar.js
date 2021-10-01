@@ -6,6 +6,8 @@ import { Grid, Switch } from "@material-ui/core";
 import BasicCalendar from "../../components/Calendar/Calendar";
 import CategoryImages from "../../components/CategoryTags/CategoryTags";
 import Footer from "../../components/Footer/Footer";
+import MainContainer from "../../components/MainContainer/MainContainer";
+import ImageTitle from "../../components/ImageTitle/ImageTitle";
 
 import data from "../../asset/eventdata";
 import users from "../../asset/userdata.json";
@@ -57,56 +59,37 @@ export default class Calendar extends Component {
 
     return (
       <>
-        <div className="mainContainer">
-          <Header isHomepage={false} />
-          <Grid
-            container
-            alignItems="center"
-            justifyContent="flex-start"
-            direction="column"
-            container
-            spacing={2}
-            xs={12}
-            s={12}
-            md={12}
-            lg={12}
-          >
-            <Grid item>
-              <TitleCard titleText="Main Calendar" />
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            spacing={1}
-            direction="row"
-            alignItems="baseline"
-            justifyContent="center"
-            xs={12}
-            s={12}
-            md={12}
-            lg={12}
-          >
-            <Grid item md={6} lg={6}>
+        <Header
+          items={[
+            { name: "Home", link: "/", active: false },
+            { name: "Calendar", link: "/calendar", active: true },
+            { name: "MyPage", link: "/mypage", active: false },
+          ]}
+        />
+        <MainContainer>
+          <ImageTitle title="Main Calendar" />
+          <div className="calendarContainer">
+            <div>
               {this.state.eventsFromBackend.length > 0
                 ? calendarComponent
                 : null}
-            </Grid>
-            <Grid item md={2} lg={2}>
-              <a href="/create">
-                <button id="createEventButton" className="btn" size="small">
-                  Create an Event
-                </button>
-              </a>
-            </Grid>
-            <Grid item md={2} lg={2}>
-              <CategoryImages
-                onChange={(selectedTags) => this.filtering(selectedTags)}
-              />
-            </Grid>
-          </Grid>
-          <br />
-          <Footer />
-        </div>
+            </div>
+            <div>
+            <a href="/create">
+              <button id="createEventButton" className="btn" size="small">
+                Create an Event
+              </button>
+            </a>
+            </div>
+            <div>
+            <CategoryImages
+              onChange={(selectedTags) => this.filtering(selectedTags)}
+            />
+            </div>
+          </div>
+        </MainContainer>
+        <br />
+        <Footer />
       </>
     );
   }
