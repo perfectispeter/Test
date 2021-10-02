@@ -9,9 +9,9 @@ import Calendar from "./page/Calendar/Calendar";
 import Home from "./Home";
 import React from "react";
 import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
-import MyPage from "./page/MyPage/MyPage";
-import AddEvent from "./page/AddEvent/AddEvent";
-import OrganizationProfile from "./page/UserProfilePage/UserProfilePage";
+import MyPage from "./page/MyPage2/MyPage2";
+import AddEvent from "./page/addEvent/addEvent";
+import EventDetailsPage from "./page/EventDetails/EventDetailsPage";
 import { withRouter } from "react-router";
 import Login from "./page/Login/Login";
 import AdminTools from "./page/AdminTools/AdminTools";
@@ -45,7 +45,8 @@ export class CustomRoute extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/user" component={UserProfilePage} />
             <Route path="/create" component={AddEvent} />
-            <Route path="/profile" component={OrganizationProfile} />
+            {/* <Route path="/profile" component={UserProfilePage} /> */}
+            <Route path="/event" component={EventDetailsPage} />
             {this.state.isLogin ? (
               <>
                 <Route path="/calendar" component={Calendar} />

@@ -224,7 +224,7 @@ class AddEvent extends Component {
         <Header
           items={[
             { name: "Home", link: "/", active: false },
-            { name: "Calendar", link: "/canlendar", active: true },
+            { name: "Calendar", link: "/calendar", active: true },
             { name: "MyPage", link: "/mypage", active: false },
           ]}
         />

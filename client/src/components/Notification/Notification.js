@@ -24,7 +24,7 @@ class Notifaction extends Component {
         </div>
         <div className="info">
           {this.props.content === "" ? (
-            <span>important events/urgent events/weather alters</span>
+            <span>Upper Murray Community Calendar is in testing. Please report any bugs to s3848726@student.rmit.edu.au.</span>
           ) : (
             <span>{this.props.content}</span>
           )}

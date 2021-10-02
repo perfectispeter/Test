@@ -6,9 +6,40 @@ import ImageTitle from "../../components/ImageTitle/ImageTitle";
 import AdminEventTable from "../../components/AdminEventTable/AdminEventTable";
 import { AdminUserTable } from "../../components/AdminUserTable/AdminUserTable";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import axios from "axios";
+import EventToCalendarConverter from "../../components/Calendar/EventToCalendarConverter";
+import EnhancedTable from '../../components/EnhancedTable/EnhancedTable';
+
+//TODO TEMPORARILY READING HARDCODED USERS
+import users from "../../asset/userdata.json";
+
 
 class AdminTools extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      eventsFromBackend: [],
+  };
+  }
+
+  componentDidMount() {
+    axios
+      .get(process.env.REACT_APP_MY_URL + "api/events")
+      .then((res) => {
+        this.setState({
+          eventsFromBackend: EventToCalendarConverter(res.data),
+        });
+      })
+      .then(
+        console.log("Current events from back end (after .then): ",this.state.eventsFromBackend)
+      )
+      .catch((err) => {
+        console.log("Error from ShowEventList: ", err);
+      });
+  }
+
   render() {
+    const eventList = this.state.eventsFromBackend;
     return (
       <>
         <Header />
@@ -23,7 +54,7 @@ class AdminTools extends React.Component {
             }}
           >
             <h1 style={{ margin: "20px 0" }}>Events</h1>
-            <AdminEventTable
+            {/* <AdminEventTable
               pageOptions={[2, 5, 6]}
               rowsPerPage={2}
               order="asc"
@@ -74,9 +105,12 @@ class AdminTools extends React.Component {
                   active: false,
                 },
               ]}
-            />
+            /> */}
+            {eventList.length > 0 ?
+                   <EnhancedTable inputData={eventList} /> : null}
             <h1 style={{ margin: "20px 0" }}>Users</h1>
-            <AdminUserTable
+            <EnhancedTable inputData={users} tableType="user" />
+            {/* <AdminUserTable
               pageOptions={[2, 5, 6]}
               rowsPerPage={2}
               order="asc"
@@ -109,7 +143,7 @@ class AdminTools extends React.Component {
                   Verified: true,
                 },
               ]}
-            />
+            /> */}
             <div style={{ margin: "20px auto 0 auto" }}>
               <CustomButton
                 btntext="Back to Home Page"

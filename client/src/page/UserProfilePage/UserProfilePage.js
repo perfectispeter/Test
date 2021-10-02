@@ -4,36 +4,68 @@ import Footer from "../../components/Footer/Footer";
 import "./UserProfilePage.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 
-class OrganizationProfile extends React.Component {
+//TODO TEMPORARILY HARDCODING USERS
+import users from "../../asset/userdata.json"; 
+import MainContainer from "../../components/MainContainer/MainContainer";
+
+class UserProfilePage extends React.Component {
   render() {
+    const userID = window.location.pathname.replace("/user/","");
+    const user = users.users.find((u) => u.id.toString().match(userID));
+    const userProfile = user ? user.public_profile : { visible: false };
+
     return (
       <>
         <div className="Body">
-          <Header
+        <Header
             items={[
               { name: "Home", link: "/", active: false },
               { name: "Calendar", link: "/calendar", active: false },
               { name: "MyPage", link: "/mypage", active: true },
             ]}
           ></Header>
-          <div className="main">
-            {/* <input className="Text" type="text" size="40" value="organization profile content"/> */}
+          <MainContainer>
+          {userProfile.visible ? 
+          <>
+          <div
+            style={{
+              marginTop: "200px",
+              marginBottom: "50px",
+              marginLeft: "50px",
+            }}
+          >
             <h1 className="Text" type="text">
-              {window.location.pathname.replace("/user/", "")}
+              {user.display_name}
             </h1>
-          </div>
-          <div style={{ marginTop: "35px" }}>
             <h2>Contact details</h2>
-            Email: test@example.com
+            Email: {userProfile.contact_email}
             <br></br>
-            Mobile: 0412 345 678
+            Mobile: {userProfile.contact_phone}
             <br></br>
-            Description: Some text that this user can edit. Click "More Info" to
-            go to our website.
+            Description: {userProfile.description}
           </div>
-          <a href="https://corryongnc.org/">
-            <CustomButton btntext="More Info" />
+          <a href={"https://www." + userProfile.external_link}>
+            <button
+              className="btn"
+              style={{
+                marginBottom: "100px",
+                marginLeft: "50px",
+              }}
+            >
+              More Info
+            </button>
           </a>
+          </>
+        :  <div
+            style={{
+              marginTop: "200px",
+              marginBottom: "50px",
+              marginLeft: "50px",
+            }}
+          >
+            <h2>This profile is not available.</h2>
+          </div> }
+          </MainContainer>
         </div>
         <Footer />
       </>
@@ -41,4 +73,4 @@ class OrganizationProfile extends React.Component {
   }
 }
 
-export default OrganizationProfile;
+export default UserProfilePage;
