@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
-import EventDetails from "../../page/EventDetails/EventDetails";
+import EventDetailsCard from "../EventDetailsCard/EventDetailsCard";
 import { Grid, Card, Button } from "@material-ui/core";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useHistory } from "react-router-dom";
@@ -56,7 +56,7 @@ const BasicCalendar = (props) => {
           </Card>
         </Grid>
         <Grid item>
-          <EventDetails eventID={eventID} inputData={eventData} userID={0} />
+          <EventDetailsCard eventID={eventID} inputData={eventData} userID={0} />
         </Grid>
         {filter ? (
           <Grid item>

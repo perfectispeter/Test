@@ -5,7 +5,7 @@ import { Star, StarBorder } from "@material-ui/icons";
 import axios from "axios";
 
 //TODO: call Event and User Details from DB
-const EventDetails = (props) => {
+const EventDetailsCard = (props) => {
   const { eventID, inputData, userID } = props;
 
   // componentDidMount() {
@@ -43,7 +43,7 @@ const EventDetails = (props) => {
       <>
         <Card>
           <p>
-            <b>{thisEvent.title}</b>
+            <b><a href={"/event/" + eventID}>{thisEvent.title}</a></b>
           </p>
           <p>
             Created by:{" "}
@@ -85,4 +85,4 @@ const EventDetails = (props) => {
   return content;
 };
 
-export default EventDetails;
+export default EventDetailsCard;
