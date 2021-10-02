@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import TestContext from "../../page/testContext";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,8 +24,9 @@ export default class Header extends Component {
     };
   }
 
-  handleSignOut = () => {
-    console.log("CLICKED LOGOUT");
+  handleSignOut = (e) => {
+    e.preventDefault();
+    this.props.logoutUser();
     this.setState({ isLogin: false });
   };
 
@@ -50,7 +54,7 @@ export default class Header extends Component {
                 </>
               ) : (
                 <>
-                  {this.state.isAdmin ? (
+                  {this.state.isLogin ? (
                     <div className="item login_item">
                       <Link to="/admin-tools">Admin Tools</Link>
                     </div>
@@ -60,7 +64,7 @@ export default class Header extends Component {
 
                   {this.state.isLogin ? (
                     <div
-                      className="item login_item"
+                      className="waves-effect waves-light btn"
                       onClick={this.handleSignOut}
                     >
                       Logout
@@ -91,3 +95,12 @@ export default class Header extends Component {
   }
   static contextType = TestContext;
 }
+
+Header.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, { logoutUser })(Header);

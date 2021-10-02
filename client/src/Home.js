@@ -10,6 +10,9 @@ import Footer from "./components/Footer/Footer";
 import Notification from "./components/Notification/Notification";
 import MainContainer from "./components/MainContainer/MainContainer";
 import CustomButton from "./components/CustomButton/CustomButton";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../client/src/actions/authActions";
 
 class Home extends React.Component {
   constructor(props) {
@@ -194,4 +197,12 @@ class Home extends React.Component {
   static contextType = TestContext;
 }
 
-export default Home;
+Home.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser })(Home);
