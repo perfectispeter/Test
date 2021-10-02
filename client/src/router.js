@@ -77,6 +77,7 @@ export class CustomRoute extends React.Component {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/calendar" component={Calendar} />
+              <Route path="/event" component={EventDetailsPage} />
               <Switch>
                 <PrivateRoute path="/user" component={UserProfilePage} />
                 <PrivateRoute exact path="/create" component={CreateEvent} />
