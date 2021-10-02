@@ -18,7 +18,7 @@ import Chip from "@material-ui/core/Chip";
 import TagFacesIcon from "@material-ui/icons/TagFaces";
 import Grow from "@material-ui/core/Grow";
 
-import "./AddEvent.css";
+import "./addEvent.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 
 class AddEvent extends Component {
@@ -103,6 +103,13 @@ class AddEvent extends Component {
         },
       ],
     };
+  }
+
+  getCategoryArray(categoryObjects){
+    var categoryArray = [];
+    categoryObjects.forEach((categoryObject)  => 
+      categoryArray.push(categoryObject.label));
+    return categoryArray;
   }
 
   startDateChange(date) {
@@ -195,11 +202,12 @@ class AddEvent extends Component {
       event_end_date: this.state.event_end_date,
       event_start_time: this.state.event_start_time,
       event_end_time: this.state.event_end_time,
-      event_category: this.state.event_category,
+      event_category: this.getCategoryArray(this.state.event_category),
     };
+    //TODO add creator as this user to data
 
     axios
-      .post("http://localhost:8082/events", data)
+      .post(process.env.REACT_APP_MY_URL + "api/events", data)
       .then((res) => {
         this.setState({
           event_title: "",
@@ -278,7 +286,7 @@ class AddEvent extends Component {
                 >
                   <DatePicker
                     style={{ width: "45%", margin: "0,auto,0,0" }}
-                    format="MM/dd/yyyy"
+                    format="dd/MM/yyyy"
                     label="Start Date"
                     inputVariant="outlined"
                     value={this.state.event_start_date}
@@ -286,7 +294,7 @@ class AddEvent extends Component {
                   />
                   <DatePicker
                     style={{ width: "50%" }}
-                    format="MM/dd/yyyy"
+                    format="dd/MM/yyyy"
                     label="End Date"
                     inputVariant="outlined"
                     value={this.state.event_end_date}

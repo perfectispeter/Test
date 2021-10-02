@@ -22,7 +22,7 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import CreateEvent from "./page/AddEvent/AddEvent";
+// import CreateEvent from "./page/AddEvent/addEvent";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -80,7 +80,7 @@ export class CustomRoute extends React.Component {
               <Route path="/event" component={EventDetailsPage} />
               <Switch>
                 <PrivateRoute path="/user" component={UserProfilePage} />
-                <PrivateRoute exact path="/create" component={CreateEvent} />
+                <PrivateRoute exact path="/create" component={AddEvent} />
                 <PrivateRoute exact path="/mypage" component={MyPage} />
                 <PrivateRoute
                   exact

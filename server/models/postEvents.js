@@ -36,10 +36,7 @@ const EventSchema = new mongoose.Schema({
         required: true,
     },
     event_category: {
-        type: [{
-            key: Number,
-            label: String,
-        }],
+        type: [String],
     },
     event_link: {
         type: String,

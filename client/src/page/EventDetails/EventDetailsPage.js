@@ -50,13 +50,15 @@ export default class EventDetailsPage extends Component {
           ]}
         />
         <MainContainer>
+        {thisEvent ? <>
           <ImageTitle title= {thisEvent.title} />
           <div className="eventContainer">
               <p>Creator: {thisEvent.creator}</p>
-              <p>Start: {thisEvent.start}</p>
-              <p>End: {thisEvent.end}</p>
+              <p>Start: {thisEvent.start.toString()}</p>
+              <p>End: {thisEvent.end.toString()}</p>
               <p>Description: {thisEvent.desc}</p>
           </div>
+         </> : null }
 
         </MainContainer>
         <br />
