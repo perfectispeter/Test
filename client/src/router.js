@@ -11,10 +11,40 @@ import React from "react";
 import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
 import MyPage from "./page/MyPage/MyPage";
 import AddEvent from "./page/AddEvent/AddEvent";
-import OrganizationProfile from "./page/UserProfilePage/UserProfilePage";
 import { withRouter } from "react-router";
-import Login from "./page/Login/Login";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import AdminTools from "./page/AdminTools/AdminTools";
+import { Provider } from "react-redux";
+import store from "./store";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
+import PrivateRoute from "./components/private-route/PrivateRoute";
+import CreateEvent from "./page/AddEvent/AddEvent";
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+
+  // Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
 
 function ScrollToTop({ history, children }) {
   useEffect(() => {
@@ -33,31 +63,33 @@ export class CustomRoute extends React.Component {
   constructor() {
     super();
     this.state = {
-      isLogin: true,
+      isLogin: "",
     };
   }
   render() {
     return (
-      <Router>
-        <ScrollTop>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/user" component={UserProfilePage} />
-            <Route path="/create" component={AddEvent} />
-            <Route path="/profile" component={OrganizationProfile} />
-            {this.state.isLogin ? (
-              <>
-                <Route path="/calendar" component={Calendar} />
-                <Route path="/mypage" component={MyPage} />
-                <Route path="/admin-tools" component={AdminTools} />
-              </>
-            ) : (
-              <Redirect to="/" />
-            )}
-          </Switch>
-        </ScrollTop>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <ScrollTop>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/calendar" component={Calendar} />
+              <Switch>
+                <PrivateRoute path="/user" component={UserProfilePage} />
+                <PrivateRoute exact path="/create" component={CreateEvent} />
+                <PrivateRoute exact path="/mypage" component={MyPage} />
+                <PrivateRoute
+                  exact
+                  path="/admin-tools"
+                  component={AdminTools}
+                />
+              </Switch>
+            </Switch>
+          </ScrollTop>
+        </Router>
+      </Provider>
     );
   }
 }
