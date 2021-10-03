@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 const users = require("./routes/api/users");
-const events = require("./routes/events");
+const events = require("./routes/api/events");
 const app = express();
 var cors = require("cors");
 
