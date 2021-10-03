@@ -9,7 +9,16 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const User = require("../../models/User");
+const User = require("../../models/user")
+
+// @route GET api/events
+// @description Get all events
+// @access Public
+router.get("/", (req, res) => {
+  User.find()
+      .then((users) => res.json(users))
+      .catch((err) => res.status(404).json({ nousersfound: "No Users found" }));
+});
 
 // @route POST api/users/register
 // @desc Register user

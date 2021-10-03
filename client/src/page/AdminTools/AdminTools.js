@@ -19,10 +19,12 @@ class AdminTools extends React.Component {
     super(props);
     this.state = {
       eventsFromBackend: [],
+      usersFromBackend: [],
   };
   }
 
   componentDidMount() {
+    //eventlist
     axios
       .get(process.env.REACT_APP_MY_URL + "api/events")
       .then((res) => {
@@ -36,10 +38,27 @@ class AdminTools extends React.Component {
       .catch((err) => {
         console.log("Error from ShowEventList: ", err);
       });
+      
+      
+      //userlist
+      axios
+      .get(process.env.REACT_APP_MY_URL + "api/users")
+      .then((res) => {
+        this.setState({
+          usersFromBackend: res.data,
+        });
+      })
+      .then(
+        console.log("Current users from back end (after .then): ",this.state.usersFromBackend)
+      )
+      .catch((err) => {
+        console.log("Error from ShowUserList: ", err);
+      });
   }
 
   render() {
     const eventList = this.state.eventsFromBackend;
+    const userList = this.state.usersFromBackend;
     return (
       <>
         <Header />
@@ -109,7 +128,7 @@ class AdminTools extends React.Component {
             {eventList.length > 0 ?
                    <EnhancedTable inputData={eventList} /> : null}
             <h1 style={{ margin: "20px 0" }}>Users</h1>
-            <EnhancedTable inputData={users} tableType="user" />
+            <EnhancedTable inputData={userList} tableType="user" />
             {/* <AdminUserTable
               pageOptions={[2, 5, 6]}
               rowsPerPage={2}

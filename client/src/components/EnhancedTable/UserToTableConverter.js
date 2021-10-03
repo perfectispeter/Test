@@ -1,35 +1,35 @@
 function UserToTableConverter(inputData) {
     function createData(
-        event_name,
-        start_Date,
-        end_Date,
-        event_time,
-        category,
-        location,
-        active_status
+        user_id,
+        user_email,
+        user_displayName,
+        user_isAdmin,
+        user_isAuthorised,
+        user_ProfileisVisible,
+        user_createdEvents
     ) {
       return {
-        event_name,
-        start_Date,
-        end_Date,
-        event_time,
-        category,
-        location,
-        active_status
+        user_id,
+        user_email,
+        user_displayName,
+        user_isAdmin,
+        user_isAuthorised,
+        user_ProfileisVisible,
+        user_createdEvents
       };
     }
 
     var rows = [];
     if(inputData){
-        inputData.users.map((user) => {
+        inputData.map((user) => {
           rows.push(
             createData(
-              user.id,
+              user._id,
               user.email,
-              user.display_name,
+              user.name,
               user.isAdmin.value,
               "true", //TODO user.authorised
-              user.public_profile.visible,
+              "true",//TODO user.visible
               1 //TODO events.filter(e => e.creator === user.id).toString
             )
           );
