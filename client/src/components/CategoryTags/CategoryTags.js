@@ -23,69 +23,66 @@ export default function CategoryTags(props) {
 
   return (
     <div className="category">
-      <table
-        align="center"
-        cellspacing="0"
-        cellpadding="2"
-        width="auto"
-        onChange={onTagChange}
-      >
+      <h2 className="h3 center">Event Category Filters</h2>
+      <table onChange={onTagChange}>
         <tbody>
           <tr>
-            <td colspan="5">
-              <h2 className="category-item-title">Category</h2>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td>
+              <img
+                className="category-item-img"
+                src={require("../../images/Sport.jpg").default}
+                alt=""
+              />
+            </td>
+            <td className="category-item-text">
+              <label>
+                <input type="checkbox" id="Sport" />
+                <span>Sport</span>
+              </label>
+            </td>
+            <td>
+              <img
+                className="category-item-img"
+                src={require("../../images/Social&SupportGroups.jpg").default}
+                alt=""
+              />
+            </td>
+            <td className="category-item-text">
+              <label>
+                <input type="checkbox" id="SocialAndSupportGroups" />
+                <span>Social and Support Groups</span>
+              </label>
             </td>
           </tr>
           <tr>
             <td>
               <img
                 className="category-item-img"
-                src={require("../../images/sport.jpg").default}
+                src={require("../../images/Art.jpg").default}
                 alt=""
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Sport" />
-              &nbsp;<label htmlFor="sport">Sport</label>
+              <label>
+                <input type="checkbox" id="Art" />
+                <span>Art</span>
+              </label>
             </td>
-            <td>&nbsp;&nbsp;</td>
             <td>
               <img
                 className="category-item-img"
-                src={
-                  require("../../images/Social & Support Groups.jpg").default
-                }
+                src={require("../../images/YoungFamilies.jpg").default}
                 alt=""
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Social & Support Groups" />
-              &nbsp;<label htmlFor="ssg">Social & Support Groups</label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="category-item-img"
-                src={require("../../images/art.jpg").default}
-                alt=""
-              />
-            </td>
-            <td className="category-item-text">
-              <input type="checkbox" id="Art" />
-              &nbsp;<label htmlFor="art">Art</label>
-            </td>
-            <td></td>
-            <td>
-              <img
-                className="category-item-img"
-                src={require("../../images/Young Families.jpg").default}
-                alt=""
-              />
-            </td>
-            <td className="category-item-text">
-              <input type="checkbox" id="Young Families" />
-              &nbsp;<label htmlFor="yf">Young Families</label>
+              <label>
+                <input type="checkbox" id="YoungFamilies" />
+                <span>Young Families</span>
+              </label>
             </td>
           </tr>
           <tr>
@@ -97,10 +94,11 @@ export default function CategoryTags(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Information" />
-              &nbsp;<label htmlFor="Information">Information</label>
+              <label>
+                <input type="checkbox" id="Information" />
+                <span>Imformation</span>
+              </label>
             </td>
-            <td></td>
             <td>
               <img
                 className="category-item-img"
@@ -109,8 +107,10 @@ export default function CategoryTags(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Seniors" />
-              &nbsp;<label htmlFor="Seniors">Seniors</label>
+              <label>
+                <input type="checkbox" id="Seniors" />
+                <span>Seniors</span>
+              </label>
             </td>
           </tr>
           <tr>
@@ -122,10 +122,11 @@ export default function CategoryTags(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Events" />
-              &nbsp;<label htmlFor="Events">Events</label>
+              <label>
+                <input type="checkbox" id="Events" />
+                <span>Events</span>
+              </label>
             </td>
-            <td></td>
             <td>
               <img
                 className="category-item-img"
@@ -134,33 +135,38 @@ export default function CategoryTags(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Youth" />
-              &nbsp;<label htmlFor="Youth">Youth</label>
+              <label htmlFor="sport">
+                <input type="checkbox" id="Youth" />
+                <span>Youth</span>
+              </label>
             </td>
           </tr>
           <tr>
             <td>
               <img
                 className="category-item-img"
-                src={require("../../images/Bushfire Recovery.jpg").default}
+                src={require("../../images/BushfireRecovery.jpg").default}
                 alt=""
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Bushfire Recovery" />
-              &nbsp;<label htmlFor="br">Bushfire Recovery</label>
+              <label>
+                <input type="checkbox" id="BushfireRecovery" />
+                <span>Bushfire Recovery</span>
+              </label>
             </td>
-            <td></td>
             <td>
               <img
                 className="category-item-img"
-                src={require("../../images/All Ages.jpg").default}
+                src={require("../../images/AllAges.jpg").default}
                 alt=""
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="All Ages" />
-              &nbsp;<label htmlFor="aa">All Ages</label>
+              <label>
+                <input type="checkbox" id="AllAges" />
+                <span>All Ages</span>
+              </label>
             </td>
           </tr>
           <tr>
@@ -172,20 +178,23 @@ export default function CategoryTags(props) {
               />
             </td>
             <td className="category-item-text">
-              <input type="checkbox" id="Entertainment" />
-              &nbsp;<label htmlFor="Entertainment">Entertainment</label>
+              <label>
+                <input type="checkbox" id="Entertainment" />
+                <span>Entertainment</span>
+              </label>
             </td>
-            <td></td>
             <td>
               <img
                 className="category-item-img"
-                src={require("../../images/Education & Training.jpg").default}
+                src={require("../../images/Education&Training.jpg").default}
                 alt=""
               />
             </td>
-            <td className="category-item-text">
-              <input type="checkbox" id="Education & Training" />
-              &nbsp;<label htmlFor="et">Education & Training</label>
+            <td>
+              <label>
+                <input type="checkbox" id="EducationAndTraining" />
+                <span>Education and Training</span>
+              </label>
             </td>
           </tr>
         </tbody>

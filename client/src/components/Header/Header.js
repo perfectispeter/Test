@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import TestContext from "../../page/testContext";
 import { Link } from "react-router-dom";
-import "./Header.css";
+// import "./Header.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import store from "../../store";
 
 class Header extends Component {
   constructor(props) {
@@ -13,14 +13,6 @@ class Header extends Component {
       isLogin: props.isLogin,
       isHomepage: true,
       isAdmin: props.isAdmin,
-      items:
-        typeof this.props.items === "undefined"
-          ? [
-              { name: "Home", link: "/", active: false },
-              { name: "Calendar", link: "/calendar", active: false },
-              { name: "MyPage", link: "/mypage", active: false },
-            ]
-          : this.props.items,
     };
   }
 
@@ -28,6 +20,7 @@ class Header extends Component {
     e.preventDefault();
     this.props.logoutUser();
     this.setState({ isLogin: false });
+    alert("You have been logged out");
   };
 
   handleSignIn = () => {
@@ -35,51 +28,70 @@ class Header extends Component {
     this.setState({ isLogin: true });
   };
 
+  handleNotificationClick = () => {
+    alert("This feature is in development");
+  };
+
   render() {
     return (
-      <div>
+      <>
         <nav>
-          <div className="topHeader">
-            <div className="logo">
-              <a href="/">UMCC</a>
-            </div>
-            <div className="right logo_title">
-              Upper Murray Community Calendar
-            </div>
-            <div className="login">
-              {this.context.userType === "user" ? (
-                <>
-                  <div className="item login_item">Sign up</div>
-                  <div className="item login_item">Sign in</div>
-                </>
-              ) : (
-                <>
-                  {this.state.isLogin ? (
-                    <div className="item login_item">
-                      <Link to="/admin-tools">Admin Tools</Link>
-                    </div>
-                  ) : null}
-                  <div className="item login_item username">134@test.com</div>
-                  <sup className="badge">3</sup>
-
-                  {this.state.isLogin ? (
-                    <div
-                      className="waves-effect waves-light btn"
-                      onClick={this.handleSignOut}
-                    >
-                      Logout
-                    </div>
-                  ) : (
-                    <div className="item login_item">
-                      <Link to="/login">Log In</Link>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
+          <div
+            class="nav-wrapper indigo darken-3"
+            style={{ paddingLeft: "10px" }}
+          >
+            <Link to="/" class="brand-logo">
+              UMCC - Upper Murray Community Calendar
+            </Link>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li>
+                <Link to="/admin-tools">Admin Tools</Link>
+              </li>
+              <li>
+                <Link to="/login">Log In</Link>
+              </li>
+              <li>
+                <Link to="/login" onClick={this.handleSignOut}>
+                  Log Out
+                </Link>
+              </li>
+            </ul>
           </div>
         </nav>
-        <nav className="navbar">
+        <nav>
+          <div class="nav-wrapper red accent-2">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li>
+                <Link to="">Home</Link>
+              </li>
+              <li>
+                <Link to="/calendar">Calendar</Link>
+              </li>
+              <li>
+                <Link to="/mypage">My Page</Link>
+              </li>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li>
+                <Link to="#" onClick={this.handleNotificationClick}>
+                  New Notification
+                  <span class="new badge">4</span>
+                </Link>
+              </li>
+              <li class="right">
+                <Link to="profile">My Profile</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        {/* <nav>
+          <div
+            class="nav-wrapper red accent-2"
+            style={{ paddingLeft: "10px" }}
+          ></div>
+        </nav> */}
+
+        {/* <nav className="nav-navbar">
           <ul className="nav-list">
             {this.state.items.map((item, index) => {
               return (
@@ -89,11 +101,10 @@ class Header extends Component {
               );
             })}
           </ul>
-        </nav>
-      </div>
+        </nav> */}
+      </>
     );
   }
-  static contextType = TestContext;
 }
 
 Header.propTypes = {

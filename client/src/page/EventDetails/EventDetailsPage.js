@@ -2,8 +2,6 @@ import { React, Component } from "react";
 import "./EventDetailsPage.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import MainContainer from "../../components/MainContainer/MainContainer";
-import ImageTitle from "../../components/ImageTitle/ImageTitle";
 import EventToCalendarConverter from "../../components/Calendar/EventToCalendarConverter";
 import axios from "axios";
 
@@ -42,25 +40,20 @@ export default class EventDetailsPage extends Component {
 
     return (
       <>
-        <Header
-          items={[
-            { name: "Home", link: "/", active: false },
-            { name: "Calendar", link: "/calendar", active: true },
-            { name: "MyPage", link: "/mypage", active: false },
-          ]}
-        />
-        <MainContainer>
-        {thisEvent ? <>
-          <ImageTitle title= {thisEvent.title} />
-          <div className="eventContainer">
+        <Header />
+        {thisEvent ? (
+          <>
+            <div
+              className="eventContainer"
+              style={{ position: "relative", minHeight: "100vh" }}
+            >
               <p>Creator: {thisEvent.creator}</p>
               <p>Start: {thisEvent.start.toString()}</p>
               <p>End: {thisEvent.end.toString()}</p>
               <p>Description: {thisEvent.desc}</p>
-          </div>
-         </> : null }
-
-        </MainContainer>
+            </div>
+          </>
+        ) : null}
         <br />
         <Footer />
       </>

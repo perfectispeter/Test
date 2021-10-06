@@ -62,7 +62,7 @@ export default class Imgdialog extends Component {
             Cancel
           </Button>
           <Button onClick={this.submitData.bind(this)} color="primary">
-            Subscribe
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>

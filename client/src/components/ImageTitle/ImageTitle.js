@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import imgUrl from "../../images/titlecard.jpg";
+import imgUrl from "../../images/TitleCard.jpg";
 import "./ImageTitle.css";
 
 class ImageTitle extends Component {

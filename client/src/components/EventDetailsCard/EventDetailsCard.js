@@ -43,7 +43,9 @@ const EventDetailsCard = (props) => {
       <>
         <Card>
           <p>
-            <b><a href={"/event/" + eventID}>{thisEvent.title}</a></b>
+            <b>
+              <a href={"/event/" + eventID}>{thisEvent.title}</a>
+            </b>
           </p>
           <p>
             Created by:{" "}

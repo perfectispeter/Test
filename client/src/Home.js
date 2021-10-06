@@ -1,18 +1,15 @@
 import "./Home.css";
 import React, { useState } from "react";
 import Header from "./components/Header/Header";
-import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import TestContext from "./page/testContext";
 import Textdialog from "./components/TextDialog/TextDialog";
 import ImageDialog from "./components/ImageDialog/ImageDialog";
 import Footer from "./components/Footer/Footer";
-import Notification from "./components/Notification/Notification";
-import MainContainer from "./components/MainContainer/MainContainer";
-import CustomButton from "./components/CustomButton/CustomButton";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../client/src/actions/authActions";
+import Notification from "./components/Notification/Notification";
+import store from "./store";
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,17 +20,17 @@ class Home extends React.Component {
       descriptionOpen: false,
       descriptionContent:
         "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
-      imgUrl: require("./images/wallhaven-y8e1gl.jpeg").default,
+      imgUrl: require("./images/Wallhaven.jpeg").default,
       imgDialogOpen: false,
       isLogin: true,
     };
   }
 
-  open = () => {
-    this.setState({
-      notificationDialogOpen: true,
-    });
-  };
+  // open = () => {
+  //   this.setState({
+  //     notificationDialogOpen: true,
+  //   });
+  // };
 
   descriptionOpen = () => {
     this.setState({
@@ -51,88 +48,74 @@ class Home extends React.Component {
     return (
       <>
         <div className="App">
-          <Header
-            isLogin={this.state.isLogin}
-            isAdmin={true}
-            items={[
-              { name: "Home", link: "/", active: true },
-              { name: "Calendar", link: "/calendar", active: false },
-              { name: "MyPage", link: "/mypage", active: false },
-            ]}
-          />
-          <Notification
-            onClick={this.open.bind(this)}
-            content={this.state.notificationTitle}
-          />
-          <MainContainer hasnotifaction>
-            <img src={this.state.imgUrl} alt="" className="Picture" />
-            {this.context.userType === "admin" && (
-              <Button
-                variant="outlined"
-                size="small"
-                className="edit"
-                onClick={this.imgUploadOpen}
-              >
-                Edit
-              </Button>
+          <Header />
+          <Notification />
+          <img src={this.state.imgUrl} alt="" className="Picture" />
+          {store.getState().auth.user && (
+            <button
+              class="waves-effect waves-light btn indigo darken-3"
+              onClick={this.imgUploadOpen}
+            >
+              Edit
+            </button>
+          )}
+          <div className="description">
+            <p className="descriptionTitle">
+              About the Upper Murray Community Calendar
+            </p>
+            <p className="descriptionContent">
+              {this.state.descriptionContent}
+            </p>
+            {store.getState().auth.user && (
+              <div className="edit">
+                <button
+                  class="waves-effect waves-light btn indigo darken-3"
+                  onClick={this.descriptionOpen}
+                >
+                  Edit
+                </button>
+              </div>
             )}
-            <div className="description">
-              <p className="descriptionTitle">
-                About the Upper Murray Community Calendar
-              </p>
-              <p className="descriptionContent">
-                {this.state.descriptionContent}
-              </p>
-              {this.context.userType === "admin" && (
-                <div className="edit">
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    className="edit"
-                    onClick={this.descriptionOpen}
-                  >
-                    Edit
-                  </Button>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-center">
-              <Link to="/calendar">
-                <CustomButton btntext="Take me to the calendar" />
+          </div>
+          {/* <div className="center">
+              <Link
+                to="/calendar"
+                class="waves-effect waves-light btn indigo darken-3"
+              >
+                Take me to the calendar
               </Link>
-            </div>
-            <div className="shortcut">
-              <p>Shortcuts</p>
-              <div className="shortcutContent">
-                <div className="shortcut_pic">
-                  <img src={require("./images/nrc.jpg").default} alt="" />
-                  <span>Sports</span>
-                </div>
-                <div className="shortcut_pic">
-                  <img src={require("./images/bushfire.jpg").default} alt="" />
-                  <span>Bushfire Recovery</span>
-                </div>
-                <div className="shortcut_pic">
-                  <img src={require("./images/arts.jpg").default} alt="" />
-                  <span>Arts</span>
-                </div>
-                <div className="shortcut_pic">
-                  <img src={require("./images/enter.jpg").default} alt="" />
-                  <span>Entertainment</span>
-                </div>
+            </div> */}
+          <div className="shortcut">
+            <p>Shortcuts</p>
+            <div className="shortcutContent">
+              <div className="shortcut_pic">
+                <img src={require("./images/NRC.jpg").default} alt="" />
+                <span>Sports</span>
+              </div>
+              <div className="shortcut_pic">
+                <img src={require("./images/Bushfire.jpg").default} alt="" />
+                <span>Bushfire Recovery</span>
+              </div>
+              <div className="shortcut_pic">
+                <img src={require("./images/Arts.jpg").default} alt="" />
+                <span>Arts</span>
+              </div>
+              <div className="shortcut_pic">
+                <img src={require("./images/Enter.jpg").default} alt="" />
+                <span>Entertainment</span>
               </div>
             </div>
+          </div>
 
-            <Footer />
-          </MainContainer>
-          <Textdialog
+          <Footer />
+          {/* <Textdialog
             open={this.state.notificationDialogOpen}
             close={this.closeNotificationDialog.bind(this)}
             title="Emergency Banner"
             content="This will be displayed under the header on each page. To remove the banner, leave the text field empty."
             inputTitle="Enter text and click Confirm"
             multiline={false}
-          />
+          /> */}
           <Textdialog
             open={this.state.descriptionOpen}
             close={this.closeDescription.bind(this)}
@@ -170,6 +153,7 @@ class Home extends React.Component {
       });
     }
   }
+
   closeDescription(value) {
     if (value !== "") {
       this.setState({
@@ -182,19 +166,19 @@ class Home extends React.Component {
       });
     }
   }
-  closeNotificationDialog(value) {
-    if (value !== "") {
-      this.setState({
-        notificationDialogOpen: false,
-        notificationTitle: value,
-      });
-    } else {
-      this.setState({
-        notificationDialogOpen: false,
-      });
-    }
-  }
-  static contextType = TestContext;
+
+  // closeNotificationDialog(value) {
+  //   if (value !== "") {
+  //     this.setState({
+  //       notificationDialogOpen: false,
+  //       notificationTitle: value,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       notificationDialogOpen: false,
+  //     });
+  //   }
+  // }
 }
 
 Home.propTypes = {

@@ -3,18 +3,16 @@
   font-size: 40px;
   display: inline;
 }
-.App {
-  padding-bottom: 80px;
-}
 
 .Picture {
   width: 100%;
 }
+
 .btn {
   font-size: 15px;
   background-color: var(--mainColor);
   color: var(--secondColor);
-  padding: 10px 50px;
+  /* padding: 10px 50px; */
   border-radius: 30px;
   display: inline;
   border: 0;
@@ -23,9 +21,11 @@
 .btn:hover {
   cursor: pointer;
 }
+
 .btn:active {
   background-color: var(--activeColor);
 }
+
 .flex {
   display: flex;
 }
@@ -37,13 +37,7 @@
 
 a {
   text-decoration: none;
-  color: var(--secondColor);
-}
-
-.mainContainer {
-  width: 100%;
-  position: absolute;
-  top: 193px;
+  color: var(--activeColor);
 }
 
 .description {

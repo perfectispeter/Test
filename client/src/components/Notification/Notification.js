@@ -1,54 +1,70 @@
 import React, { Component } from "react";
 import "react-fontawesome";
-import { faBullhorn } from "@fortawesome/free-solid-svg-icons/faBullhorn";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@material-ui/core";
 import "./Notification.css";
-import TestContext from "../../page/testContext";
 import PropTypes from "prop-types";
+import store from "../../store";
+import Textdialog from "../TextDialog/TextDialog";
 
-class Notifaction extends Component {
+class Notification extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      descriptionOpen: false,
+      descriptionContent:
+        "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
+    };
   }
-  click = () => {
-    this.props.onClick();
+
+  closeDescription(value) {
+    if (value !== "") {
+      this.setState({
+        descriptionOpen: false,
+        descriptionContent: value,
+      });
+    } else {
+      this.setState({
+        descriptionOpen: false,
+      });
+    }
+  }
+
+  descriptionOpen = () => {
+    this.setState({
+      descriptionOpen: true,
+    });
   };
 
   render() {
     return (
-      <div className="container">
-        <div className="icon">
-          <FontAwesomeIcon icon={faBullhorn} />
-        </div>
-        <div className="info">
-          {this.props.content === "" ? (
-            <span>Upper Murray Community Calendar is in testing. Please report any bugs to s3848726@student.rmit.edu.au.</span>
-          ) : (
-            <span>{this.props.content}</span>
-          )}
-        </div>
-        {this.context.userType === "admin" && (
-          <div className="edit">
-            <Button
-              variant="outlined"
-              size="small"
-              className="edit"
-              onClick={this.click}
+      <>
+        <div class="notification">
+          <i class="medium material-icons left">announcement</i>
+          <p className="descriptionContent">{this.state.descriptionContent}</p>
+          {store.getState().auth.user ? (
+            <button
+              class="waves-effect waves-light btn indigo darken-3"
+              onClick={this.descriptionOpen}
             >
               Edit
-            </Button>
-          </div>
-        )}
-      </div>
+            </button>
+          ) : null}
+          <Textdialog
+            open={this.state.descriptionOpen}
+            close={this.closeDescription.bind(this)}
+            title="Description"
+            content="Change the Emergency Bnnner Text Here"
+            inputTitle="Description"
+            multiline={true}
+          />
+        </div>
+      </>
     );
   }
-  static contextType = TestContext;
 }
-Notifaction.propTypes = {
+
+Notification.propTypes = {
   onClick: PropTypes.func,
   content: PropTypes.string,
 };
 
-export default Notifaction;
+export default Notification;

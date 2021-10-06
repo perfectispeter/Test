@@ -94,15 +94,30 @@ const userHeadCells = [
     disablePadding: false,
     label: "Email",
   },
-  { id: "user_display_name", numeric: false, disablePadding: false, label: "Display Name" },
+  {
+    id: "user_display_name",
+    numeric: false,
+    disablePadding: false,
+    label: "Display Name",
+  },
   {
     id: "isAdmin",
     numeric: false,
     disablePadding: false,
     label: "Admin?",
   },
-  { id: "authorised", numeric: false, disablePadding: false, label: "Authorised?" },
-  { id: "profile_visible", numeric: false, disablePadding: false, label: "Profile visible?" },
+  {
+    id: "authorised",
+    numeric: false,
+    disablePadding: false,
+    label: "Authorised?",
+  },
+  {
+    id: "profile_visible",
+    numeric: false,
+    disablePadding: false,
+    label: "Profile visible?",
+  },
   {
     id: "events_created",
     numeric: false,
@@ -120,15 +135,18 @@ function EnhancedTableHead(props) {
     numSelected,
     rowCount,
     onRequestSort,
-    tableType
+    tableType,
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
-  var headCells=[];
-  if(tableType === "user") {headCells = userHeadCells;}
-    else {headCells = eventHeadCells;}
+  var headCells = [];
+  if (tableType === "user") {
+    headCells = userHeadCells;
+  } else {
+    headCells = eventHeadCells;
+  }
 
   return (
     <TableHead>
@@ -175,7 +193,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
-  tableType: PropTypes.string
+  tableType: PropTypes.string,
 };
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -234,13 +252,17 @@ const EnhancedTableToolbar = (props) => {
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
+      ) : null}
+
+      {numSelected > 0 &&
+      tableTitle === "Events" &&
+      window.location.href.includes("/admin-tools") ? (
+        <Tooltip title="Toggle Active">
+          <IconButton aria-label="toggle-active">
             <FilterListIcon />
           </IconButton>
         </Tooltip>
-      )}
+      ) : null}
     </Toolbar>
   );
 };
@@ -276,9 +298,13 @@ const useStyles = makeStyles((theme) => ({
 export default function EnhancedTable(props) {
   const { inputData, tableType } = props;
   var rows = [];
-  var tableTitle = "Events"
-  if(tableType === "user") {rows = UserToTableConverter(inputData); tableTitle = "Users";}
-  else {rows = EventToTableConverter(inputData); }
+  var tableTitle = "Events";
+  if (tableType === "user") {
+    rows = UserToTableConverter(inputData);
+    tableTitle = "Users";
+  } else {
+    rows = EventToTableConverter(inputData);
+  }
 
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
@@ -344,7 +370,10 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} tableTitle = {tableTitle} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          tableTitle={tableTitle}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -368,7 +397,6 @@ export default function EnhancedTable(props) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.event_name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
@@ -420,7 +448,6 @@ export default function EnhancedTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-
     </div>
   );
 }

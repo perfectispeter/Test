@@ -52,7 +52,7 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
+      <div class="container" style={{ marginTop: "100px" }}>
         <div className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
@@ -133,7 +133,7 @@ class Register extends Component {
                     marginTop: "1rem",
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable indigo darken-3"
                 >
                   Sign up
                 </button>
@@ -155,4 +155,5 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors,
 });
+
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));

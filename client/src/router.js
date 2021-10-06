@@ -8,9 +8,10 @@ import {
 import Calendar from "./page/Calendar/Calendar";
 import Home from "./Home";
 import React from "react";
-import UserProfilePage from "./page/UserProfilePage/UserProfilePage";
-import MyPage from "./page/MyPage2/MyPage2";
-import AddEvent from "./page/addEvent/addEvent";
+import ProfilePage from "./page/ProfilePage/ProfilePage";
+import EditMyProfile from "./page/ProfilePage/EditProfile";
+import MyPage from "./page/MyPage/MyPage";
+import AddEvent from "./page/AddEvent/AddEvent";
 import EventDetailsPage from "./page/EventDetails/EventDetailsPage";
 import { withRouter } from "react-router";
 import Login from "./components/auth/Login";
@@ -22,7 +23,6 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-// import CreateEvent from "./page/AddEvent/addEvent";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -78,10 +78,11 @@ export class CustomRoute extends React.Component {
               <Route path="/register" component={Register} />
               <Route path="/calendar" component={Calendar} />
               <Route path="/event" component={EventDetailsPage} />
+              <Route path="/profile" component={ProfilePage} />
               <Switch>
-                <PrivateRoute path="/user" component={UserProfilePage} />
                 <PrivateRoute exact path="/create" component={AddEvent} />
                 <PrivateRoute exact path="/mypage" component={MyPage} />
+                <PrivateRoute path="/editprofile" component={EditMyProfile} />
                 <PrivateRoute
                   exact
                   path="/admin-tools"

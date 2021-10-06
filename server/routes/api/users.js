@@ -9,16 +9,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const User = require("../../models/user")
-
-// @route GET api/events
-// @description Get all events
-// @access Public
-router.get("/", (req, res) => {
-  User.find()
-      .then((users) => res.json(users))
-      .catch((err) => res.status(404).json({ nousersfound: "No Users found" }));
-});
+const User = require("../../models/User");
 
 // @route POST api/users/register
 // @desc Register user
@@ -26,6 +17,42 @@ router.get("/", (req, res) => {
 router.post("/register", (req, res) => {
   // Form validation
   const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  User.findOne({ email: req.body.email }).then((user) => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      });
+
+      // Hash password before saving in database
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then((user) => res.json(user))
+            .catch((err) => console.log(err));
+        });
+      });
+    }
+  });
+});
+
+// @route POST api/users/register
+// @desc Register user
+// @access Public
+router.post("/update", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateUpdateInput(req.body);
 
   // Check validation
   if (!isValid) {
@@ -82,6 +109,8 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
         };
         // Sign token
         jwt.sign(
@@ -104,6 +133,28 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+// @route GET api/users/:id
+// @description Get single user by id
+// @access Public
+router.get("/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then((users) => res.json(users))
+    .catch((err) =>
+      res.status(404).json({ noeventfound: "No User found with that Id" })
+    );
+});
+
+// @route GET api/users
+// @description Get all users
+// @access Public
+router.get("/", (req, res) => {
+  User.find()
+    .then((users) => res.json(users))
+    .catch((err) =>
+      res.status(404).json({ nousersfound: "No Users found in database" })
+    );
 });
 
 module.exports = router;

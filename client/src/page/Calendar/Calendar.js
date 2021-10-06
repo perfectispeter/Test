@@ -4,13 +4,10 @@ import Header from "../../components/Header/Header";
 import TitleCard from "../../components/TitleCard/TitleCard";
 import { Grid, Switch } from "@material-ui/core";
 import BasicCalendar from "../../components/Calendar/Calendar";
-import CategoryImages from "../../components/CategoryTags/CategoryTags";
+import CategoryTags from "../../components/CategoryTags/CategoryTags";
 import Footer from "../../components/Footer/Footer";
-import MainContainer from "../../components/MainContainer/MainContainer";
-import ImageTitle from "../../components/ImageTitle/ImageTitle";
 
 import data from "../../asset/eventdata";
-import users from "../../asset/userdata.json";
 import axios from "axios";
 import EventToCalendarConverter from "../../components/Calendar/EventToCalendarConverter";
 
@@ -59,35 +56,35 @@ export default class Calendar extends Component {
 
     return (
       <>
-        <Header
-          items={[
-            { name: "Home", link: "/", active: false },
-            { name: "Calendar", link: "/calendar", active: true },
-            { name: "MyPage", link: "/mypage", active: false },
-          ]}
-        />
-        <MainContainer>
-          <ImageTitle title="Main Calendar" />
-          <div className="calendarContainer">
-            <div>
-              {this.state.eventsFromBackend.length > 0
-                ? calendarComponent
-                : null}
-            </div>
-            <div>
-            <a href="/create">
-              <button id="createEventButton" className="btn" size="small">
-                Create an Event
-              </button>
-            </a>
-            </div>
-            <div>
-            <CategoryImages
+        <Header />
+        <h3 className="center"> Master Calendar</h3>
+        <p className="center">
+          Here you can find the complete calendar listing all the events
+        </p>
+        <div className="calendar-container">
+          <div class="fixed">
+            {this.state.eventsFromBackend.length > 0 ? calendarComponent : null}
+          </div>
+          <div class="flex-item">
+            <CategoryTags
               onChange={(selectedTags) => this.filtering(selectedTags)}
             />
-            </div>
           </div>
-        </MainContainer>
+          <br />
+        </div>
+        <div class="center">
+          <h5>
+            Moderators can create an event :
+            <a href="/create">
+              <button
+                id="createEventButton"
+                class="btn waves-effect waves-light indigo darken-3"
+              >
+                Create A New Event
+              </button>
+            </a>
+          </h5>
+        </div>
         <br />
         <Footer />
       </>

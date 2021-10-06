@@ -22,29 +22,28 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  // the data must be a array of objectID !!!
-  // bookmarked_events: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  // },
-  bookmarked_events: {
-    type: String,
+  isAuthorized: {
+    type: Boolean,
+    default: false,
   },
-  // public_profile: {
-  //   type: String,
-  //   required: true,
-  // },
+  bookmarked_events: {
+    type: [String],
+  },
   contact_email: {
     type: String,
+    default: "",
   },
   contact_phone: {
     type: Number,
+    default: "",
   },
   description: {
     type: String,
+    default: "",
   },
   visible: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 

@@ -1,7 +1,14 @@
-.calendarContainer {
-    width: 70%;
-    display: flex;
-    margin: 20px auto 0 auto;
-    align-items: center;
-    flex-direction: column;
-  }
+.calendar-container{
+  padding: 100px;
+  display: flex;
+}
+
+.fixed{
+  padding-right: 20px;
+  width: 60%;
+}
+
+.flex-item{
+  padding-left: 20px;
+  flex-grow: 1;
+}

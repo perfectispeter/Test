@@ -5,9 +5,11 @@
   flex-direction: column;
   justify-content: center;
 }
+
 .inputForm > .MuiTextField-root {
   margin: 10px 0;
 }
+
 .categoriesBox {
   margin-top: 30px;
   display: flex;
@@ -15,9 +17,11 @@
   flex-wrap: wrap;
   padding-bottom: 50px;
 }
+
 .categoryCheck {
   padding: 15px;
 }
+
 .checkedBox {
   flex-grow: 1;
   border: solid 2px var(--mainColor);
@@ -25,6 +29,7 @@
   margin: 10px 8px;
   color: var(--mainColor);
 }
+
 .uncheckedBox {
   flex-grow: 1;
   margin: 12px 10px;

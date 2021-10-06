@@ -5,7 +5,7 @@ const connectDB = require("./config/db");
 var cors = require("cors");
 
 // routes
-const events = require("./routes/events");
+const events = require("./routes/api/events");
 
 const app = express();
 

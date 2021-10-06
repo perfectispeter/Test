@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Header from "../../components/Header/Header";
-import MainContainer from "../../components/MainContainer/MainContainer";
-import ImageTitle from "../../components/ImageTitle/ImageTitle";
 import { TextField, Avatar } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -17,9 +15,9 @@ import Paper from "@material-ui/core/Paper";
 import Chip from "@material-ui/core/Chip";
 import TagFacesIcon from "@material-ui/icons/TagFaces";
 import Grow from "@material-ui/core/Grow";
-
-import "./addEvent.css";
+import "./AddEvent.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import Footer from "../../components/Footer/Footer";
 
 class AddEvent extends Component {
   constructor(props) {
@@ -37,78 +35,84 @@ class AddEvent extends Component {
         {
           key: 0,
           label: "All Ages",
-          avatar: "./images/All Ages.jpg",
+          avatar: "../../images/AllAges.jpg",
           checked: false,
         },
-        { key: 1, label: "Art", avatar: "./images/art.jpg", checked: false },
+        {
+          key: 1,
+          label: "Art",
+          avatar: "../../images/Art.jpg",
+          checked: false,
+        },
         {
           key: 2,
           label: "Bushfire Recovery",
-          avatar: "./images/Bushfire Recovery.jpg",
+          avatar: "../../images/BushfireRecovery.jpg",
           checked: false,
         },
         {
           key: 3,
           label: "Education & Training",
-          avatar: "./images/Education & Training.jpg",
+          avatar: "../../images/Education&Training.jpg",
           checked: false,
         },
         {
           key: 4,
           label: "Entertainment",
-          avatar: "./images/Entertainment.jpg",
+          avatar: "../../images/Entertainment.jpg",
           checked: false,
         },
         {
           key: 5,
           label: "Events",
-          avatar: "./images/Events.jpg",
+          avatar: "../../images/Events.jpg",
           checked: false,
         },
         {
           key: 6,
           label: "Information",
-          avatar: "./images/Information.jpg",
+          avatar: "../../images/Information.jpg",
           checked: false,
         },
         {
           key: 7,
           label: "Seniors",
-          avatar: "./images/Seniors.jpg",
+          avatar: "../../images/Seniors.jpg",
           checked: false,
         },
         {
           key: 8,
           label: "Social & Support Groups",
-          avatar: "./images/Social & Support Groups.jpg",
+          avatar: "../../images/Social&SupportGroups.jpg",
           checked: false,
         },
         {
           key: 9,
           label: "Sport",
-          avatar: "./images/sport.jpg",
+          avatar: "../../images/Sport.jpg",
           checked: false,
         },
         {
           key: 10,
           label: "Young Families",
-          avatar: "./images/Young Families.jpg",
+          avatar: "../../images/YoungFamilies.jpg",
           checked: false,
         },
         {
           key: 11,
           label: "Youth",
-          avatar: "./images/Youth.jpg",
+          avatar: "../../images/Youth.jpg",
           checked: false,
         },
       ],
     };
   }
 
-  getCategoryArray(categoryObjects){
+  getCategoryArray(categoryObjects) {
     var categoryArray = [];
-    categoryObjects.forEach((categoryObject)  => 
-      categoryArray.push(categoryObject.label));
+    categoryObjects.forEach((categoryObject) =>
+      categoryArray.push(categoryObject.label)
+    );
     return categoryArray;
   }
 
@@ -191,7 +195,6 @@ class AddEvent extends Component {
   };
 
   onSubmit = (e) => {
-    console.log("hahah");
     e.preventDefault();
 
     const data = {
@@ -219,7 +222,7 @@ class AddEvent extends Component {
           event_end_time: Date.now(),
           event_category: [],
         });
-        this.props.history.push("/");
+        this.props.history.push("/create");
       })
       .catch((err) => {
         console.log("Error in CreateEvent!");
@@ -229,54 +232,52 @@ class AddEvent extends Component {
   render() {
     return (
       <>
-        <Header
-          items={[
-            { name: "Home", link: "/", active: false },
-            { name: "Calendar", link: "/calendar", active: true },
-            { name: "MyPage", link: "/mypage", active: false },
-          ]}
-        />
-        <MainContainer>
-          <ImageTitle title="Add Event" />
-          <form onSubmit={this.onSubmit}>
-            <div className="inputForm">
-              <TextField
-                label="Event Title"
-                variant="outlined"
+        <Header />
+        <h2 class="center">Create New Event</h2>
+        <br />
+        <div style={{ border: "5px" }}>
+          <form onSubmit={this.onSubmit} class="col s12 container">
+            <div class="input-field col s6">
+              <input
+                placeholder="Event Title"
+                id="event_title"
                 name="event_title"
+                type="text"
+                class="validate"
                 value={this.state.event_title}
                 onChange={this.onChange}
               />
-              <TextField
-                label="Venue"
-                variant="outlined"
+              <label for="event_title">Event Title</label>
+            </div>
+            <br />
+            <div class="input-field col s6">
+              <input
+                placeholder="Venue"
+                id="event_venue"
                 name="event_venue"
+                type="text"
+                class="validate"
                 value={this.state.event_venue}
                 onChange={this.onChange}
               />
-              <TextField
-                label="Description"
-                multiline
-                variant="outlined"
-                minRows={4}
+              <label for="last_name">Venue</label>
+            </div>
+            <br />
+            <div class="input-field col s6">
+              <textarea
+                placeholder="Description"
+                id="event_description"
                 name="event_description"
+                class="materialize-textarea"
+                data-length="500"
                 value={this.state.event_description}
                 onChange={this.onChange}
               />
+              <label for="description">Description</label>
+            </div>
+            <br />
+            <div className="inputForm">
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                {/* <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Date picker inline"
-                value={this.state.selectedDate}
-                onChange={this.handleDateChange.bind(this)}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              /> */}
                 <div
                   style={{
                     display: "inline-flex",
@@ -355,34 +356,40 @@ class AddEvent extends Component {
               <div className="categoriesBox">
                 {this.state.categories.map((category) => {
                   return (
-                    <div
-                      className={
-                        category.checked ? "checkedBox" : "uncheckedBox"
-                      }
-                      key={category.key}
-                    >
-                      <Grow in={true}>
-                        <FormControlLabel
-                          className="categoryCheck"
-                          control={
-                            <>
-                              <Avatar
-                                alt={category.label}
-                                src={category.avatar}
-                                style={{ width: "80px", height: "80px" }}
-                              />
-                              <Checkbox
-                                checked={category.checked}
-                                onChange={this.checkChange.bind(this, category)}
-                                name="checkedB"
-                                color="primary"
-                              />
-                            </>
-                          }
-                          label={category.label}
-                        />
-                      </Grow>
-                    </div>
+                    console.log(category.label),
+                    (
+                      <div
+                        className={
+                          category.checked ? "checkedBox" : "uncheckedBox"
+                        }
+                        key={category.key}
+                      >
+                        <Grow in={true}>
+                          <FormControlLabel
+                            className="categoryCheck"
+                            control={
+                              <>
+                                <Avatar
+                                  alt={category.label}
+                                  src={category.avatar}
+                                  style={{ width: "80px", height: "80px" }}
+                                />
+                                <Checkbox
+                                  checked={category.checked}
+                                  onChange={this.checkChange.bind(
+                                    this,
+                                    category
+                                  )}
+                                  name="checkedB"
+                                  color="primary"
+                                />
+                              </>
+                            }
+                            label={category.label}
+                          />
+                        </Grow>
+                      </div>
+                    )
                   );
                 })}
               </div>
@@ -399,7 +406,8 @@ class AddEvent extends Component {
               </div>
             </div>
           </form>
-        </MainContainer>
+        </div>
+        <Footer />
       </>
     );
   }

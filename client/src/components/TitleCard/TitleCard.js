@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 const TitleCard = (props) => {
   const { titleText } = props;
   const defaultStyle = useStyles();
-  const imgUrl = require("../../images/titlecard.jpg").default;
+  const imgUrl = require("../../images/TitleCard.jpg").default;
 
   return (
     <div>

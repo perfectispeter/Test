@@ -18,7 +18,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/"); // push user to dashboard when they login
+      this.props.history.push("/"); // push user to home page when they login
     }
     if (nextProps.errors) {
       this.setState({
@@ -28,7 +28,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    // If logged in and user navigates to Login page, should redirect them to dashboard
+    // If logged in and user navigates to Login page, should redirect them to home page
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
@@ -52,8 +52,8 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
-        <div style={{ marginTop: "4rem" }} className="row">
+      <div class="container">
+        <div style={{ marginTop: "100px" }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
@@ -111,7 +111,7 @@ class Login extends Component {
                     marginTop: "1rem",
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable indigo darken-3"
                 >
                   Login
                 </button>

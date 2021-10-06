@@ -56,14 +56,18 @@ const BasicCalendar = (props) => {
           </Card>
         </Grid>
         <Grid item>
-          <EventDetailsCard eventID={eventID} inputData={eventData} userID={0} />
+          <EventDetailsCard
+            eventID={eventID}
+            inputData={eventData}
+            userID={0}
+          />
         </Grid>
         {filter ? (
           <Grid item>
             <h3>
               <button
                 id="filterButton"
-                className="btn"
+                class="btn waves-effect waves-light indigo darken-3"
                 onClick={categoryFilter}
               >
                 Apply filters{" "}

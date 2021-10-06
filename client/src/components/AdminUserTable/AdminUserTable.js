@@ -26,6 +26,7 @@ export class AdminUserTable extends Component {
       tables: this.props.datas,
     };
   }
+
   setPage(newPage) {
     this.setState({
       page: newPage,
@@ -37,6 +38,7 @@ export class AdminUserTable extends Component {
       rowsPerPage: newPage,
     });
   }
+
   handleChangePage(event, newPage) {
     this.setPage(newPage);
   }
@@ -45,12 +47,14 @@ export class AdminUserTable extends Component {
     this.setRowsPerPage(event.target.value);
     this.setPage(0);
   }
+
   setOrder(item) {
     this.setState({
       order: this.state.order === "asc" ? "desc" : "asc",
       orderBy: item,
     });
   }
+
   userVerifiedChange(row) {
     let datas = this.state.tables;
     datas = datas.map((item) => {
@@ -63,6 +67,7 @@ export class AdminUserTable extends Component {
       tables: datas,
     });
   }
+
   render() {
     return (
       <>
@@ -78,7 +83,8 @@ export class AdminUserTable extends Component {
                           hideSortIcon={false}
                           active={this.state.orderBy === item}
                           direction={this.state.order}
-                          onClick={this.setOrder.bind(this, item)}>
+                          onClick={this.setOrder.bind(this, item)}
+                        >
                           {item}
                         </TableSortLabel>
                       </TableCell>
@@ -106,7 +112,8 @@ export class AdminUserTable extends Component {
                         <TableCell align="center">
                           <ButtonGroup
                             color="primary"
-                            aria-label="outlined primary button group">
+                            aria-label="outlined primary button group"
+                          >
                             <Button>Modify</Button>
                             <Button>Delete</Button>
                           </ButtonGroup>

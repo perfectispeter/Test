@@ -6,7 +6,7 @@
 }
 
 .imgText {
-  position: absolute;
+  position: inherit;
   top: 100px;
   left: 50%;
   color: var(--secondColor);
