@@ -31,6 +31,7 @@ router.get("/:id", (req, res) => {
 // @description add/save event
 // @access Public
 router.post("/", (req, res) => {
+  console.log(req.body);
   Event.create(req.body)
     .then((event) => res.json({ msg: "Event added successfully" }))
     .catch((err) =>

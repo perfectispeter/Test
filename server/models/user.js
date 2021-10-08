@@ -24,24 +24,24 @@ const UserSchema = new mongoose.Schema({
   },
   isAuthorized: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   bookmarked_events: {
     type: [String],
   },
   contact_email: {
     type: String,
-    default: "",
+    required: true,
   },
   contact_phone: {
-    type: Number,
-    default: "",
+    type: String,
+    required: true,
   },
   description: {
     type: String,
-    default: "",
+    required: true,
   },
-  visible: {
+  isVisible: {
     type: Boolean,
     default: true,
   },

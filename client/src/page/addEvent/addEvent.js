@@ -18,11 +18,13 @@ import Grow from "@material-ui/core/Grow";
 import "./AddEvent.css";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import Footer from "../../components/Footer/Footer";
+import store from "../../store";
 
 class AddEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      event_creator_id: "",
       event_title: "",
       event_venue: "",
       event_description: "",
@@ -197,7 +199,10 @@ class AddEvent extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
+    // console.log(store.getState().auth.user.id);
+
     const data = {
+      event_creator_id: store.getState().auth.user.id,
       event_title: this.state.event_title,
       event_venue: this.state.event_venue,
       event_description: this.state.event_description,
@@ -213,6 +218,7 @@ class AddEvent extends Component {
       .post(process.env.REACT_APP_MY_URL + "api/events", data)
       .then((res) => {
         this.setState({
+          event_creator_id: "",
           event_title: "",
           event_venue: "",
           event_description: "",
@@ -286,7 +292,7 @@ class AddEvent extends Component {
                   }}
                 >
                   <DatePicker
-                    style={{ width: "45%", margin: "0,auto,0,0" }}
+                    style={{ width: "50%", padding: "10px" }}
                     format="dd/MM/yyyy"
                     label="Start Date"
                     inputVariant="outlined"
@@ -294,7 +300,7 @@ class AddEvent extends Component {
                     onChange={this.startDateChange.bind(this)}
                   />
                   <DatePicker
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", padding: "10px" }}
                     format="dd/MM/yyyy"
                     label="End Date"
                     inputVariant="outlined"
@@ -310,14 +316,14 @@ class AddEvent extends Component {
                   }}
                 >
                   <TimePicker
-                    style={{ width: "45%" }}
+                    style={{ width: "50%", padding: "10px" }}
                     label="Start Time"
                     inputVariant="outlined"
                     value={this.state.event_start_time}
                     onChange={this.startTimeChange.bind(this)}
                   />
                   <TimePicker
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", padding: "10px" }}
                     label="End Time"
                     inputVariant="outlined"
                     value={this.state.event_end_time}

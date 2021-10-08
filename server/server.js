@@ -8,7 +8,6 @@ const events = require("./routes/api/events");
 const app = express();
 var cors = require("cors");
 
-
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({

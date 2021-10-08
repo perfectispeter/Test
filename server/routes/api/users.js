@@ -7,6 +7,7 @@ const keys = require("../../config/keys");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateUpdateInput = require("../../validation/update");
 
 // Load User model
 const User = require("../../models/User");
@@ -22,15 +23,22 @@ router.post("/register", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
+
   User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       return res.status(400).json({ email: "Email already exists" });
     } else {
+      console.log(user);
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+        contact_phone: req.body.contact_phone,
+        contact_email: req.body.email,
+        description: "Hi, I'm new to UMCC.",
       });
+      console.log(req.body);
+      console.log(newUser);
 
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
@@ -47,10 +55,10 @@ router.post("/register", (req, res) => {
   });
 });
 
-// @route POST api/users/register
-// @desc Register user
+// @route POST api/users/update
+// @desc Update user
 // @access Public
-router.post("/update", (req, res) => {
+router.patch("/update", (req, res) => {
   // Form validation
   const { errors, isValid } = validateUpdateInput(req.body);
 
@@ -58,28 +66,22 @@ router.post("/update", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findOne({ email: req.body.email }).then((user) => {
-    if (user) {
-      return res.status(400).json({ email: "Email already exists" });
-    } else {
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-      });
+  const updateUser = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+  });
 
-      // Hash password before saving in database
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then((user) => res.json(user))
-            .catch((err) => console.log(err));
-        });
-      });
-    }
+  // Hash password before saving in database
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(updateUser.password, salt, (err, hash) => {
+      if (err) throw err;
+      updateUser.password = hash;
+      updateUser
+        .save()
+        .then((user) => res.json(user))
+        .catch((err) => console.log(err));
+    });
   });
 });
 
@@ -89,18 +91,22 @@ router.post("/update", (req, res) => {
 router.post("/login", (req, res) => {
   // Form validation
   const { errors, isValid } = validateLoginInput(req.body);
+
   // Check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
+
   const email = req.body.email;
   const password = req.body.password;
+
   // Find user by email
   User.findOne({ email }).then((user) => {
     // Check if user exists
     if (!user) {
       return res.status(404).json({ emailnotfound: "Email not found" });
     }
+
     // Check password
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
@@ -111,13 +117,16 @@ router.post("/login", (req, res) => {
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
+          contact_phone: user.contact_phone,
+          contact_email: user.contact_email,
+          description: user.description,
         };
         // Sign token
         jwt.sign(
           payload,
           keys.secretOrKey,
           {
-            expiresIn: 31556926, // 1 year in seconds
+            expiresIn: 3600, // 1 hour in seconds
           },
           (err, token) => {
             res.json({

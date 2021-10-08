@@ -9,6 +9,7 @@ const EventSchema = new mongoose.Schema({
   },
   event_creator_id: {
     type: String,
+    required: true,
   },
   event_venue: {
     type: String,

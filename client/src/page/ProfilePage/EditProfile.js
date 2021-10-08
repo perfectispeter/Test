@@ -13,8 +13,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import InfoIcon from "@mui/icons-material/Info";
 import PasswordIcon from "@mui/icons-material/Password";
+import { updateUser } from "../../actions/authActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-export default class EditProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,35 +46,35 @@ export default class EditProfile extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(process.env.REACT_APP_MY_URL + "api/users")
-      .then((res) => {
-        this.setState({
-          eventsFromBackend: EventToCalendarConverter(res.data),
-        });
-      })
-      .then(
-        console.log(
-          "Current users from back end (after .then): ",
-          this.state.eventsFromBackend
-        )
-      )
-      .catch((err) => {
-        console.log("Error from ShowUserList: ", err);
-      });
+    // axios
+    //   .get(process.env.REACT_APP_MY_URL + "api/users")
+    //   .then((res) => {
+    //     this.setState({
+    //       eventsFromBackend: EventToCalendarConverter(res.data),
+    //     });
+    //   })
+    //   .then(
+    //     console.log(
+    //       "Current users from back end (after .then): ",
+    //       this.state.eventsFromBackend
+    //     )
+    //   )
+    //   .catch((err) => {
+    //     console.log("Error from ShowUserList: ", err);
+    //   });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const newUser = {
       name: this.state.name,
-      email: this.state.email,
+      email: store.getState().auth.user.email,
       contact_email: this.state.contact_email,
       contact_phone: this.state.contact_phone,
       description: this.state.description,
       newpassword: this.state.newpassword,
     };
-    this.props.registerUser(newUser, this.props.history);
+    this.props.updateUser(newUser, this.props.history);
 
     console.log(newUser);
   };
@@ -91,9 +95,9 @@ export default class EditProfile extends Component {
             <div className="row input-field col s12">
               <AccountCircleIcon />
               <input
-                placeholder=""
+                placeholder="Name"
                 onChange={this.onChange}
-                value={store.getState().auth.user.name}
+                value={this.state.name}
                 error={errors.name}
                 id="name"
                 type="text"
@@ -102,46 +106,54 @@ export default class EditProfile extends Component {
                 })}
               />
               <span className="red-text">{errors.name}</span>
+              <span class="helper-text" data-error="wrong" data-success="right">
+                Name
+              </span>
             </div>
             <div className="row input-field col s12">
               <EmailIcon />
               <input
-                onChange={this.onChange}
+                // onChange={this.onChange}
                 value={store.getState().auth.user.email}
                 error={errors.email}
                 id="email"
                 type="email"
                 disabled
-                className={classnames("", {
-                  invalid: errors.email,
-                })}
+                // className={classnames("", {
+                //   invalid: errors.email,
+                // })}
               />
-              <span className="red-text">{errors.email}</span>
+              <span class="helper-text" data-error="wrong" data-success="right">
+                Registered E-Mail
+              </span>
             </div>
             <div className="input-field col s12">
               <AlternateEmailIcon />
               <input
+                placeholder="Contact Email"
                 onChange={this.onChange}
-                value={store.getState().auth.user.contact_email}
-                error={errors.email}
-                id="contactemail"
+                error={errors.contact_email}
+                id="contact_email"
                 type="email"
                 className={classnames("", {
                   invalid: errors.email,
                 })}
               />
               <span class="helper-text" data-error="wrong" data-success="right">
-                This is your Contact Email
+                Contact Email
               </span>
               <span className="red-text">{errors.email}</span>
             </div>
             <div className="input-field col s12">
               <ContactPhoneIcon />
               <input
+                placeholder="Contact Phone"
                 onChange={this.onChange}
-                id="text"
+                value={this.state.contact_phone}
+                id="contact_phone"
+                type="text"
                 class="validate"
-                value={store.getState().auth.user.contact_phone}
+                maxLength="10"
               ></input>
               <span class="helper-text" data-error="wrong" data-success="right">
                 Please enter your 10 digit phone number
@@ -150,10 +162,12 @@ export default class EditProfile extends Component {
             <div class="input-field col s12">
               <InfoIcon />
               <textarea
+                placeholder="About"
                 onChange={this.onChange}
-                id="textarea"
+                value={this.state.description}
+                id="description"
+                type="text"
                 class="materialize-textarea validate"
-                value={store.getState().auth.user.description}
               ></textarea>
               <span class="helper-text" data-error="wrong" data-success="right">
                 About
@@ -216,3 +230,17 @@ export default class EditProfile extends Component {
     console.log(dates);
   }
 }
+
+EditProfile.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { updateUser })(
+  withRouter(EditProfile)
+);

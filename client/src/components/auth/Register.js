@@ -11,6 +11,7 @@ class Register extends Component {
     this.state = {
       name: "",
       email: "",
+      contact_phone: "",
       password: "",
       password2: "",
       errors: {},
@@ -43,10 +44,13 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
+      contact_phone: this.state.contact_phone,
+      contact_email: this.state.email,
+      description: "Hi, I'm new to UMCC.",
     };
     this.props.registerUser(newUser, this.props.history);
 
-    console.log(newUser);
+    // console.log(newUser);
   };
 
   render() {
@@ -95,6 +99,20 @@ class Register extends Component {
                 />
                 <label htmlFor="email">Email</label>
                 <span className="red-text">{errors.email}</span>
+              </div>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.contact_phone}
+                  error={errors.contact_phone}
+                  id="contact_phone"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.contact_phone,
+                  })}
+                />
+                <label htmlFor="phone">Phone</label>
+                <span className="red-text">{errors.contact_phone}</span>
               </div>
               <div className="input-field col s12">
                 <input
