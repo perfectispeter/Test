@@ -67,7 +67,7 @@ const BasicCalendar = (props) => {
             <h3>
               <button
                 id="filterButton"
-                class="btn waves-effect waves-light indigo darken-3"
+                className="btn waves-effect waves-light indigo darken-3"
                 onClick={categoryFilter}
               >
                 Apply filters{" "}

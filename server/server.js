@@ -5,6 +5,7 @@ const passport = require("passport");
 
 const users = require("./routes/api/users");
 const events = require("./routes/api/events");
+const homepageData = require("./routes/api/homepageData")
 const app = express();
 var cors = require("cors");
 
@@ -15,7 +16,7 @@ app.use(
   })
 );
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "30mb", extended: true }))
 
 // DB Config
 const db = require("./config/keys").mongoURI;
@@ -36,6 +37,7 @@ app.use(cors({ origin: true, credentials: true }));
 // Routes
 app.use("/api/users", users);
 app.use("/api/events", events);
+app.use("/api/homepageData", homepageData);
 
 //checking if server is working
 app.get("/", (req, res) => res.send("Hello world!"));

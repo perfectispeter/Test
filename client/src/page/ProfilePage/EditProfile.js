@@ -86,12 +86,12 @@ class EditProfile extends Component {
       <>
         {console.log(store.getState().auth.user.email)}
         <Header />
-        <h3 class="center">Edit your personal details here</h3>
+        <h3 className="center">Edit your personal details here</h3>
         <div
-          class="row container"
+          className="row container"
           style={{ position: "relative", minHeight: "100vh", width: "50%" }}
         >
-          <form noValidate onSubmit={this.onSubmit} class="col s12">
+          <form noValidate onSubmit={this.onSubmit} className="col s12">
             <div className="row input-field col s12">
               <AccountCircleIcon />
               <input
@@ -106,7 +106,7 @@ class EditProfile extends Component {
                 })}
               />
               <span className="red-text">{errors.name}</span>
-              <span class="helper-text" data-error="wrong" data-success="right">
+              <span className="helper-text" data-error="wrong" data-success="right">
                 Name
               </span>
             </div>
@@ -119,11 +119,11 @@ class EditProfile extends Component {
                 id="email"
                 type="email"
                 disabled
-                // className={classnames("", {
-                //   invalid: errors.email,
-                // })}
+              // className={classnames("", {
+              //   invalid: errors.email,
+              // })}
               />
-              <span class="helper-text" data-error="wrong" data-success="right">
+              <span className="helper-text" data-error="wrong" data-success="right">
                 Registered E-Mail
               </span>
             </div>
@@ -139,7 +139,7 @@ class EditProfile extends Component {
                   invalid: errors.email,
                 })}
               />
-              <span class="helper-text" data-error="wrong" data-success="right">
+              <span className="helper-text" data-error="wrong" data-success="right">
                 Contact Email
               </span>
               <span className="red-text">{errors.email}</span>
@@ -152,14 +152,14 @@ class EditProfile extends Component {
                 value={this.state.contact_phone}
                 id="contact_phone"
                 type="text"
-                class="validate"
+                className="validate"
                 maxLength="10"
               ></input>
-              <span class="helper-text" data-error="wrong" data-success="right">
+              <span className="helper-text" data-error="wrong" data-success="right">
                 Please enter your 10 digit phone number
               </span>
             </div>
-            <div class="input-field col s12">
+            <div className="input-field col s12">
               <InfoIcon />
               <textarea
                 placeholder="About"
@@ -167,9 +167,9 @@ class EditProfile extends Component {
                 value={this.state.description}
                 id="description"
                 type="text"
-                class="materialize-textarea validate"
+                className="materialize-textarea validate"
               ></textarea>
-              <span class="helper-text" data-error="wrong" data-success="right">
+              <span className="helper-text" data-error="wrong" data-success="right">
                 About
               </span>
             </div>

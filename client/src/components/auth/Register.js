@@ -56,7 +56,7 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div class="container" style={{ marginTop: "100px" }}>
+      <div className="container" style={{ marginTop: "100px" }}>
         <div className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">

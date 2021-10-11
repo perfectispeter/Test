@@ -239,42 +239,42 @@ class AddEvent extends Component {
     return (
       <>
         <Header />
-        <h2 class="center">Create New Event</h2>
+        <h2 className="center">Create New Event</h2>
         <br />
         <div style={{ border: "5px" }}>
-          <form onSubmit={this.onSubmit} class="col s12 container">
-            <div class="input-field col s6">
+          <form onSubmit={this.onSubmit} className="col s12 container">
+            <div className="input-field col s6">
               <input
                 placeholder="Event Title"
                 id="event_title"
                 name="event_title"
                 type="text"
-                class="validate"
+                className="validate"
                 value={this.state.event_title}
                 onChange={this.onChange}
               />
               <label for="event_title">Event Title</label>
             </div>
             <br />
-            <div class="input-field col s6">
+            <div className="input-field col s6">
               <input
                 placeholder="Venue"
                 id="event_venue"
                 name="event_venue"
                 type="text"
-                class="validate"
+                className="validate"
                 value={this.state.event_venue}
                 onChange={this.onChange}
               />
               <label for="last_name">Venue</label>
             </div>
             <br />
-            <div class="input-field col s6">
+            <div className="input-field col s6">
               <textarea
                 placeholder="Description"
                 id="event_description"
                 name="event_description"
-                class="materialize-textarea"
+                className="materialize-textarea"
                 data-length="500"
                 value={this.state.event_description}
                 onChange={this.onChange}

@@ -62,23 +62,23 @@ export default class Calendar extends Component {
           Here you can find the complete calendar listing all the events
         </p>
         <div className="calendar-container">
-          <div class="fixed">
+          <div className="fixed">
             {this.state.eventsFromBackend.length > 0 ? calendarComponent : null}
           </div>
-          <div class="flex-item">
+          <div className="flex-item">
             <CategoryTags
               onChange={(selectedTags) => this.filtering(selectedTags)}
             />
           </div>
           <br />
         </div>
-        <div class="center">
+        <div className="center">
           <h5>
             Moderators can create an event :
             <a href="/create">
               <button
                 id="createEventButton"
-                class="btn waves-effect waves-light indigo darken-3"
+                className="btn waves-effect waves-light indigo darken-3"
               >
                 Create A New Event
               </button>

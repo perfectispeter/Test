@@ -1,9 +1,10 @@
 import "./Home.css";
-import React, { useState } from "react";
+import React from "react";
 import Header from "./components/Header/Header";
-import { Button } from "@material-ui/core";
+import FileBase64 from 'react-file-base64'
+import axios from 'axios'
+
 import Textdialog from "./components/TextDialog/TextDialog";
-import ImageDialog from "./components/ImageDialog/ImageDialog";
 import Footer from "./components/Footer/Footer";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -19,19 +20,37 @@ class Home extends React.Component {
       notificationTitle: "",
       descriptionOpen: false,
       descriptionContent:
-        "The Upper Murray Community Calendar is a collaborative project between Corryong Neighbourhood Centre, RMIT University, and the communities of the Upper Murray region. The site is currently under construction. ",
-      imgUrl: require("./images/Wallhaven.jpeg").default,
+        "",
+      imgUrl: "",
       imgDialogOpen: false,
       isLogin: true,
+      imgUrlUpload: "",
     };
   }
 
-  // open = () => {
-  //   this.setState({
-  //     notificationDialogOpen: true,
-  //   });
-  // };
-
+  componentDidMount() {
+    axios
+      .get("http://localhost:5000/api/homepageData/6161653a0ebee81b79b8908e")
+      .then((res) => {
+        this.setState({ imgUrl: res.data.background });
+      })
+      .catch((err) => { console.log("Error from get background img form database"); });
+    axios
+      .get("http://localhost:5000/api/homepageData/6161653a0ebee81b79b8908e")
+      .then((res) => {
+        this.setState({ descriptionContent: res.data.description });
+        console.log(this.state.descriptionContent);
+      })
+      .catch((err) => { console.log("Error from get banner from database"); });
+  }
+  componentDidUpdate() {
+    axios
+      .get("http://localhost:5000/api/homepageData/6161653a0ebee81b79b8908e")
+      .then((res) => {
+        this.setState({ imgUrl: res.data.background });
+      })
+      .catch((err) => { console.log("Error from get background img form database"); });
+  }
   descriptionOpen = () => {
     this.setState({
       descriptionOpen: true,
@@ -44,6 +63,25 @@ class Home extends React.Component {
     });
   };
 
+  uploadImgToDatabase = (e) => {
+    e.preventDefault();
+    const data = {
+      background: this.state.imgUrlUpload,
+    };
+    if (data.background !== "") {
+      axios
+        .put("http://localhost:5000/api/homepageData/6161653a0ebee81b79b8908e", data)
+        .then((res) => { this.props.history.push("/") })
+        .catch((err) => {
+          console.log("Error in add background img!");
+        })
+    } else {
+      alert("please select an img file");
+    }
+
+  }
+
+
   render() {
     return (
       <>
@@ -52,12 +90,10 @@ class Home extends React.Component {
           <Notification />
           <img src={this.state.imgUrl} alt="" className="Picture" />
           {store.getState().auth.user && (
-            <button
-              class="waves-effect waves-light btn indigo darken-3"
-              onClick={this.imgUploadOpen}
-            >
-              Edit
-            </button>
+            <div>
+              <FileBase64 type="file" multiple={false} onDone={({ base64 }) => this.setState({ imgUrlUpload: base64 })} />
+              <button className="waves-effect waves-light btn indigo darken-3" onClick={this.uploadImgToDatabase}>upload Img</button>
+            </div>
           )}
           <div className="description">
             <p className="descriptionTitle">
@@ -69,7 +105,7 @@ class Home extends React.Component {
             {store.getState().auth.user && (
               <div className="edit">
                 <button
-                  class="waves-effect waves-light btn indigo darken-3"
+                  className="waves-effect waves-light btn indigo darken-3"
                   onClick={this.descriptionOpen}
                 >
                   Edit
@@ -77,14 +113,6 @@ class Home extends React.Component {
               </div>
             )}
           </div>
-          {/* <div className="center">
-              <Link
-                to="/calendar"
-                class="waves-effect waves-light btn indigo darken-3"
-              >
-                Take me to the calendar
-              </Link>
-            </div> */}
           <div className="shortcut">
             <p>Shortcuts</p>
             <div className="shortcutContent">
@@ -106,16 +134,7 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-
           <Footer />
-          {/* <Textdialog
-            open={this.state.notificationDialogOpen}
-            close={this.closeNotificationDialog.bind(this)}
-            title="Emergency Banner"
-            content="This will be displayed under the header on each page. To remove the banner, leave the text field empty."
-            inputTitle="Enter text and click Confirm"
-            multiline={false}
-          /> */}
           <Textdialog
             open={this.state.descriptionOpen}
             close={this.closeDescription.bind(this)}
@@ -124,34 +143,9 @@ class Home extends React.Component {
             inputTitle="Description"
             multiline={true}
           />
-          <ImageDialog
-            open={this.state.imgDialogOpen}
-            close={this.closeImgUpload.bind(this)}
-            title="Main Page Picture"
-            content="Upload Picture"
-            url={this.state.imgUrl}
-            multiline={true}
-          />
         </div>
-
-        {/* <div className="bottom">
-         <Footer />
-        </div> */}
       </>
     );
-  }
-
-  closeImgUpload(imgurl) {
-    if (imgurl !== "") {
-      this.setState({
-        imgDialogOpen: false,
-        imgUrl: imgurl,
-      });
-    } else {
-      this.setState({
-        imgDialogOpen: false,
-      });
-    }
   }
 
   closeDescription(value) {
@@ -159,26 +153,21 @@ class Home extends React.Component {
       this.setState({
         descriptionOpen: false,
         descriptionContent: value,
-      });
+      })
+      const data = {
+        description: value,
+      }
+      axios
+        .put("http://localhost:5000/api/homepageData/6161653a0ebee81b79b8908e", data)
+        .catch((err) => {
+          console.log("Error from add banner to database");
+        })
     } else {
       this.setState({
         descriptionOpen: false,
       });
     }
   }
-
-  // closeNotificationDialog(value) {
-  //   if (value !== "") {
-  //     this.setState({
-  //       notificationDialogOpen: false,
-  //       notificationTitle: value,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       notificationDialogOpen: false,
-  //     });
-  //   }
-  // }
 }
 
 Home.propTypes = {

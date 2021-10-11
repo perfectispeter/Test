@@ -112,7 +112,7 @@ export default class Mypage extends Component {
             {this.state.eventsFromBackend.length > 0 ? calendarComponent : null}
           </div>
           <button
-            class="btn waves-effect waves-light indigo darken-3"
+            className="btn waves-effect waves-light indigo darken-3"
             name="action"
             onClick={() => {
               this.props.history.push("/");

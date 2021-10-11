@@ -37,13 +37,13 @@ class Header extends Component {
       <>
         <nav>
           <div
-            class="nav-wrapper indigo darken-3"
+            className="nav-wrapper indigo darken-3"
             style={{ paddingLeft: "10px" }}
           >
-            <Link to="/" class="brand-logo">
+            <Link to="/" className="brand-logo">
               UMCC - Upper Murray Community Calendar
             </Link>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
                 <Link to="/admin-tools">Admin Tools</Link>
               </li>
@@ -59,8 +59,8 @@ class Header extends Component {
           </div>
         </nav>
         <nav>
-          <div class="nav-wrapper red accent-2">
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <div className="nav-wrapper red accent-2">
+            <ul id="nav-mobile" className="left hide-on-med-and-down">
               <li>
                 <Link to="">Home</Link>
               </li>
@@ -71,14 +71,14 @@ class Header extends Component {
                 <Link to="/mypage">My Page</Link>
               </li>
             </ul>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
                 <Link to="#" onClick={this.handleNotificationClick}>
                   New Notification
-                  <span class="new badge">4</span>
+                  <span className="new badge">4</span>
                 </Link>
               </li>
-              <li class="right">
+              <li className="right">
                 <Link to="profile">My Profile</Link>
               </li>
             </ul>

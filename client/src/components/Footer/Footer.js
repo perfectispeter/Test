@@ -18,54 +18,54 @@ const Footer = () => {
       >
         Upper Murray Community Calendar: One stop for all updates
       </h3> */}
-      <div class="footer-component">
-        <footer class="page-footer indigo darken-3">
-          <div id="footer" class="red accent-2">
-            <div class="row">
-              <div class="col m3 s12">
-                <h5 class="white-text">About Us</h5>
+      <div className="footer-component">
+        <footer className="page-footer indigo darken-3">
+          <div id="footer" className="red accent-2">
+            <div className="row">
+              <div className="col m3 s12">
+                <h5 className="white-text">About Us</h5>
                 <ul>
                   <li>
-                    <a class="grey-text text-lighten-3" href="#!">
+                    <a className="grey-text text-lighten-3" href="#!">
                       Our Vision
                     </a>
                   </li>
                   <li>
-                    <a class="grey-text text-lighten-3" href="#!">
+                    <a className="grey-text text-lighten-3" href="#!">
                       Our Mission
                     </a>
                   </li>
                 </ul>
               </div>
-              <div class="col m3 s12">
-                <h5 class="white-text">Services</h5>
+              <div className="col m3 s12">
+                <h5 className="white-text">Services</h5>
                 <ul>
                   <li>
                     <a
-                      class="grey-text text-lighten-3"
+                      className="grey-text text-lighten-3"
                       href="https://corryongnc.org/upper-murray-innovation-foundation/"
                     >
                       Upper Murray Community Bakery
                     </a>
                   </li>
                   <li>
-                    <a class="grey-text text-lighten-3" href="#">
+                    <a className="grey-text text-lighten-3" href="#">
                       Upper Murray Community Garage
                     </a>
                   </li>
                   <li>
-                    <a class="grey-text text-lighten-3" href="#">
+                    <a className="grey-text text-lighten-3" href="#">
                       Upper Murray Innovation Foundation
                     </a>
                   </li>
                 </ul>
               </div>
-              <div class="col m3 s12">
-                <h5 class="white-text">Contact Us</h5>
+              <div className="col m3 s12">
+                <h5 className="white-text">Contact Us</h5>
                 <ul>
                   <li>
                     <a
-                      class="grey-text text-lighten-3"
+                      className="grey-text text-lighten-3"
                       href="https://corryongnc.org/"
                     >
                       Corryong Neighbourhood Centre (CNC)
@@ -74,7 +74,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      class="grey-text text-lighten-3"
+                      className="grey-text text-lighten-3"
                       href="https://corryongnc.org/upper-murray-community-bakery/"
                     >
                       Upper Murray Community Bakery
@@ -83,7 +83,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      class="grey-text text-lighten-3"
+                      className="grey-text text-lighten-3"
                       href="https://corryongnc.org/upper-murray-community-garage/"
                     >
                       Upper Murray Community Garage
@@ -92,28 +92,28 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      class="grey-text text-lighten-4"
+                      className="grey-text text-lighten-4"
                       href="https://www.facebook.com/"
                       style={{ color: "white" }}
                     >
                       <FacebookIcon fontSize="large" />
                     </a>
                     <a
-                      class="grey-text text-lighten-4"
+                      className="grey-text text-lighten-4"
                       href="https://www.instagram.com/"
                       style={{ paddingLeft: "20px", color: "white" }}
                     >
                       <InstagramIcon fontSize="large" />
                     </a>
                     <a
-                      class="grey-text text-lighten-4"
+                      className="grey-text text-lighten-4"
                       href="https://twitter.com/"
                       style={{ paddingLeft: "20px", color: "white" }}
                     >
                       <TwitterIcon fontSize="large" />
                     </a>
                     <a
-                      class="grey-text text-lighten-4"
+                      className="grey-text text-lighten-4"
                       href="https://www.youtube.com/"
                       style={{ paddingLeft: "20px", color: "white" }}
                     >
@@ -122,12 +122,12 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div class="col m3 s12">
-                <h5 class="white-text">Important Links</h5>
+              <div className="col m3 s12">
+                <h5 className="white-text">Important Links</h5>
                 <ul>
                   <li>
                     <a
-                      class="grey-text text-lighten-3"
+                      className="grey-text text-lighten-3"
                       href="https://www.vic.gov.au/bushfire-recovery-victoria"
                     >
                       <span style={{ marginLeft: "10px" }}>
@@ -139,8 +139,8 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div class="center">
-            <div class="red accent-2 ">© 2014 Copyright UMCC</div>
+          <div className="center">
+            <div className="red accent-2 ">© 2014 Copyright UMCC</div>
           </div>
         </footer>
       </div>

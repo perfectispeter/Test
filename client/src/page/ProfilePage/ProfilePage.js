@@ -7,19 +7,19 @@ import { Link } from "react-router-dom";
 import store from "../../store";
 
 class ProfilePage extends React.Component {
-  componentDidMount() {}
+  componentDidMount() { }
   render() {
     return (
       <>
         <Header />
-        <h2 class="center">Contact details</h2>
+        <h2 className="center">Contact details</h2>
         {store.getState().auth.user ? (
           <>
             <div
-              class="container center"
+              className="container center"
               style={{ position: "relative", minHeight: "100vh" }}
             >
-              <table class="highlight centered responsive-table">
+              <table className="highlight centered responsive-table">
                 <thead></thead>
                 <tbody>
                   <tr>
@@ -47,7 +47,7 @@ class ProfilePage extends React.Component {
               <br />
               <Link to="/editprofile">
                 <button
-                  class="waves-effect waves-light btn indigo darken-3"
+                  className="waves-effect waves-light btn indigo darken-3"
                   onClick=""
                 >
                   Edit Details
